@@ -34,7 +34,6 @@ public class Robot {
     /**
      * Initiates the robot's location at the start to be at the mailroom
      * also set it to be waiting for mail.
-     * @param behaviour governs selection of mail items for delivery and behaviour on priority arrivals
      * @param delivery governs the final delivery
      * @param mailPool is the source of mail items
      */
@@ -97,9 +96,8 @@ public class Robot {
                     /** Check if want to return, i.e. if there is no item in the tube*/
                     if(tube == null){
                     	changeState(RobotState.RETURNING);
-                    }
-                    else{
-                        /** If there is another item, set the robot's route to the location to deliver the item */
+                    /** If there is another item, set the robot's route to the location to deliver the item */
+                    } else{
                         deliveryItem = tube;
                         tube = null;
                         setRoute();

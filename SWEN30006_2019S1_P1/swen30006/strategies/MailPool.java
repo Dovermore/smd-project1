@@ -23,7 +23,7 @@ public class MailPool implements IMailPool {
 			this.mailItem = mailItem;
 		}
 	}
-	
+
 	public class ItemComparator implements Comparator<Item> {
 		@Override
 		public int compare(Item i1, Item i2) {
@@ -50,22 +50,33 @@ public class MailPool implements IMailPool {
 		robots = new LinkedList<Robot>();
 	}
 
+	/**
+	 * add mail item to poll and sort pool in priority ascending order
+	 * destination descending order (from lowest floor to highest floor) when
+	 * same priority
+	 * */
 	public void addToPool(MailItem mailItem) {
 		Item item = new Item(mailItem);
 		pool.add(item);
 		pool.sort(new ItemComparator());
 	}
-	
+
+    /**
+     * load up any waiting robots with mailItems, if any.
+     */
 	@Override
 	public void step() throws ItemTooHeavyException {
 		try{
 			ListIterator<Robot> i = robots.listIterator();
 			while (i.hasNext()) loadRobot(i);
-		} catch (Exception e) { 
+		} catch (Exception e) {
             throw e; 
         } 
 	}
-	
+
+	/**
+     * load items to robots in Waiting state
+     * */
 	private void loadRobot(ListIterator<Robot> i) throws ItemTooHeavyException {
 		Robot robot = i.next();
 		assert(robot.isEmpty());
@@ -73,21 +84,24 @@ public class MailPool implements IMailPool {
 		ListIterator<Item> j = pool.listIterator();
 		if (pool.size() > 0) {
 			try {
-			robot.addToHand(j.next().mailItem); // hand first as we want higher priority delivered first
-			j.remove();
-			if (pool.size() > 0) {
-				robot.addToTube(j.next().mailItem);
+				robot.addToHand(j.next().mailItem); // hand first as we want higher priority delivered first
 				j.remove();
-			}
-			robot.dispatch(); // send the robot off if it has any items to deliver
-			i.remove();       // remove from mailPool queue
+				if (pool.size() > 0) {
+					robot.addToTube(j.next().mailItem);
+					j.remove();
+				}
+				robot.dispatch(); // send the robot off if it has any items to deliver
+				i.remove();       // remove from mailPool queue
 			} catch (Exception e) { 
 	            throw e; 
 	        } 
 		}
 	}
 
-	@Override
+    /**
+     * @param robot refers to a robot which has arrived back ready for more mailItems to deliver
+     */
+    @Override
 	public void registerWaiting(Robot robot) { // assumes won't be there already
 		robots.add(robot);
 	}
