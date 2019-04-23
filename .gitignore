@@ -151,18 +151,15 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 
-
-
 # VS code .gitignore
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
 
 **/.idea
 
 /diagram
 
 **/*.iml
+
+# Exclude production files except for the folder itself (by leaving a file inside)
+production
+!**/.gitignore
