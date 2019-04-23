@@ -47,6 +47,7 @@ public class Simulation {
 	                inStream.close();
 	            }
 		}
+		System.out.println(automailProperties);
 
 		//Seed
 		String seedProp = automailProperties.getProperty("Seed");
