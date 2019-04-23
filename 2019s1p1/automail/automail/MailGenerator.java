@@ -54,10 +54,11 @@ public class MailGenerator {
         int priority_level = generatePriorityLevel();
         int arrival_time = generateArrivalTime();
         int weight = generateWeight();
-        // Check if arrival time has a priority mail
-        if(	(random.nextInt(6) > 0) ||  // Skew towards non priority mail
+        // Check if arrival time has a priority mail (if no priority mail and rolled 0)
+        if(	(random.nextInt(6) > 0) ||  // Skew towards non priority mail (0->priority 1,2,3,4,5->normal)
         	(allMail.containsKey(arrival_time) &&
-        	 allMail.get(arrival_time).stream().anyMatch(e -> PriorityMailItem.class.isInstance(e))) ) {
+        	 allMail.get(arrival_time).stream().anyMatch(PriorityMailItem.class::isInstance))
+          ) {
         	newMailItem = new MailItem(dest_floor,arrival_time,weight);      	
         } else {
         	newMailItem = new PriorityMailItem(dest_floor,arrival_time,weight,priority_level);

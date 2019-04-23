@@ -27,9 +27,8 @@ public class Simulation {
     private static double total_score = 0;
 
     public static void main(String[] args) throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-    	Properties automailProperties = new Properties();
+        Properties automailProperties = new Properties();
 		// Default properties
-    	// automailProperties.setProperty("Robots", "Big,Careful,Standard,Weak");
     	automailProperties.setProperty("Robots", "Standard");
     	automailProperties.setProperty("MailPool", "strategies.SimpleMailPool");
     	automailProperties.setProperty("Floors", "10");
@@ -47,7 +46,6 @@ public class Simulation {
 	                inStream.close();
 	            }
 		}
-		System.out.println(automailProperties);
 
 		//Seed
 		String seedProp = automailProperties.getProperty("Seed");
@@ -75,7 +73,7 @@ public class Simulation {
 
 		// End properties
 		
-        MAIL_DELIVERED = new ArrayList<MailItem>();
+        MAIL_DELIVERED = new ArrayList<>();
                 
         /** Used to see whether a seed is initialized or not */
         HashMap<Boolean, Integer> seedMap = new HashMap<>();

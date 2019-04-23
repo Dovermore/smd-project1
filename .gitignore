@@ -162,4 +162,6 @@ fabric.properties
 
 # Exclude production files except for the folder itself (by leaving a file inside)
 production
-!**/.gitignore
+!.gitignore
+
+.DS_Store
