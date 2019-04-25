@@ -1,8 +1,6 @@
 package automail;
 
 public class Building {
-	
-	
     /** The number of floors in the building **/
     public static int FLOORS;
     

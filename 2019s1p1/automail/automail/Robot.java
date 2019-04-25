@@ -16,7 +16,7 @@ public class Robot {
     static public final int TRIPLE_MAX_WEIGHT = 3000;
 
     IMailDelivery delivery;
-    protected final String id;
+    private final String id;
     /** Possible states the robot can be in */
     public enum RobotState { DELIVERING, WAITING, RETURNING }
     private RobotState current_state;
@@ -173,13 +173,13 @@ public class Robot {
 	public void addToHand(MailItem mailItem) throws ItemTooHeavyException {
 		assert(deliveryItem == null);
 		deliveryItem = mailItem;
-		if (deliveryItem.weight > INDIVIDUAL_MAX_WEIGHT) throw new ItemTooHeavyException();
+		if (deliveryItem.getWeight() > INDIVIDUAL_MAX_WEIGHT) throw new ItemTooHeavyException();
 	}
 
 	public void addToTube(MailItem mailItem) throws ItemTooHeavyException {
 		assert(tube == null);
 		tube = mailItem;
-		if (tube.weight > INDIVIDUAL_MAX_WEIGHT) throw new ItemTooHeavyException();
+		if (tube.getWeight() > INDIVIDUAL_MAX_WEIGHT) throw new ItemTooHeavyException();
 	}
 
 }

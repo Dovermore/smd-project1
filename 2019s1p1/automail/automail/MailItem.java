@@ -11,13 +11,13 @@ import java.util.TreeMap;
 public class MailItem {
 	
     /** Represents the destination floor to which the mail is intended to go */
-    protected final int destination_floor;
+    private final int destination_floor;
     /** The mail identifier */
-    protected final String id;
+    private final String id;
     /** The time the mail item arrived */
-    protected final int arrival_time;
+    private final int arrival_time;
     /** The weight in grams of the mail item */
-    protected final int weight;
+    private final int weight;
 
     /**
      * Constructor for a MailItem
@@ -34,7 +34,7 @@ public class MailItem {
 
     @Override
     public String toString(){
-        return String.format("Mail Item:: ID: %6s | Arrival: %4d | Destination: %2d | Weight: %4d", id, arrival_time, destination_floor, weight);
+        return String.format("Mail Item:: ID: %6s | Arrival: %4d | Destination: %2d | Weight: %4d", getId(), getArrival_time(), getDestination_floor(), getWeight());
     }
 
     /**
@@ -42,10 +42,10 @@ public class MailItem {
      * @return the destination floor of the mail item
      */
     public int getDestFloor() {
-        return destination_floor;
+        return getDestination_floor();
     }
     
-    /**
+    /** The mail identifier */ /**
      *
      * @return the ID of the mail item
      */
@@ -58,10 +58,10 @@ public class MailItem {
      * @return the arrival time of the mail item
      */
     public int getArrivalTime(){
-        return arrival_time;
+        return getArrival_time();
     }
 
-    /**
+    /** The weight in grams of the mail item */ /**
     *
     * @return the weight of the mail item
     */
@@ -79,4 +79,14 @@ public class MailItem {
 		if (hash == null) { hash = count++; hashMap.put(hash0, hash); }
 		return hash;
 	}
+
+    /** Represents the destination floor to which the mail is intended to go */
+    public int getDestination_floor() {
+        return destination_floor;
+    }
+
+    /** The time the mail item arrived */
+    public int getArrival_time() {
+        return arrival_time;
+    }
 }
