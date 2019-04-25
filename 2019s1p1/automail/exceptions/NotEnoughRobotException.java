@@ -7,5 +7,8 @@ package exceptions;
  * description:
  **/
 
-public class NotEnoughRobotException {
+public class NotEnoughRobotException extends Throwable    {
+    public NotEnoughRobotException() {
+        super("less than 0 robot inputted!");
+    }
 }

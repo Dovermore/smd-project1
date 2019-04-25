@@ -50,9 +50,9 @@ public class MailPool implements IMailPool {
 		robots = new LinkedList<Robot>();
 	}
 
-	/** 									FIXME -> Descending?
-	 * add mail item to poll and sort pool in priority ascending order
-	 * destination descending order (from lowest floor to highest floor) when
+	/**
+	 * add mail item to poll and sort pool in priority descending order
+	 * destination ascending order (from highest floor to lowest floor) when
 	 * same priority
 	 * */
 	public void addToPool(MailItem mailItem) {
