@@ -182,4 +182,7 @@ public class Robot {
 		if (tube.getWeight() > INDIVIDUAL_MAX_WEIGHT) throw new ItemTooHeavyException();
 	}
 
+	/* ************************ added methods ****************************** */
+    public String getId() {return this.id;}
+
 }

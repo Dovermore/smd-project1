@@ -24,7 +24,10 @@ public class TaskGenerater implements ITaskGenerater {
                 case 0:
                     return false;
                 case 1:
-                    // TODO probably has Task.getDeliverMaxWeight(nRobot) for get deliver max weight
+                    /* TODO probably has Task.getDeliverMaxWeight(nRobot) for get deliver max weight
+                     * by XuLin
+                     * */
+
                     return mailItems.parallelStream()
                                      .anyMatch(x -> x.getWeight() <= Robot.INDIVIDUAL_MAX_WEIGHT);
                 case 2:
@@ -44,7 +47,9 @@ public class TaskGenerater implements ITaskGenerater {
     @Override
 	public ArrayList<Robot> loadTaskToRobot(ArrayList<Robot> robots,
                                             ArrayList<MailItem> mailItems) {
-	    // TODO throw an exception ?
+	    /* TODO throw an exception ?
+	     * by XuLin
+	     * */
 	    assert (robots.size() > 0) && (robots.size() <= 3);
 
         ArrayList<Robot> loadedRobots = new ArrayList<>();
@@ -56,7 +61,9 @@ public class TaskGenerater implements ITaskGenerater {
          * register robot to task
          * */
 
-        // TODO with all things done above should we have this class called TaskGenerator?
+        /* TODO with all things done above should we have this class called TaskGenerator?
+         * by XuLin
+         * */
         return loadedRobots;
     }
 }
