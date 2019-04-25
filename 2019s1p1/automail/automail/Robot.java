@@ -19,7 +19,7 @@ public class Robot {
     protected final String id;
     /** Possible states the robot can be in */
     public enum RobotState { DELIVERING, WAITING, RETURNING }
-    public RobotState current_state;
+    private RobotState current_state;
     private int current_floor;
     private int destination_floor;
     private IMailPool mailPool;

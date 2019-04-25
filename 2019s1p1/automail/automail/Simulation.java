@@ -91,7 +91,7 @@ public class Simulation {
         Integer seed = seedMap.get(true);
         System.out.printf("Seed: %s%n", seed == null ? "null" : seed.toString());
         Automail automail = new Automail(mailPool, new ReportDelivery(), robots);
-        MailGenerator mailGenerator = new MailGenerator(MAIL_TO_CREATE, MAIL_MAX_WEIGHT, automail.mailPool, seedMap);
+        MailGenerator mailGenerator = new MailGenerator(MAIL_TO_CREATE, MAIL_MAX_WEIGHT, automail.getMailPool(), seedMap);
         
         /** Initiate all the mail */
         mailGenerator.generateAllMail();
@@ -100,8 +100,8 @@ public class Simulation {
 //        	 System.out.printf("Delivered: %4d; Created: %4d%n", MAIL_DELIVERED.size(), mailGenerator.MAIL_TO_CREATE);
             mailGenerator.step();
             try {
-                automail.mailPool.step();
-				for (int i=0; i<robots; i++) automail.robots[i].step();
+                automail.getMailPool().step();
+				for (int i=0; i<robots; i++) automail.getRobot(i).step();
 			} catch (ExcessiveDeliveryException|ItemTooHeavyException e) {
 				e.printStackTrace();
 				System.out.println("Simulation unable to complete.");
