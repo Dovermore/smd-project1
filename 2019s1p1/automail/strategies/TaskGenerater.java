@@ -243,21 +243,7 @@ public class TaskGenerater implements ITaskGenerater {
             }
         }
 
-        if (nRobotsUsed > 0) {
-            System.out.println("Loading Plan:");
-            System.out.println("[");
-            for (int i = 0; i < nRobotsUsed; i++) {
-                System.out.print("    [");
-                for (int j = 0; j < 2; j++) {
-                    if (loadedMailItems[i][j] != null) {
-                        System.out.print(loadedMailItems[i][j].toString());
-                    }
-                    System.out.print("####");
-                }
-                System.out.println("]");
-            }
-            System.out.println("]");
-        }
+//        printLoadMailItemPlan(nRobotsUsed, loadedMailItems);
 
         /* has loaded mail -> has task
          * assign task and mail items to robots */
@@ -318,20 +304,7 @@ public class TaskGenerater implements ITaskGenerater {
             }
         }
 
-//        if (nRobotsUsed > 0) {
-//            System.out.println("[");
-//            for (int i = 0; i < nRobotsUsed; i++) {
-//                System.out.print("    [");
-//                for (int j = 0; j < 2; j++) {
-//                    if (loadedMailItems[i][j] != null) {
-//                        System.out.print(loadedMailItems[i][j].toString());
-//                    }
-//                    System.out.print("####");
-//                }
-//                System.out.println("]");
-//            }
-//            System.out.println("]");
-//        }
+
 
 
         for (MailItem loadedMail:loadedMaiItem) {
@@ -341,5 +314,22 @@ public class TaskGenerater implements ITaskGenerater {
          * by XuLin
          * */
         return loadedRobots;
+    }
+
+    private void printLoadMailItemPlan(int nRobotsUsed, MailItem[][] loadedMailItems) {
+        if (nRobotsUsed > 0) {
+            System.out.println("[");
+            for (int i = 0; i < nRobotsUsed; i++) {
+                System.out.print("    [");
+                for (int j = 0; j < 2; j++) {
+                    if (loadedMailItems[i][j] != null) {
+                        System.out.print(loadedMailItems[i][j].toString());
+                    }
+                    System.out.print("####");
+                }
+                System.out.println("]");
+            }
+            System.out.println("]");
+        }
     }
 }
