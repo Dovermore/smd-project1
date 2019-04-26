@@ -106,7 +106,9 @@ public class Simulation {
             mailGenerator.step();
             try {
                 automail.getMailPool().step();
-				for (int i=0; i<robots; i++) automail.getRobot(i).step();
+				for (int i=0; i<robots; i++) {
+					automail.getRobot(i).step();
+				}
 			} catch (ExcessiveDeliveryException|ItemTooHeavyException e) {
 				e.printStackTrace();
 				System.out.println("Simulation unable to complete.");
