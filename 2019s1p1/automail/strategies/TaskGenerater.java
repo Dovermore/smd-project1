@@ -1,7 +1,6 @@
 package strategies;
 
 import automail.MailItem;
-import automail.PriorityMailItem;
 import automail.Robot;
 import exceptions.ItemTooHeavyException;
 import exceptions.NotEnoughRobotException;
@@ -188,11 +187,11 @@ public class TaskGenerater implements ITaskGenerater {
         /* give task to robot */
         for (Robot teamRobot: teamRobots) {
             teamRobot.setCurrentTask(task);
-            /* load heavy item */
+            /* load hand item */
             teamRobot.addToHand(loadedMailItems[0][0]);
 
         }
-        /* load items to robot */
+        /* load items to robot tube */
         for (int r = 0; r < nTeamRobots; r++) {
             if (loadedMailItems[r][1] != null) {
                 teamRobots.get(r).addToTube(loadedMailItems[r][1]);
@@ -216,7 +215,7 @@ public class TaskGenerater implements ITaskGenerater {
         ArrayList<Robot> loadedRobots = new ArrayList<>();
         ArrayList<MailItem> loadedMaiItem = new ArrayList<>();
 
-        /* row for robot, column 0 for hans, column1 for tube */
+        /* row for robot, column 0 for hand, column1 for tube */
         MailItem loadedMailItems[][] = new MailItem[nRobots][2];
         for (int i = 0; i < nRobots; i++) {
             for (int j = 0; j < 2; j++) {
