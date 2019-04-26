@@ -3,6 +3,7 @@ package automail;
 import exceptions.ExcessiveDeliveryException;
 import exceptions.ItemTooHeavyException;
 import exceptions.MailAlreadyDeliveredException;
+import exceptions.UnsupportedTooHeavyMailItem;
 import strategies.Automail;
 import strategies.IMailPool;
 import strategies.MailPool;
@@ -39,7 +40,8 @@ public class Simulation {
     	// Read properties
 		FileReader inStream = null;
 		try {
-			inStream = new FileReader("./testResource/automail_1.properties");
+            inStream = new FileReader("./testResource/automail_0.properties");
+//			inStream = new FileReader("./testResource/automail_1.properties");
 //			inStream = new FileReader("./testResource/automail_2.properties");
 //          inStream = new FileReader("./testResource/automail_3.properties");
 //          inStream = new FileReader("./testResource/automail_4.properties");
@@ -113,7 +115,9 @@ public class Simulation {
 				e.printStackTrace();
 				System.out.println("Simulation unable to complete.");
 				System.exit(0);
-			}
+			} catch (UnsupportedTooHeavyMailItem unsupportedTooHeavyMailItem) {
+                unsupportedTooHeavyMailItem.printStackTrace();
+            }
             Clock.Tick();
         }
         printResults();

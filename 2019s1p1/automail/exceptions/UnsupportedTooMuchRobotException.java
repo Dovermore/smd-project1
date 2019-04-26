@@ -7,8 +7,8 @@ package exceptions;
  * description:
  **/
 
-public class UnSupportedTooMuchRobotException extends Throwable    {
-    public UnSupportedTooMuchRobotException() {
+public class UnsupportedTooMuchRobotException extends Throwable    {
+    public UnsupportedTooMuchRobotException() {
         super("More than 3 robots inputted!");
     }
 }

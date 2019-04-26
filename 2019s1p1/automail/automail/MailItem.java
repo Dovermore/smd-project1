@@ -3,49 +3,40 @@ package automail;
 import java.util.Map;
 import java.util.TreeMap;
 
-// import java.util.UUID;
-
 /**
  * Represents a mail item
  */
 public class MailItem {
 	
     /** Represents the destination floor to which the mail is intended to go */
-    private final int destination_floor;
+    private final int destinationFloor;
     /** The mail identifier */
     private final String id;
     /** The time the mail item arrived */
-    private final int arrival_time;
+    private final int arrivalTime;
     /** The weight in grams of the mail item */
     private final int weight;
 
     /**
      * Constructor for a MailItem
-     * @param dest_floor the destination floor intended for this mail item
-     * @param arrival_time the time that the mail arrived
+     * @param destinationFloor the destination floor intended for this mail item
+     * @param arrivalTime the time that the mail arrived
      * @param weight the weight of this mail item
      */
-    public MailItem(int dest_floor, int arrival_time, int weight){
-        this.destination_floor = dest_floor;
+    public MailItem(int destinationFloor, int arrivalTime, int weight){
+        this.destinationFloor = destinationFloor;
         this.id = String.valueOf(hashCode());
-        this.arrival_time = arrival_time;
+        this.arrivalTime = arrivalTime;
         this.weight = weight;
     }
 
     @Override
     public String toString(){
-        return String.format("Mail Item:: ID: %6s | Arrival: %4d | Destination: %2d | Weight: %4d", getId(), getArrival_time(), getDestination_floor(), getWeight());
-    }
-
-    /**
-     *
-     * @return the destination floor of the mail item
-     */
-    public int getDestFloor() {
-        return getDestination_floor();
+        return String.format("Mail Item:: ID: %6s | Arrival: %4d | Destination: %2d | Weight: %4d",
+                getId(), getArrivalTime(), getDestinationFloor(), getWeight());
     }
     
-    /** The mail identifier */ /**
+    /** The mail identifier
      *
      * @return the ID of the mail item
      */
@@ -53,21 +44,13 @@ public class MailItem {
         return id;
     }
 
-    /**
+    /** The weight in grams of the mail item
      *
-     * @return the arrival time of the mail item
+     * @return the weight of the mail item
      */
-    public int getArrivalTime(){
-        return getArrival_time();
-    }
-
-    /** The weight in grams of the mail item */ /**
-    *
-    * @return the weight of the mail item
-    */
-   public int getWeight(){
+    public int getWeight(){
        return weight;
-   }
+    }
    
 	static private int count = 0;
 	static private Map<Integer, Integer> hashMap = new TreeMap<Integer, Integer>();
@@ -81,12 +64,12 @@ public class MailItem {
 	}
 
     /** Represents the destination floor to which the mail is intended to go */
-    public int getDestination_floor() {
-        return destination_floor;
+    public int getDestinationFloor() {
+        return destinationFloor;
     }
 
     /** The time the mail item arrived */
-    public int getArrival_time() {
-        return arrival_time;
+    public int getArrivalTime() {
+        return arrivalTime;
     }
 }

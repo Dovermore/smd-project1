@@ -1,16 +1,18 @@
 package strategies;
 
 import automail.MailItem;
+import automail.PriorityMailItem;
 import automail.Robot;
 import exceptions.ItemTooHeavyException;
 import exceptions.NotEnoughRobotException;
-import exceptions.UnSupportedTooMuchRobotException;
+import exceptions.UnsupportedTooMuchRobotException;
+import exceptions.UnsupportedTooHeavyMailItem;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class TaskGenerater implements ITaskGenerater {
-
+//public class TaskGenerater {
 //	/**
 //	 *
 //	 * @param nRobot
@@ -20,7 +22,7 @@ public class TaskGenerater implements ITaskGenerater {
 //	 */
 //	@Override
 //	public boolean hasNextTask(int nRobot, ArrayList<MailItem> mailItems)
-//            throws UnSupportedTooMuchRobotException, NotEnoughRobotException {
+//            throws UnsupportedTooMuchRobotException, NotEnoughRobotException {
 //        if (nRobot >= 0) {
 //            switch (nRobot) {
 //                case 0:
@@ -38,18 +40,29 @@ public class TaskGenerater implements ITaskGenerater {
 //                    return mailItems.parallelStream()
 //                                     .anyMatch(x -> x.getWeight() <= Robot.TRIPLE_MAX_WEIGHT);
 //                default:
-//                    throw new UnSupportedTooMuchRobotException();
+//                    throw new UnsupportedTooMuchRobotException();
 //            }
 //        } else {
 //	        throw new NotEnoughRobotException();
 //        }
 //	}
 
+    private int getNRobotForMailItem(MailItem mailItem)
+            throws NotEnoughRobotException, UnsupportedTooHeavyMailItem, UnsupportedTooMuchRobotException {
+        for (int i = 1; i < 4; i++) {
+            if (mailItem.getWeight() <= Task.getTeamWeight(i)) {
+                return i;
+            }
+        }
+
+        throw new UnsupportedTooHeavyMailItem();
+    }
+
 	/* assume mailItem must can be carried by team */
 	private boolean hasPlaceForMailIItem(MailItem mailItem,
                                          MailItem loadedMailItems[][],
                                          int nRobots)
-            throws NotEnoughRobotException, UnSupportedTooMuchRobotException {
+            throws NotEnoughRobotException, UnsupportedTooMuchRobotException, UnsupportedTooHeavyMailItem {
 	    assert Task.getTeamWeight(nRobots) >= mailItem.getWeight();
 
         /* try load light item */
@@ -66,7 +79,7 @@ public class TaskGenerater implements ITaskGenerater {
 
         /* try load heavy item */
         } else if (!hasHeavyItem(loadedMailItems, nRobots)) {
-            int nRobotHandRequired = mailItem.getWeight() > Task.getTeamWeight(2) ? 3: 2;
+            int nRobotHandRequired = getNRobotForMailItem(mailItem);
             int emptySpace = 0;
 
             for (int i = 0; i < nRobots; i++) {
@@ -84,12 +97,12 @@ public class TaskGenerater implements ITaskGenerater {
     }
 
     private boolean hasHeavyItem(MailItem loadedMailItems[][], int nRobots)
-            throws NotEnoughRobotException, UnSupportedTooMuchRobotException {
+            throws NotEnoughRobotException, UnsupportedTooMuchRobotException {
         for (int i = 0; i < nRobots; i++) {
             for (int j = 0; j < 2; j++) {
                 if ((loadedMailItems[i][j] != null) &&
                         (loadedMailItems[i][j].getWeight() > Task.getTeamWeight(1))) {
-                    return false;
+                    return true;
                 }
             }
         }
@@ -99,7 +112,7 @@ public class TaskGenerater implements ITaskGenerater {
     private void loadMailItem(MailItem mailItem,
                               MailItem loadedMailItems[][],
                               int nRobots)
-            throws NotEnoughRobotException, UnSupportedTooMuchRobotException {
+            throws NotEnoughRobotException, UnsupportedTooMuchRobotException, UnsupportedTooHeavyMailItem {
         assert hasPlaceForMailIItem(mailItem, loadedMailItems, nRobots);
 
         /* load light item */
@@ -108,21 +121,20 @@ public class TaskGenerater implements ITaskGenerater {
                 for (int j = 0; j < 2; j++) {
                     if (loadedMailItems[i][j] == null) {
                         loadedMailItems[i][j] = mailItem;
+                        return;
                     }
                 }
             }
 
         /* load heavy item require robot to swap hand to tube */
         } else {
-            int nRobotHandRequired = mailItem.getWeight() > Task.getTeamWeight(2) ? 3: 2;
+            int nRobotHandRequired = getNRobotForMailItem(mailItem);
             LinkedList<MailItem> lightMailItems = new LinkedList<>();
             /* get light Item */
             for (int i = 0; i < nRobots; i++) {
                 for (int j = 0; j < 2; j++) {
                     if (loadedMailItems[i][j] != null) {
                         lightMailItems.addLast(loadedMailItems[i][j]);
-                    } else {
-                        break;
                     }
                 }
             }
@@ -138,7 +150,6 @@ public class TaskGenerater implements ITaskGenerater {
                 loadedMailItems[i][0] = mailItem;
             }
 
-
             /* reload light item */
             for (int i = 0; i < nRobots; i++) {
                 for (int j = 0; j < 2; j++) {
@@ -148,7 +159,7 @@ public class TaskGenerater implements ITaskGenerater {
                     }
                     /* all done */
                     if (lightMailItems.size() == 0) {
-                        break;
+                        return;
                     }
                 }
             }
@@ -159,9 +170,9 @@ public class TaskGenerater implements ITaskGenerater {
     }
 
     private void singleRobotTask(Robot robot, MailItem[] loadedMailItems)
-            throws ItemTooHeavyException, UnSupportedTooMuchRobotException, NotEnoughRobotException {
+            throws ItemTooHeavyException, UnsupportedTooMuchRobotException, NotEnoughRobotException {
         /* single robot task */
-        Task task = new Task(robot, loadedMailItems[0].getWeight());
+        Task task = new Task(robot, loadedMailItems[0].getDestinationFloor());
         /* give task to robot */
         robot.setCurrentTask(task);
         /* load items to robot */
@@ -172,8 +183,8 @@ public class TaskGenerater implements ITaskGenerater {
     }
 
     private void teamRobotTask(ArrayList<Robot> teamRobots, int nTeamRobots, MailItem[]... loadedMailItems)
-            throws ItemTooHeavyException, UnSupportedTooMuchRobotException, NotEnoughRobotException {
-        Task task = new Task(teamRobots, loadedMailItems[0][0].getWeight());
+            throws ItemTooHeavyException, UnsupportedTooMuchRobotException, NotEnoughRobotException {
+        Task task = new Task(teamRobots, loadedMailItems[0][0].getDestinationFloor());
         /* give task to robot */
         for (Robot teamRobot: teamRobots) {
             teamRobot.setCurrentTask(task);
@@ -190,10 +201,9 @@ public class TaskGenerater implements ITaskGenerater {
         }
     }
 
-    @Override
 	public ArrayList<Robot> loadTaskToRobot(ArrayList<Robot> robots,
                                             ArrayList<MailItem> mailItems)
-            throws NotEnoughRobotException, UnSupportedTooMuchRobotException, ItemTooHeavyException {
+            throws NotEnoughRobotException, UnsupportedTooMuchRobotException, ItemTooHeavyException, UnsupportedTooHeavyMailItem {
         int nRobots = robots.size();
 
         /* no loading */
@@ -204,6 +214,8 @@ public class TaskGenerater implements ITaskGenerater {
         int maxMailItemWeight = Task.getTeamWeight(nRobots),
             nMailItemLoaded = 0;
         ArrayList<Robot> loadedRobots = new ArrayList<>();
+        ArrayList<MailItem> loadedMaiItem = new ArrayList<>();
+
         /* row for robot, column 0 for hans, column1 for tube */
         MailItem loadedMailItems[][] = new MailItem[nRobots][2];
         for (int i = 0; i < nRobots; i++) {
@@ -218,7 +230,7 @@ public class TaskGenerater implements ITaskGenerater {
             if ((curMailItem.getWeight() <= maxMailItemWeight) &&
                     (hasPlaceForMailIItem(curMailItem, loadedMailItems, nRobots))) {
                 loadMailItem(curMailItem, loadedMailItems, nRobots);
-                mailItems.remove(curMailItem);
+                loadedMaiItem.add(curMailItem);
                 nMailItemLoaded++;
             } else {
                 break;
@@ -230,6 +242,22 @@ public class TaskGenerater implements ITaskGenerater {
             if (loadedMailItems[i][0] != null) {
                 nRobotsUsed++;
             }
+        }
+
+        if (nRobotsUsed > 0) {
+            System.out.println("Loading Plan:");
+            System.out.println("[");
+            for (int i = 0; i < nRobotsUsed; i++) {
+                System.out.print("    [");
+                for (int j = 0; j < 2; j++) {
+                    if (loadedMailItems[i][j] != null) {
+                        System.out.print(loadedMailItems[i][j].toString());
+                    }
+                    System.out.print("####");
+                }
+                System.out.println("]");
+            }
+            System.out.println("]");
         }
 
         /* has loaded mail -> has task
@@ -291,6 +319,25 @@ public class TaskGenerater implements ITaskGenerater {
             }
         }
 
+//        if (nRobotsUsed > 0) {
+//            System.out.println("[");
+//            for (int i = 0; i < nRobotsUsed; i++) {
+//                System.out.print("    [");
+//                for (int j = 0; j < 2; j++) {
+//                    if (loadedMailItems[i][j] != null) {
+//                        System.out.print(loadedMailItems[i][j].toString());
+//                    }
+//                    System.out.print("####");
+//                }
+//                System.out.println("]");
+//            }
+//            System.out.println("]");
+//        }
+
+
+        for (MailItem loadedMail:loadedMaiItem) {
+            mailItems.remove(loadedMail);
+        }
         /* TODO with all things done above should we have this class called TaskGenerator?
          * by XuLin
          * */

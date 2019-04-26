@@ -3,7 +3,7 @@ package strategies;
 import java.util.*;
 import automail.*;
 import exceptions.NotEnoughRobotException;
-import exceptions.UnSupportedTooMuchRobotException;
+import exceptions.UnsupportedTooMuchRobotException;
 
 /**
  * Xulin Yang, 904904
@@ -64,8 +64,12 @@ public class Task {
     }
 
 
+    public static final int INDIVIDUAL_MAX_WEIGHT = 2000;
+    public static final int PAIR_MAX_WEIGHT = 2600;
+    public static final int TRIPLE_MAX_WEIGHT = 3000;
+
     public static int getTeamWeight(int nRobots)
-            throws NotEnoughRobotException, UnSupportedTooMuchRobotException {
+            throws NotEnoughRobotException, UnsupportedTooMuchRobotException {
 
 	    if (nRobots <= 0) {
             throw new NotEnoughRobotException();
@@ -73,13 +77,13 @@ public class Task {
 
 	    switch (nRobots) {
             case 1:
-                return Robot.INDIVIDUAL_MAX_WEIGHT;
+                return INDIVIDUAL_MAX_WEIGHT;
             case 2:
-                return Robot.PAIR_MAX_WEIGHT;
+                return PAIR_MAX_WEIGHT;
             case 3:
-                return Robot.TRIPLE_MAX_WEIGHT;
+                return TRIPLE_MAX_WEIGHT;
             default:
-                throw new UnSupportedTooMuchRobotException();
+                throw new UnsupportedTooMuchRobotException();
         }
 
     }

@@ -3,7 +3,7 @@ package automail;
 import exceptions.ExcessiveDeliveryException;
 import exceptions.ItemTooHeavyException;
 import exceptions.NotEnoughRobotException;
-import exceptions.UnSupportedTooMuchRobotException;
+import exceptions.UnsupportedTooMuchRobotException;
 import strategies.IMailPool;
 import strategies.Task;
 
@@ -14,19 +14,14 @@ import java.util.TreeMap;
  * The robot delivers mail!
  */
 public class Robot {
-	
-    static public final int INDIVIDUAL_MAX_WEIGHT = 2000;
-    static public final int PAIR_MAX_WEIGHT = 2600;
-    static public final int TRIPLE_MAX_WEIGHT = 3000;
-
-    IMailDelivery delivery;
-    private final String id;
     /** Possible states the robot can be in */
     public enum RobotState { DELIVERING, WAITING, RETURNING }
+    private IMailDelivery delivery;
+    private IMailPool mailPool;
+
+    private final String id;
     private RobotState current_state;
     private int current_floor;
-//    private int destination_floor;
-    private IMailPool mailPool;
     private boolean receivedDispatch;
     
     private MailItem deliveryItem = null;
@@ -43,7 +38,7 @@ public class Robot {
      */
     public Robot(IMailDelivery delivery, IMailPool mailPool){
     	id = "R" + hashCode();
-        // current_state = RobotState.WAITING;
+//        current_state = RobotState.WAITING;
     	current_state = RobotState.RETURNING;
         current_floor = Building.MAILROOM_LOCATION;
         this.delivery = delivery;
@@ -74,7 +69,7 @@ public class Robot {
     		/** This state is triggered when the robot is returning to the mailroom after a delivery */
     		case RETURNING:
     			/** If its current position is at the mailroom, then the robot should change state */
-                if(current_floor == this.currentTask.getDestinationFloor()) {
+                if(current_floor == Building.MAILROOM_LOCATION) {
                 	if (tube != null) {
                 		mailPool.addToPool(tube);
                         System.out.printf("T: %3d > old addToPool [%s]%n", Clock.Time(), tube.toString());
@@ -90,7 +85,6 @@ public class Robot {
                 	break;
                 }
     		case WAITING:
-
                 /** If the StorageTube is ready and the Robot is waiting in the mailroom then start the delivery */
                 if(!isEmpty() && receivedDispatch){
                     assert !isNoTask();
@@ -106,7 +100,6 @@ public class Robot {
                     /* leading robot report the delivery */
                     if (this.currentTask.isRobotLeading(this)) {
                         delivery.deliver(deliveryItem);
-
                     }
                     deliveryItem = null;
                     deliveryCounter++;
@@ -120,9 +113,9 @@ public class Robot {
 
                     /** If there is another item, set the robot's route to the location to deliver the item */
                     } else {
+                        this.currentTask = this.currentTask.getNextTask(this, this.tube.getDestinationFloor());
                         deliveryItem = tube;
                         tube = null;
-                        this.currentTask = this.currentTask.getNextTask(this, this.deliveryItem.getDestFloor());
                         changeState(RobotState.DELIVERING);
                     }
                 } else {
@@ -217,18 +210,22 @@ public class Robot {
 	}
 
 	public void addToHand(MailItem mailItem)
-            throws ItemTooHeavyException, NotEnoughRobotException, UnSupportedTooMuchRobotException {
+            throws ItemTooHeavyException, NotEnoughRobotException, UnsupportedTooMuchRobotException {
 		assert(deliveryItem == null);
+		assert this.currentTask != null;
+		assert this.currentTask.getNumRobot() > 0;
 		deliveryItem = mailItem;
 		if (Task.getTeamWeight(this.currentTask.getNumRobot())
-                >= mailItem.getWeight()) throw new ItemTooHeavyException();
+                < mailItem.getWeight()) throw new ItemTooHeavyException();
 	}
 
 	public void addToTube(MailItem mailItem)
-            throws ItemTooHeavyException, NotEnoughRobotException, UnSupportedTooMuchRobotException {
+            throws ItemTooHeavyException, NotEnoughRobotException, UnsupportedTooMuchRobotException {
 		assert(tube == null);
-		tube = mailItem;
-		if (Task.getTeamWeight(1) >= mailItem.getWeight()) throw new ItemTooHeavyException();
+        assert this.currentTask != null;
+        assert this.currentTask.getNumRobot() > 0;
+        tube = mailItem;
+		if (Task.getTeamWeight(1) < mailItem.getWeight()) throw new ItemTooHeavyException();
 	}
 
 	/* ************************ added methods ****************************** */

@@ -1,10 +1,1044 @@
 Floors:    12
 Fragile: false
 Mail_to_Create:   200
-Mail_Max_Weight:  2000
+Mail_Max_Weight:  3000
 Last_Delivery_Time:   120
 Robots: 3
 Seed: 30006
-Exception in thread "main" java.lang.NullPointerException
-	at automail.Robot.step(Robot.java:75)
-	at automail.Simulation.main(Simulation.java:110)
+T:   0 >   R0(0) changed from RETURNING to WAITING
+T:   0 >   R1(0) changed from RETURNING to WAITING
+T:   0 >   R2(0) changed from RETURNING to WAITING
+T:   1 > new addToPool [Mail Item:: ID:     40 | Arrival:    1 | Destination:  1 | Weight: 1580]
+T:   1 > new addToPool [Mail Item:: ID:     85 | Arrival:    1 | Destination:  4 | Weight:  822]
+Loading Plan:
+[
+    [Mail Item:: ID:     85 | Arrival:    1 | Destination:  4 | Weight:  822####Mail Item:: ID:     40 | Arrival:    1 | Destination:  1 | Weight: 1580####]
+]
+T:   1 >   R0(1) changed from WAITING to DELIVERING
+T:   1 >   R0(1)-> [Mail Item:: ID:     85 | Arrival:    1 | Destination:  4 | Weight:  822]
+T:   2 > new addToPool [Mail Item:: ID:    141 | Arrival:    2 | Destination:  7 | Weight: 1070 | Priority: 100]
+Loading Plan:
+[
+    [Mail Item:: ID:    141 | Arrival:    2 | Destination:  7 | Weight: 1070 | Priority: 100########]
+]
+T:   2 >   R1(0) changed from WAITING to DELIVERING
+T:   2 >   R1(0)-> [Mail Item:: ID:    141 | Arrival:    2 | Destination:  7 | Weight: 1070 | Priority: 100]
+T:   3 > new addToPool [Mail Item:: ID:     21 | Arrival:    3 | Destination:  3 | Weight:  799]
+T:   3 > new addToPool [Mail Item:: ID:     71 | Arrival:    3 | Destination: 10 | Weight: 1077 | Priority:  20]
+T:   3 > new addToPool [Mail Item:: ID:     80 | Arrival:    3 | Destination: 10 | Weight:  435]
+Loading Plan:
+[
+    [Mail Item:: ID:     71 | Arrival:    3 | Destination: 10 | Weight: 1077 | Priority:  20####Mail Item:: ID:     80 | Arrival:    3 | Destination: 10 | Weight:  435####]
+]
+T:   3 >   R2(1) changed from WAITING to DELIVERING
+T:   3 >   R2(1)-> [Mail Item:: ID:     71 | Arrival:    3 | Destination: 10 | Weight: 1077 | Priority:  20]
+T:   5 > new addToPool [Mail Item:: ID:     68 | Arrival:    5 | Destination:  7 | Weight:  625]
+T:   5 > new addToPool [Mail Item:: ID:    145 | Arrival:    5 | Destination:  6 | Weight: 2203]
+T:   5 > Delivered(   1) [Mail Item:: ID:     85 | Arrival:    1 | Destination:  4 | Weight:  822]
+T:   5 >   R0(0)-> [Mail Item:: ID:     40 | Arrival:    1 | Destination:  1 | Weight: 1580]
+T:   6 > new addToPool [Mail Item:: ID:      6 | Arrival:    6 | Destination: 11 | Weight:  790]
+T:   6 > new addToPool [Mail Item:: ID:     12 | Arrival:    6 | Destination:  2 | Weight:  448]
+T:   6 > new addToPool [Mail Item:: ID:     16 | Arrival:    6 | Destination:  3 | Weight: 1649]
+T:   7 > new addToPool [Mail Item:: ID:     13 | Arrival:    7 | Destination:  9 | Weight:  388]
+T:   8 > new addToPool [Mail Item:: ID:    111 | Arrival:    8 | Destination:  4 | Weight: 2900 | Priority:  80]
+T:   8 > new addToPool [Mail Item:: ID:    114 | Arrival:    8 | Destination:  7 | Weight: 1399]
+T:   9 > new addToPool [Mail Item:: ID:     61 | Arrival:    9 | Destination: 12 | Weight: 2317]
+T:   9 > new addToPool [Mail Item:: ID:     69 | Arrival:    9 | Destination:  2 | Weight:  352 | Priority:  20]
+T:   9 > Delivered(   2) [Mail Item:: ID:     40 | Arrival:    1 | Destination:  1 | Weight: 1580]
+T:   9 >   R0(0) changed from DELIVERING to RETURNING
+T:   9 > Delivered(   3) [Mail Item:: ID:    141 | Arrival:    2 | Destination:  7 | Weight: 1070 | Priority: 100]
+T:   9 >   R1(0) changed from DELIVERING to RETURNING
+T:  10 > new addToPool [Mail Item:: ID:     65 | Arrival:   10 | Destination: 12 | Weight:  227]
+T:  10 >   R0(0) changed from RETURNING to WAITING
+T:  12 > new addToPool [Mail Item:: ID:      9 | Arrival:   12 | Destination:  6 | Weight: 1727 | Priority:  60]
+T:  12 > new addToPool [Mail Item:: ID:     74 | Arrival:   12 | Destination:  4 | Weight:  910]
+T:  12 > new addToPool [Mail Item:: ID:    109 | Arrival:   12 | Destination:  6 | Weight: 2382]
+T:  13 > Delivered(   4) [Mail Item:: ID:     71 | Arrival:    3 | Destination: 10 | Weight: 1077 | Priority:  20]
+T:  13 >   R2(0)-> [Mail Item:: ID:     80 | Arrival:    3 | Destination: 10 | Weight:  435]
+T:  14 > Delivered(   5) [Mail Item:: ID:     80 | Arrival:    3 | Destination: 10 | Weight:  435]
+T:  14 >   R2(0) changed from DELIVERING to RETURNING
+T:  15 > new addToPool [Mail Item:: ID:     56 | Arrival:   15 | Destination:  8 | Weight: 1276]
+T:  16 > new addToPool [Mail Item:: ID:     27 | Arrival:   16 | Destination: 11 | Weight: 1338]
+T:  16 > new addToPool [Mail Item:: ID:     43 | Arrival:   16 | Destination:  3 | Weight: 2543]
+T:  16 >   R1(0) changed from RETURNING to WAITING
+T:  17 > new addToPool [Mail Item:: ID:     57 | Arrival:   17 | Destination:  2 | Weight:  418 | Priority:  10]
+T:  17 > new addToPool [Mail Item:: ID:    116 | Arrival:   17 | Destination:  8 | Weight: 1417]
+T:  18 > new addToPool [Mail Item:: ID:     22 | Arrival:   18 | Destination:  4 | Weight:  699]
+T:  18 > new addToPool [Mail Item:: ID:     23 | Arrival:   18 | Destination:  8 | Weight:  660 | Priority:  50]
+T:  18 > new addToPool [Mail Item:: ID:     89 | Arrival:   18 | Destination: 12 | Weight: 1166]
+T:  19 > new addToPool [Mail Item:: ID:     45 | Arrival:   19 | Destination:  7 | Weight: 1896]
+T:  20 > new addToPool [Mail Item:: ID:     33 | Arrival:   20 | Destination:  1 | Weight: 1471]
+T:  20 > new addToPool [Mail Item:: ID:    107 | Arrival:   20 | Destination: 10 | Weight:  928]
+T:  20 > new addToPool [Mail Item:: ID:    128 | Arrival:   20 | Destination:  5 | Weight: 1074]
+T:  21 > new addToPool [Mail Item:: ID:     72 | Arrival:   21 | Destination:  4 | Weight:  975 | Priority:  80]
+T:  21 > new addToPool [Mail Item:: ID:    130 | Arrival:   21 | Destination: 10 | Weight: 1565]
+T:  21 > new addToPool [Mail Item:: ID:    138 | Arrival:   21 | Destination:  5 | Weight:  583]
+T:  23 > new addToPool [Mail Item:: ID:      5 | Arrival:   23 | Destination:  1 | Weight:  826]
+T:  23 > new addToPool [Mail Item:: ID:     81 | Arrival:   23 | Destination: 11 | Weight:  419]
+T:  24 > new addToPool [Mail Item:: ID:     35 | Arrival:   24 | Destination:  6 | Weight:  368 | Priority:  10]
+T:  24 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    111 | Arrival:    8 | Destination:  4 | Weight: 2900 | Priority:  80####Mail Item:: ID:     72 | Arrival:   21 | Destination:  4 | Weight:  975 | Priority:  80####]
+    [Mail Item:: ID:    111 | Arrival:    8 | Destination:  4 | Weight: 2900 | Priority:  80####Mail Item:: ID:      9 | Arrival:   12 | Destination:  6 | Weight: 1727 | Priority:  60####]
+    [Mail Item:: ID:    111 | Arrival:    8 | Destination:  4 | Weight: 2900 | Priority:  80####Mail Item:: ID:     23 | Arrival:   18 | Destination:  8 | Weight:  660 | Priority:  50####]
+]
+T:  25 >   R0(1) changed from WAITING to DELIVERING
+T:  25 >   R0(1)-> [Mail Item:: ID:    111 | Arrival:    8 | Destination:  4 | Weight: 2900 | Priority:  80]
+T:  25 >   R1(1) changed from WAITING to DELIVERING
+T:  25 >   R1(1)-> [Mail Item:: ID:    111 | Arrival:    8 | Destination:  4 | Weight: 2900 | Priority:  80]
+T:  25 >   R2(1) changed from WAITING to DELIVERING
+T:  25 >   R2(1)-> [Mail Item:: ID:    111 | Arrival:    8 | Destination:  4 | Weight: 2900 | Priority:  80]
+T:  26 > new addToPool [Mail Item:: ID:     58 | Arrival:   26 | Destination:  1 | Weight: 1337]
+T:  27 > new addToPool [Mail Item:: ID:      2 | Arrival:   27 | Destination:  1 | Weight: 1316]
+T:  27 > new addToPool [Mail Item:: ID:     96 | Arrival:   27 | Destination:  3 | Weight: 1397]
+T:  27 > new addToPool [Mail Item:: ID:    146 | Arrival:   27 | Destination:  9 | Weight: 1310 | Priority:  60]
+T:  29 > Delivered(   6) [Mail Item:: ID:    111 | Arrival:    8 | Destination:  4 | Weight: 2900 | Priority:  80]
+T:  29 >   R0(0)-> [Mail Item:: ID:     72 | Arrival:   21 | Destination:  4 | Weight:  975 | Priority:  80]
+T:  29 >   R1(0)-> [Mail Item:: ID:      9 | Arrival:   12 | Destination:  6 | Weight: 1727 | Priority:  60]
+T:  29 >   R2(0)-> [Mail Item:: ID:     23 | Arrival:   18 | Destination:  8 | Weight:  660 | Priority:  50]
+T:  30 > new addToPool [Mail Item:: ID:     48 | Arrival:   30 | Destination: 11 | Weight:  693 | Priority:  20]
+T:  30 > new addToPool [Mail Item:: ID:     76 | Arrival:   30 | Destination:  8 | Weight:  550]
+T:  30 > Delivered(   7) [Mail Item:: ID:     72 | Arrival:   21 | Destination:  4 | Weight:  975 | Priority:  80]
+T:  30 >   R0(0) changed from DELIVERING to RETURNING
+T:  32 > Delivered(   8) [Mail Item:: ID:      9 | Arrival:   12 | Destination:  6 | Weight: 1727 | Priority:  60]
+T:  32 >   R1(0) changed from DELIVERING to RETURNING
+T:  33 > new addToPool [Mail Item:: ID:    151 | Arrival:   33 | Destination:  8 | Weight:  719]
+T:  34 > new addToPool [Mail Item:: ID:      3 | Arrival:   34 | Destination: 11 | Weight:  925]
+T:  34 >   R0(0) changed from RETURNING to WAITING
+T:  34 > Delivered(   9) [Mail Item:: ID:     23 | Arrival:   18 | Destination:  8 | Weight:  660 | Priority:  50]
+T:  34 >   R2(0) changed from DELIVERING to RETURNING
+T:  35 > new addToPool [Mail Item:: ID:    157 | Arrival:   35 | Destination: 12 | Weight:  704 | Priority:  80]
+Loading Plan:
+[
+    [Mail Item:: ID:    157 | Arrival:   35 | Destination: 12 | Weight:  704 | Priority:  80####Mail Item:: ID:    146 | Arrival:   27 | Destination:  9 | Weight: 1310 | Priority:  60####]
+]
+T:  35 >   R0(1) changed from WAITING to DELIVERING
+T:  35 >   R0(1)-> [Mail Item:: ID:    157 | Arrival:   35 | Destination: 12 | Weight:  704 | Priority:  80]
+T:  36 > new addToPool [Mail Item:: ID:     75 | Arrival:   36 | Destination:  7 | Weight:  292 | Priority:  90]
+T:  37 > new addToPool [Mail Item:: ID:      8 | Arrival:   37 | Destination: 11 | Weight: 1567]
+T:  38 >   R1(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     75 | Arrival:   36 | Destination:  7 | Weight:  292 | Priority:  90####Mail Item:: ID:     48 | Arrival:   30 | Destination: 11 | Weight:  693 | Priority:  20####]
+]
+T:  39 >   R1(1) changed from WAITING to DELIVERING
+T:  39 >   R1(1)-> [Mail Item:: ID:     75 | Arrival:   36 | Destination:  7 | Weight:  292 | Priority:  90]
+T:  40 > new addToPool [Mail Item:: ID:     36 | Arrival:   40 | Destination:  6 | Weight: 1363 | Priority:  60]
+T:  41 > new addToPool [Mail Item:: ID:     25 | Arrival:   41 | Destination:  3 | Weight: 1479]
+T:  41 > new addToPool [Mail Item:: ID:     88 | Arrival:   41 | Destination: 10 | Weight: 1349]
+T:  41 > new addToPool [Mail Item:: ID:    125 | Arrival:   41 | Destination:  1 | Weight: 1047]
+T:  42 > new addToPool [Mail Item:: ID:     70 | Arrival:   42 | Destination:  7 | Weight: 1533]
+T:  42 >   R2(0) changed from RETURNING to WAITING
+T:  43 > new addToPool [Mail Item:: ID:    133 | Arrival:   43 | Destination: 11 | Weight:  249]
+Loading Plan:
+[
+    [Mail Item:: ID:     36 | Arrival:   40 | Destination:  6 | Weight: 1363 | Priority:  60####Mail Item:: ID:     69 | Arrival:    9 | Destination:  2 | Weight:  352 | Priority:  20####]
+]
+T:  43 >   R2(1) changed from WAITING to DELIVERING
+T:  43 >   R2(1)-> [Mail Item:: ID:     36 | Arrival:   40 | Destination:  6 | Weight: 1363 | Priority:  60]
+T:  44 > new addToPool [Mail Item:: ID:    131 | Arrival:   44 | Destination:  1 | Weight: 1326]
+T:  45 > new addToPool [Mail Item:: ID:    105 | Arrival:   45 | Destination:  8 | Weight: 2201]
+T:  46 > new addToPool [Mail Item:: ID:     20 | Arrival:   46 | Destination: 12 | Weight:  407]
+T:  46 > new addToPool [Mail Item:: ID:    101 | Arrival:   46 | Destination:  1 | Weight:  289]
+T:  46 > Delivered(  10) [Mail Item:: ID:     75 | Arrival:   36 | Destination:  7 | Weight:  292 | Priority:  90]
+T:  46 >   R1(0)-> [Mail Item:: ID:     48 | Arrival:   30 | Destination: 11 | Weight:  693 | Priority:  20]
+T:  47 > Delivered(  11) [Mail Item:: ID:    157 | Arrival:   35 | Destination: 12 | Weight:  704 | Priority:  80]
+T:  47 >   R0(0)-> [Mail Item:: ID:    146 | Arrival:   27 | Destination:  9 | Weight: 1310 | Priority:  60]
+T:  48 > new addToPool [Mail Item:: ID:     73 | Arrival:   48 | Destination:  1 | Weight: 1188]
+T:  48 > new addToPool [Mail Item:: ID:    126 | Arrival:   48 | Destination: 11 | Weight:  931]
+T:  49 > new addToPool [Mail Item:: ID:     86 | Arrival:   49 | Destination:  3 | Weight:  460]
+T:  49 > Delivered(  12) [Mail Item:: ID:     36 | Arrival:   40 | Destination:  6 | Weight: 1363 | Priority:  60]
+T:  49 >   R2(0)-> [Mail Item:: ID:     69 | Arrival:    9 | Destination:  2 | Weight:  352 | Priority:  20]
+T:  50 > new addToPool [Mail Item:: ID:     66 | Arrival:   50 | Destination:  2 | Weight:  566 | Priority: 100]
+T:  50 > new addToPool [Mail Item:: ID:     90 | Arrival:   50 | Destination:  6 | Weight:  332]
+T:  51 > Delivered(  13) [Mail Item:: ID:    146 | Arrival:   27 | Destination:  9 | Weight: 1310 | Priority:  60]
+T:  51 >   R0(0) changed from DELIVERING to RETURNING
+T:  51 > Delivered(  14) [Mail Item:: ID:     48 | Arrival:   30 | Destination: 11 | Weight:  693 | Priority:  20]
+T:  51 >   R1(0) changed from DELIVERING to RETURNING
+T:  54 > Delivered(  15) [Mail Item:: ID:     69 | Arrival:    9 | Destination:  2 | Weight:  352 | Priority:  20]
+T:  54 >   R2(0) changed from DELIVERING to RETURNING
+T:  55 > new addToPool [Mail Item:: ID:      0 | Arrival:   55 | Destination: 12 | Weight: 2808]
+T:  56 > new addToPool [Mail Item:: ID:    102 | Arrival:   56 | Destination:  5 | Weight:  363]
+T:  56 >   R2(0) changed from RETURNING to WAITING
+T:  57 > new addToPool [Mail Item:: ID:     52 | Arrival:   57 | Destination:  3 | Weight:  343]
+Loading Plan:
+[
+    [Mail Item:: ID:     66 | Arrival:   50 | Destination:  2 | Weight:  566 | Priority: 100####Mail Item:: ID:     35 | Arrival:   24 | Destination:  6 | Weight:  368 | Priority:  10####]
+]
+T:  57 >   R2(1) changed from WAITING to DELIVERING
+T:  57 >   R2(1)-> [Mail Item:: ID:     66 | Arrival:   50 | Destination:  2 | Weight:  566 | Priority: 100]
+T:  58 > new addToPool [Mail Item:: ID:     34 | Arrival:   58 | Destination:  7 | Weight: 1606]
+T:  58 > new addToPool [Mail Item:: ID:    103 | Arrival:   58 | Destination:  7 | Weight:  309]
+T:  59 > Delivered(  16) [Mail Item:: ID:     66 | Arrival:   50 | Destination:  2 | Weight:  566 | Priority: 100]
+T:  59 >   R2(0)-> [Mail Item:: ID:     35 | Arrival:   24 | Destination:  6 | Weight:  368 | Priority:  10]
+T:  60 > new addToPool [Mail Item:: ID:     41 | Arrival:   60 | Destination:  9 | Weight:  953]
+T:  60 > new addToPool [Mail Item:: ID:     67 | Arrival:   60 | Destination: 12 | Weight:  904]
+T:  60 >   R0(0) changed from RETURNING to WAITING
+T:  61 > new addToPool [Mail Item:: ID:     94 | Arrival:   61 | Destination:  9 | Weight:  843]
+Loading Plan:
+[
+    [Mail Item:: ID:     57 | Arrival:   17 | Destination:  2 | Weight:  418 | Priority:  10########]
+]
+T:  61 >   R0(0) changed from WAITING to DELIVERING
+T:  61 >   R0(0)-> [Mail Item:: ID:     57 | Arrival:   17 | Destination:  2 | Weight:  418 | Priority:  10]
+T:  62 >   R1(0) changed from RETURNING to WAITING
+T:  63 > new addToPool [Mail Item:: ID:     24 | Arrival:   63 | Destination:  7 | Weight: 1079]
+T:  63 > new addToPool [Mail Item:: ID:    121 | Arrival:   63 | Destination:  5 | Weight:  955 | Priority:  10]
+Loading Plan:
+[
+    [Mail Item:: ID:    121 | Arrival:   63 | Destination:  5 | Weight:  955 | Priority:  10########]
+]
+T:  63 > Delivered(  17) [Mail Item:: ID:     57 | Arrival:   17 | Destination:  2 | Weight:  418 | Priority:  10]
+T:  63 >   R0(0) changed from DELIVERING to RETURNING
+T:  63 >   R1(0) changed from WAITING to DELIVERING
+T:  63 >   R1(0)-> [Mail Item:: ID:    121 | Arrival:   63 | Destination:  5 | Weight:  955 | Priority:  10]
+T:  64 > Delivered(  18) [Mail Item:: ID:     35 | Arrival:   24 | Destination:  6 | Weight:  368 | Priority:  10]
+T:  64 >   R2(0) changed from DELIVERING to RETURNING
+T:  65 > new addToPool [Mail Item:: ID:      7 | Arrival:   65 | Destination: 12 | Weight:  217]
+T:  65 > new addToPool [Mail Item:: ID:     42 | Arrival:   65 | Destination:  7 | Weight: 2040]
+T:  65 > new addToPool [Mail Item:: ID:     55 | Arrival:   65 | Destination:  8 | Weight:  280]
+T:  65 > new addToPool [Mail Item:: ID:    104 | Arrival:   65 | Destination: 11 | Weight: 3000]
+T:  65 > new addToPool [Mail Item:: ID:    158 | Arrival:   65 | Destination: 11 | Weight:  257]
+T:  65 >   R0(0) changed from RETURNING to WAITING
+T:  66 > new addToPool [Mail Item:: ID:     49 | Arrival:   66 | Destination:  2 | Weight: 1297]
+T:  67 > new addToPool [Mail Item:: ID:    127 | Arrival:   67 | Destination: 12 | Weight:  826]
+T:  67 > new addToPool [Mail Item:: ID:    160 | Arrival:   67 | Destination: 12 | Weight: 1270]
+T:  68 > new addToPool [Mail Item:: ID:     47 | Arrival:   68 | Destination:  9 | Weight:  266 | Priority:  20]
+T:  68 > new addToPool [Mail Item:: ID:     53 | Arrival:   68 | Destination:  3 | Weight: 1775]
+T:  68 > new addToPool [Mail Item:: ID:    100 | Arrival:   68 | Destination:  2 | Weight: 2156]
+Loading Plan:
+[
+    [Mail Item:: ID:     47 | Arrival:   68 | Destination:  9 | Weight:  266 | Priority:  20########]
+]
+T:  68 >   R0(0) changed from WAITING to DELIVERING
+T:  68 >   R0(0)-> [Mail Item:: ID:     47 | Arrival:   68 | Destination:  9 | Weight:  266 | Priority:  20]
+T:  68 > Delivered(  19) [Mail Item:: ID:    121 | Arrival:   63 | Destination:  5 | Weight:  955 | Priority:  10]
+T:  68 >   R1(0) changed from DELIVERING to RETURNING
+T:  69 > new addToPool [Mail Item:: ID:    140 | Arrival:   69 | Destination:  4 | Weight:  249]
+T:  70 >   R2(0) changed from RETURNING to WAITING
+T:  71 > new addToPool [Mail Item:: ID:      1 | Arrival:   71 | Destination:  6 | Weight:  761]
+T:  72 > new addToPool [Mail Item:: ID:     15 | Arrival:   72 | Destination:  1 | Weight: 1308]
+T:  73 > new addToPool [Mail Item:: ID:     54 | Arrival:   73 | Destination: 11 | Weight:  711]
+T:  73 > new addToPool [Mail Item:: ID:    112 | Arrival:   73 | Destination:  8 | Weight:  472]
+T:  73 >   R1(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     61 | Arrival:    9 | Destination: 12 | Weight: 2317####Mail Item:: ID:     65 | Arrival:   10 | Destination: 12 | Weight:  227####]
+    [Mail Item:: ID:     61 | Arrival:    9 | Destination: 12 | Weight: 2317####Mail Item:: ID:     89 | Arrival:   18 | Destination: 12 | Weight: 1166####]
+]
+T:  74 >   R1(1) changed from WAITING to DELIVERING
+T:  74 >   R1(1)-> [Mail Item:: ID:     61 | Arrival:    9 | Destination: 12 | Weight: 2317]
+T:  74 >   R2(1) changed from WAITING to DELIVERING
+T:  74 >   R2(1)-> [Mail Item:: ID:     61 | Arrival:    9 | Destination: 12 | Weight: 2317]
+T:  75 > new addToPool [Mail Item:: ID:     82 | Arrival:   75 | Destination: 12 | Weight:  853 | Priority:  70]
+T:  75 > new addToPool [Mail Item:: ID:    132 | Arrival:   75 | Destination: 10 | Weight: 1190]
+T:  76 > new addToPool [Mail Item:: ID:    149 | Arrival:   76 | Destination:  2 | Weight:  793]
+T:  77 > new addToPool [Mail Item:: ID:     59 | Arrival:   77 | Destination:  9 | Weight: 3000 | Priority:  90]
+T:  77 > Delivered(  20) [Mail Item:: ID:     47 | Arrival:   68 | Destination:  9 | Weight:  266 | Priority:  20]
+T:  77 >   R0(0) changed from DELIVERING to RETURNING
+T:  78 > new addToPool [Mail Item:: ID:    152 | Arrival:   78 | Destination:  6 | Weight:  628 | Priority: 100]
+T:  80 > new addToPool [Mail Item:: ID:     14 | Arrival:   80 | Destination:  6 | Weight:  682]
+T:  82 > new addToPool [Mail Item:: ID:     37 | Arrival:   82 | Destination:  7 | Weight: 1669]
+T:  82 > new addToPool [Mail Item:: ID:    134 | Arrival:   82 | Destination:  7 | Weight: 1874]
+T:  83 > new addToPool [Mail Item:: ID:     29 | Arrival:   83 | Destination:  3 | Weight:  447]
+T:  83 > new addToPool [Mail Item:: ID:    110 | Arrival:   83 | Destination:  5 | Weight:  576]
+T:  83 > new addToPool [Mail Item:: ID:    120 | Arrival:   83 | Destination:  6 | Weight:  757]
+T:  85 > new addToPool [Mail Item:: ID:     39 | Arrival:   85 | Destination:  9 | Weight: 2281 | Priority:  70]
+T:  85 > new addToPool [Mail Item:: ID:     92 | Arrival:   85 | Destination:  2 | Weight:  263]
+T:  85 > new addToPool [Mail Item:: ID:    129 | Arrival:   85 | Destination:  7 | Weight:  290]
+T:  86 > new addToPool [Mail Item:: ID:    159 | Arrival:   86 | Destination:  5 | Weight:  208]
+T:  86 >   R0(0) changed from RETURNING to WAITING
+T:  86 >   R1(0)-> [Mail Item:: ID:     89 | Arrival:   18 | Destination: 12 | Weight: 1166]
+T:  86 > Delivered(  21) [Mail Item:: ID:     61 | Arrival:    9 | Destination: 12 | Weight: 2317]
+T:  86 >   R2(0)-> [Mail Item:: ID:     65 | Arrival:   10 | Destination: 12 | Weight:  227]
+Loading Plan:
+[
+    [Mail Item:: ID:    152 | Arrival:   78 | Destination:  6 | Weight:  628 | Priority: 100########]
+]
+T:  87 >   R0(0) changed from WAITING to DELIVERING
+T:  87 >   R0(0)-> [Mail Item:: ID:    152 | Arrival:   78 | Destination:  6 | Weight:  628 | Priority: 100]
+T:  87 > Delivered(  22) [Mail Item:: ID:     89 | Arrival:   18 | Destination: 12 | Weight: 1166]
+T:  87 >   R1(0) changed from DELIVERING to RETURNING
+T:  87 > Delivered(  23) [Mail Item:: ID:     65 | Arrival:   10 | Destination: 12 | Weight:  227]
+T:  87 >   R2(0) changed from DELIVERING to RETURNING
+T:  88 > new addToPool [Mail Item:: ID:     50 | Arrival:   88 | Destination:  4 | Weight:  385]
+T:  88 > new addToPool [Mail Item:: ID:     87 | Arrival:   88 | Destination:  8 | Weight:  460]
+T:  89 > new addToPool [Mail Item:: ID:     91 | Arrival:   89 | Destination: 12 | Weight:  602]
+T:  92 > new addToPool [Mail Item:: ID:     63 | Arrival:   92 | Destination: 12 | Weight:  330]
+T:  92 > new addToPool [Mail Item:: ID:     78 | Arrival:   92 | Destination:  3 | Weight: 1096]
+T:  92 > new addToPool [Mail Item:: ID:    135 | Arrival:   92 | Destination:  4 | Weight:  385]
+T:  92 > new addToPool [Mail Item:: ID:    136 | Arrival:   92 | Destination: 10 | Weight:  842]
+T:  92 > new addToPool [Mail Item:: ID:    154 | Arrival:   92 | Destination:  9 | Weight:  900]
+T:  93 > new addToPool [Mail Item:: ID:     10 | Arrival:   93 | Destination:  1 | Weight: 1278]
+T:  93 > new addToPool [Mail Item:: ID:     64 | Arrival:   93 | Destination:  4 | Weight:  295]
+T:  93 > new addToPool [Mail Item:: ID:    123 | Arrival:   93 | Destination:  2 | Weight:  325]
+T:  93 > Delivered(  24) [Mail Item:: ID:    152 | Arrival:   78 | Destination:  6 | Weight:  628 | Priority: 100]
+T:  93 >   R0(0) changed from DELIVERING to RETURNING
+T:  94 > new addToPool [Mail Item:: ID:    113 | Arrival:   94 | Destination:  9 | Weight: 1619]
+T:  95 > new addToPool [Mail Item:: ID:     60 | Arrival:   95 | Destination:  5 | Weight: 1856]
+T:  95 > new addToPool [Mail Item:: ID:     98 | Arrival:   95 | Destination:  7 | Weight:  216]
+T:  95 > new addToPool [Mail Item:: ID:    122 | Arrival:   95 | Destination:  2 | Weight:  315 | Priority:  20]
+T:  96 > new addToPool [Mail Item:: ID:      4 | Arrival:   96 | Destination:  5 | Weight: 1720]
+T:  96 > new addToPool [Mail Item:: ID:     17 | Arrival:   96 | Destination: 10 | Weight:  373]
+T:  96 > new addToPool [Mail Item:: ID:    117 | Arrival:   96 | Destination:  6 | Weight: 1365]
+T:  96 > new addToPool [Mail Item:: ID:    118 | Arrival:   96 | Destination: 10 | Weight:  313 | Priority:  90]
+T:  97 > new addToPool [Mail Item:: ID:     79 | Arrival:   97 | Destination:  9 | Weight:  864]
+T:  97 > new addToPool [Mail Item:: ID:    148 | Arrival:   97 | Destination:  6 | Weight:  687]
+T:  99 > new addToPool [Mail Item:: ID:     93 | Arrival:   99 | Destination:  7 | Weight: 1725]
+T:  99 >   R0(0) changed from RETURNING to WAITING
+T:  99 >   R1(0) changed from RETURNING to WAITING
+T:  99 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     59 | Arrival:   77 | Destination:  9 | Weight: 3000 | Priority:  90####Mail Item:: ID:    118 | Arrival:   96 | Destination: 10 | Weight:  313 | Priority:  90####]
+    [Mail Item:: ID:     59 | Arrival:   77 | Destination:  9 | Weight: 3000 | Priority:  90####Mail Item:: ID:     82 | Arrival:   75 | Destination: 12 | Weight:  853 | Priority:  70####]
+    [Mail Item:: ID:     59 | Arrival:   77 | Destination:  9 | Weight: 3000 | Priority:  90########]
+]
+T: 100 >   R0(1) changed from WAITING to DELIVERING
+T: 100 >   R0(1)-> [Mail Item:: ID:     59 | Arrival:   77 | Destination:  9 | Weight: 3000 | Priority:  90]
+T: 100 >   R1(1) changed from WAITING to DELIVERING
+T: 100 >   R1(1)-> [Mail Item:: ID:     59 | Arrival:   77 | Destination:  9 | Weight: 3000 | Priority:  90]
+T: 100 >   R2(0) changed from WAITING to DELIVERING
+T: 100 >   R2(0)-> [Mail Item:: ID:     59 | Arrival:   77 | Destination:  9 | Weight: 3000 | Priority:  90]
+T: 101 > new addToPool [Mail Item:: ID:     99 | Arrival:  101 | Destination: 10 | Weight:  889 | Priority:  10]
+T: 102 > new addToPool [Mail Item:: ID:    124 | Arrival:  102 | Destination:  7 | Weight: 1654]
+T: 103 > new addToPool [Mail Item:: ID:     95 | Arrival:  103 | Destination:  5 | Weight: 1227]
+T: 105 > new addToPool [Mail Item:: ID:     32 | Arrival:  105 | Destination:  5 | Weight:  612]
+T: 107 > new addToPool [Mail Item:: ID:     19 | Arrival:  107 | Destination: 11 | Weight:  543]
+T: 107 > new addToPool [Mail Item:: ID:     51 | Arrival:  107 | Destination:  9 | Weight:  758]
+T: 108 > new addToPool [Mail Item:: ID:     18 | Arrival:  108 | Destination:  3 | Weight:  672]
+T: 108 > new addToPool [Mail Item:: ID:     30 | Arrival:  108 | Destination:  5 | Weight:  234]
+T: 109 > new addToPool [Mail Item:: ID:     31 | Arrival:  109 | Destination:  9 | Weight:  419]
+T: 109 > Delivered(  25) [Mail Item:: ID:     59 | Arrival:   77 | Destination:  9 | Weight: 3000 | Priority:  90]
+T: 109 >   R0(0)-> [Mail Item:: ID:    118 | Arrival:   96 | Destination: 10 | Weight:  313 | Priority:  90]
+T: 109 >   R1(0)-> [Mail Item:: ID:     82 | Arrival:   75 | Destination: 12 | Weight:  853 | Priority:  70]
+T: 109 >   R2(0) changed from DELIVERING to RETURNING
+T: 110 > new addToPool [Mail Item:: ID:    115 | Arrival:  110 | Destination:  8 | Weight:  375]
+T: 111 > new addToPool [Mail Item:: ID:     38 | Arrival:  111 | Destination:  2 | Weight:  505]
+T: 111 > new addToPool [Mail Item:: ID:    147 | Arrival:  111 | Destination:  6 | Weight:  371 | Priority: 100]
+T: 111 > Delivered(  26) [Mail Item:: ID:    118 | Arrival:   96 | Destination: 10 | Weight:  313 | Priority:  90]
+T: 111 >   R0(0) changed from DELIVERING to RETURNING
+T: 112 > new addToPool [Mail Item:: ID:     77 | Arrival:  112 | Destination:  3 | Weight: 1390 | Priority:  50]
+T: 112 > new addToPool [Mail Item:: ID:     83 | Arrival:  112 | Destination:  7 | Weight: 1110]
+T: 112 > new addToPool [Mail Item:: ID:    150 | Arrival:  112 | Destination:  7 | Weight: 2030]
+T: 112 > new addToPool [Mail Item:: ID:    153 | Arrival:  112 | Destination:  3 | Weight: 1052]
+T: 113 > new addToPool [Mail Item:: ID:     44 | Arrival:  113 | Destination: 12 | Weight:  617]
+T: 113 > Delivered(  27) [Mail Item:: ID:     82 | Arrival:   75 | Destination: 12 | Weight:  853 | Priority:  70]
+T: 113 >   R1(0) changed from DELIVERING to RETURNING
+T: 114 > new addToPool [Mail Item:: ID:    119 | Arrival:  114 | Destination:  8 | Weight:  581]
+T: 114 > new addToPool [Mail Item:: ID:    143 | Arrival:  114 | Destination: 11 | Weight: 1505 | Priority:  40]
+T: 115 > new addToPool [Mail Item:: ID:     28 | Arrival:  115 | Destination: 10 | Weight:  400]
+T: 115 > new addToPool [Mail Item:: ID:    106 | Arrival:  115 | Destination: 12 | Weight:  805]
+T: 116 > new addToPool [Mail Item:: ID:    144 | Arrival:  116 | Destination:  6 | Weight: 1225 | Priority: 100]
+T: 117 > new addToPool [Mail Item:: ID:     11 | Arrival:  117 | Destination:  3 | Weight: 1187]
+T: 117 > new addToPool [Mail Item:: ID:    137 | Arrival:  117 | Destination:  7 | Weight:  756]
+T: 117 > new addToPool [Mail Item:: ID:    142 | Arrival:  117 | Destination:  1 | Weight: 1859]
+T: 118 > new addToPool [Mail Item:: ID:     84 | Arrival:  118 | Destination: 11 | Weight:  267]
+T: 118 > new addToPool [Mail Item:: ID:     97 | Arrival:  118 | Destination:  7 | Weight: 1951]
+T: 118 > new addToPool [Mail Item:: ID:    108 | Arrival:  118 | Destination:  3 | Weight:  580]
+T: 118 >   R2(0) changed from RETURNING to WAITING
+T: 119 > new addToPool [Mail Item:: ID:     26 | Arrival:  119 | Destination: 12 | Weight: 1053]
+T: 119 > new addToPool [Mail Item:: ID:    139 | Arrival:  119 | Destination:  6 | Weight: 1460]
+T: 119 > new addToPool [Mail Item:: ID:    155 | Arrival:  119 | Destination: 10 | Weight:  297]
+T: 119 > new addToPool [Mail Item:: ID:    156 | Arrival:  119 | Destination:  9 | Weight:  277]
+Loading Plan:
+[
+    [Mail Item:: ID:    147 | Arrival:  111 | Destination:  6 | Weight:  371 | Priority: 100####Mail Item:: ID:    144 | Arrival:  116 | Destination:  6 | Weight: 1225 | Priority: 100####]
+]
+T: 119 >   R2(1) changed from WAITING to DELIVERING
+T: 119 >   R2(1)-> [Mail Item:: ID:    147 | Arrival:  111 | Destination:  6 | Weight:  371 | Priority: 100]
+T: 120 > new addToPool [Mail Item:: ID:     46 | Arrival:  120 | Destination:  8 | Weight:  852]
+T: 120 > new addToPool [Mail Item:: ID:     62 | Arrival:  120 | Destination:  7 | Weight:  772]
+T: 121 >   R0(0) changed from RETURNING to WAITING
+T: 125 >   R1(0) changed from RETURNING to WAITING
+T: 125 > Delivered(  28) [Mail Item:: ID:    147 | Arrival:  111 | Destination:  6 | Weight:  371 | Priority: 100]
+T: 125 >   R2(0)-> [Mail Item:: ID:    144 | Arrival:  116 | Destination:  6 | Weight: 1225 | Priority: 100]
+Loading Plan:
+[
+    [Mail Item:: ID:     39 | Arrival:   85 | Destination:  9 | Weight: 2281 | Priority:  70####Mail Item:: ID:     77 | Arrival:  112 | Destination:  3 | Weight: 1390 | Priority:  50####]
+    [Mail Item:: ID:     39 | Arrival:   85 | Destination:  9 | Weight: 2281 | Priority:  70####Mail Item:: ID:    143 | Arrival:  114 | Destination: 11 | Weight: 1505 | Priority:  40####]
+]
+T: 126 >   R0(1) changed from WAITING to DELIVERING
+T: 126 >   R0(1)-> [Mail Item:: ID:     39 | Arrival:   85 | Destination:  9 | Weight: 2281 | Priority:  70]
+T: 126 >   R1(1) changed from WAITING to DELIVERING
+T: 126 >   R1(1)-> [Mail Item:: ID:     39 | Arrival:   85 | Destination:  9 | Weight: 2281 | Priority:  70]
+T: 126 > Delivered(  29) [Mail Item:: ID:    144 | Arrival:  116 | Destination:  6 | Weight: 1225 | Priority: 100]
+T: 126 >   R2(0) changed from DELIVERING to RETURNING
+T: 132 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    122 | Arrival:   95 | Destination:  2 | Weight:  315 | Priority:  20####Mail Item:: ID:     99 | Arrival:  101 | Destination: 10 | Weight:  889 | Priority:  10####]
+]
+T: 133 >   R2(1) changed from WAITING to DELIVERING
+T: 133 >   R2(1)-> [Mail Item:: ID:    122 | Arrival:   95 | Destination:  2 | Weight:  315 | Priority:  20]
+T: 135 > Delivered(  30) [Mail Item:: ID:     39 | Arrival:   85 | Destination:  9 | Weight: 2281 | Priority:  70]
+T: 135 >   R0(0)-> [Mail Item:: ID:     77 | Arrival:  112 | Destination:  3 | Weight: 1390 | Priority:  50]
+T: 135 >   R1(0)-> [Mail Item:: ID:    143 | Arrival:  114 | Destination: 11 | Weight: 1505 | Priority:  40]
+T: 135 > Delivered(  31) [Mail Item:: ID:    122 | Arrival:   95 | Destination:  2 | Weight:  315 | Priority:  20]
+T: 135 >   R2(0)-> [Mail Item:: ID:     99 | Arrival:  101 | Destination: 10 | Weight:  889 | Priority:  10]
+T: 138 > Delivered(  32) [Mail Item:: ID:    143 | Arrival:  114 | Destination: 11 | Weight: 1505 | Priority:  40]
+T: 138 >   R1(0) changed from DELIVERING to RETURNING
+T: 142 > Delivered(  33) [Mail Item:: ID:     77 | Arrival:  112 | Destination:  3 | Weight: 1390 | Priority:  50]
+T: 142 >   R0(0) changed from DELIVERING to RETURNING
+T: 144 > Delivered(  34) [Mail Item:: ID:     99 | Arrival:  101 | Destination: 10 | Weight:  889 | Priority:  10]
+T: 144 >   R2(0) changed from DELIVERING to RETURNING
+T: 145 >   R0(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     20 | Arrival:   46 | Destination: 12 | Weight:  407########]
+]
+T: 146 >   R0(0) changed from WAITING to DELIVERING
+T: 146 >   R0(0)-> [Mail Item:: ID:     20 | Arrival:   46 | Destination: 12 | Weight:  407]
+T: 149 >   R1(0) changed from RETURNING to WAITING
+T: 154 >   R2(0) changed from RETURNING to WAITING
+T: 158 > Delivered(  35) [Mail Item:: ID:     20 | Arrival:   46 | Destination: 12 | Weight:  407]
+T: 158 >   R0(0) changed from DELIVERING to RETURNING
+T: 170 >   R0(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:      0 | Arrival:   55 | Destination: 12 | Weight: 2808####Mail Item:: ID:     67 | Arrival:   60 | Destination: 12 | Weight:  904####]
+    [Mail Item:: ID:      0 | Arrival:   55 | Destination: 12 | Weight: 2808####Mail Item:: ID:      7 | Arrival:   65 | Destination: 12 | Weight:  217####]
+    [Mail Item:: ID:      0 | Arrival:   55 | Destination: 12 | Weight: 2808####Mail Item:: ID:    127 | Arrival:   67 | Destination: 12 | Weight:  826####]
+]
+T: 171 >   R0(1) changed from WAITING to DELIVERING
+T: 171 >   R0(1)-> [Mail Item:: ID:      0 | Arrival:   55 | Destination: 12 | Weight: 2808]
+T: 171 >   R1(1) changed from WAITING to DELIVERING
+T: 171 >   R1(1)-> [Mail Item:: ID:      0 | Arrival:   55 | Destination: 12 | Weight: 2808]
+T: 171 >   R2(1) changed from WAITING to DELIVERING
+T: 171 >   R2(1)-> [Mail Item:: ID:      0 | Arrival:   55 | Destination: 12 | Weight: 2808]
+T: 183 >   R0(0)-> [Mail Item:: ID:    127 | Arrival:   67 | Destination: 12 | Weight:  826]
+T: 183 > Delivered(  36) [Mail Item:: ID:      0 | Arrival:   55 | Destination: 12 | Weight: 2808]
+T: 183 >   R1(0)-> [Mail Item:: ID:     67 | Arrival:   60 | Destination: 12 | Weight:  904]
+T: 183 >   R2(0)-> [Mail Item:: ID:      7 | Arrival:   65 | Destination: 12 | Weight:  217]
+T: 184 > Delivered(  37) [Mail Item:: ID:    127 | Arrival:   67 | Destination: 12 | Weight:  826]
+T: 184 >   R0(0) changed from DELIVERING to RETURNING
+T: 184 > Delivered(  38) [Mail Item:: ID:     67 | Arrival:   60 | Destination: 12 | Weight:  904]
+T: 184 >   R1(0) changed from DELIVERING to RETURNING
+T: 184 > Delivered(  39) [Mail Item:: ID:      7 | Arrival:   65 | Destination: 12 | Weight:  217]
+T: 184 >   R2(0) changed from DELIVERING to RETURNING
+T: 196 >   R0(0) changed from RETURNING to WAITING
+T: 196 >   R1(0) changed from RETURNING to WAITING
+T: 196 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    160 | Arrival:   67 | Destination: 12 | Weight: 1270####Mail Item:: ID:     91 | Arrival:   89 | Destination: 12 | Weight:  602####]
+    [Mail Item:: ID:     63 | Arrival:   92 | Destination: 12 | Weight:  330####Mail Item:: ID:     44 | Arrival:  113 | Destination: 12 | Weight:  617####]
+    [Mail Item:: ID:    106 | Arrival:  115 | Destination: 12 | Weight:  805####Mail Item:: ID:     26 | Arrival:  119 | Destination: 12 | Weight: 1053####]
+]
+T: 197 >   R0(1) changed from WAITING to DELIVERING
+T: 197 >   R0(1)-> [Mail Item:: ID:    160 | Arrival:   67 | Destination: 12 | Weight: 1270]
+T: 197 >   R1(1) changed from WAITING to DELIVERING
+T: 197 >   R1(1)-> [Mail Item:: ID:     63 | Arrival:   92 | Destination: 12 | Weight:  330]
+T: 197 >   R2(1) changed from WAITING to DELIVERING
+T: 197 >   R2(1)-> [Mail Item:: ID:    106 | Arrival:  115 | Destination: 12 | Weight:  805]
+T: 209 > Delivered(  40) [Mail Item:: ID:    160 | Arrival:   67 | Destination: 12 | Weight: 1270]
+T: 209 >   R0(0)-> [Mail Item:: ID:     91 | Arrival:   89 | Destination: 12 | Weight:  602]
+T: 209 > Delivered(  41) [Mail Item:: ID:     63 | Arrival:   92 | Destination: 12 | Weight:  330]
+T: 209 >   R1(0)-> [Mail Item:: ID:     44 | Arrival:  113 | Destination: 12 | Weight:  617]
+T: 209 > Delivered(  42) [Mail Item:: ID:    106 | Arrival:  115 | Destination: 12 | Weight:  805]
+T: 209 >   R2(0)-> [Mail Item:: ID:     26 | Arrival:  119 | Destination: 12 | Weight: 1053]
+T: 210 > Delivered(  43) [Mail Item:: ID:     91 | Arrival:   89 | Destination: 12 | Weight:  602]
+T: 210 >   R0(0) changed from DELIVERING to RETURNING
+T: 210 > Delivered(  44) [Mail Item:: ID:     44 | Arrival:  113 | Destination: 12 | Weight:  617]
+T: 210 >   R1(0) changed from DELIVERING to RETURNING
+T: 210 > Delivered(  45) [Mail Item:: ID:     26 | Arrival:  119 | Destination: 12 | Weight: 1053]
+T: 210 >   R2(0) changed from DELIVERING to RETURNING
+T: 222 >   R0(0) changed from RETURNING to WAITING
+T: 222 >   R1(0) changed from RETURNING to WAITING
+T: 222 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:      6 | Arrival:    6 | Destination: 11 | Weight:  790####Mail Item:: ID:     27 | Arrival:   16 | Destination: 11 | Weight: 1338####]
+    [Mail Item:: ID:     81 | Arrival:   23 | Destination: 11 | Weight:  419####Mail Item:: ID:      3 | Arrival:   34 | Destination: 11 | Weight:  925####]
+    [Mail Item:: ID:      8 | Arrival:   37 | Destination: 11 | Weight: 1567####Mail Item:: ID:    133 | Arrival:   43 | Destination: 11 | Weight:  249####]
+]
+T: 223 >   R0(1) changed from WAITING to DELIVERING
+T: 223 >   R0(1)-> [Mail Item:: ID:      6 | Arrival:    6 | Destination: 11 | Weight:  790]
+T: 223 >   R1(1) changed from WAITING to DELIVERING
+T: 223 >   R1(1)-> [Mail Item:: ID:     81 | Arrival:   23 | Destination: 11 | Weight:  419]
+T: 223 >   R2(1) changed from WAITING to DELIVERING
+T: 223 >   R2(1)-> [Mail Item:: ID:      8 | Arrival:   37 | Destination: 11 | Weight: 1567]
+T: 234 > Delivered(  46) [Mail Item:: ID:      6 | Arrival:    6 | Destination: 11 | Weight:  790]
+T: 234 >   R0(0)-> [Mail Item:: ID:     27 | Arrival:   16 | Destination: 11 | Weight: 1338]
+T: 234 > Delivered(  47) [Mail Item:: ID:     81 | Arrival:   23 | Destination: 11 | Weight:  419]
+T: 234 >   R1(0)-> [Mail Item:: ID:      3 | Arrival:   34 | Destination: 11 | Weight:  925]
+T: 234 > Delivered(  48) [Mail Item:: ID:      8 | Arrival:   37 | Destination: 11 | Weight: 1567]
+T: 234 >   R2(0)-> [Mail Item:: ID:    133 | Arrival:   43 | Destination: 11 | Weight:  249]
+T: 235 > Delivered(  49) [Mail Item:: ID:     27 | Arrival:   16 | Destination: 11 | Weight: 1338]
+T: 235 >   R0(0) changed from DELIVERING to RETURNING
+T: 235 > Delivered(  50) [Mail Item:: ID:      3 | Arrival:   34 | Destination: 11 | Weight:  925]
+T: 235 >   R1(0) changed from DELIVERING to RETURNING
+T: 235 > Delivered(  51) [Mail Item:: ID:    133 | Arrival:   43 | Destination: 11 | Weight:  249]
+T: 235 >   R2(0) changed from DELIVERING to RETURNING
+T: 246 >   R0(0) changed from RETURNING to WAITING
+T: 246 >   R1(0) changed from RETURNING to WAITING
+T: 246 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    104 | Arrival:   65 | Destination: 11 | Weight: 3000####Mail Item:: ID:    126 | Arrival:   48 | Destination: 11 | Weight:  931####]
+    [Mail Item:: ID:    104 | Arrival:   65 | Destination: 11 | Weight: 3000####Mail Item:: ID:    158 | Arrival:   65 | Destination: 11 | Weight:  257####]
+    [Mail Item:: ID:    104 | Arrival:   65 | Destination: 11 | Weight: 3000####Mail Item:: ID:     54 | Arrival:   73 | Destination: 11 | Weight:  711####]
+]
+T: 247 >   R0(1) changed from WAITING to DELIVERING
+T: 247 >   R0(1)-> [Mail Item:: ID:    104 | Arrival:   65 | Destination: 11 | Weight: 3000]
+T: 247 >   R1(1) changed from WAITING to DELIVERING
+T: 247 >   R1(1)-> [Mail Item:: ID:    104 | Arrival:   65 | Destination: 11 | Weight: 3000]
+T: 247 >   R2(1) changed from WAITING to DELIVERING
+T: 247 >   R2(1)-> [Mail Item:: ID:    104 | Arrival:   65 | Destination: 11 | Weight: 3000]
+T: 258 > Delivered(  52) [Mail Item:: ID:    104 | Arrival:   65 | Destination: 11 | Weight: 3000]
+T: 258 >   R0(0)-> [Mail Item:: ID:    126 | Arrival:   48 | Destination: 11 | Weight:  931]
+T: 258 >   R1(0)-> [Mail Item:: ID:    158 | Arrival:   65 | Destination: 11 | Weight:  257]
+T: 258 >   R2(0)-> [Mail Item:: ID:     54 | Arrival:   73 | Destination: 11 | Weight:  711]
+T: 259 > Delivered(  53) [Mail Item:: ID:    126 | Arrival:   48 | Destination: 11 | Weight:  931]
+T: 259 >   R0(0) changed from DELIVERING to RETURNING
+T: 259 > Delivered(  54) [Mail Item:: ID:    158 | Arrival:   65 | Destination: 11 | Weight:  257]
+T: 259 >   R1(0) changed from DELIVERING to RETURNING
+T: 259 > Delivered(  55) [Mail Item:: ID:     54 | Arrival:   73 | Destination: 11 | Weight:  711]
+T: 259 >   R2(0) changed from DELIVERING to RETURNING
+T: 270 >   R0(0) changed from RETURNING to WAITING
+T: 270 >   R1(0) changed from RETURNING to WAITING
+T: 270 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     19 | Arrival:  107 | Destination: 11 | Weight:  543####Mail Item:: ID:     84 | Arrival:  118 | Destination: 11 | Weight:  267####]
+    [Mail Item:: ID:    107 | Arrival:   20 | Destination: 10 | Weight:  928####Mail Item:: ID:    130 | Arrival:   21 | Destination: 10 | Weight: 1565####]
+    [Mail Item:: ID:     88 | Arrival:   41 | Destination: 10 | Weight: 1349####Mail Item:: ID:    132 | Arrival:   75 | Destination: 10 | Weight: 1190####]
+]
+T: 271 >   R0(1) changed from WAITING to DELIVERING
+T: 271 >   R0(1)-> [Mail Item:: ID:     19 | Arrival:  107 | Destination: 11 | Weight:  543]
+T: 271 >   R1(1) changed from WAITING to DELIVERING
+T: 271 >   R1(1)-> [Mail Item:: ID:    107 | Arrival:   20 | Destination: 10 | Weight:  928]
+T: 271 >   R2(1) changed from WAITING to DELIVERING
+T: 271 >   R2(1)-> [Mail Item:: ID:     88 | Arrival:   41 | Destination: 10 | Weight: 1349]
+T: 281 > Delivered(  56) [Mail Item:: ID:    107 | Arrival:   20 | Destination: 10 | Weight:  928]
+T: 281 >   R1(0)-> [Mail Item:: ID:    130 | Arrival:   21 | Destination: 10 | Weight: 1565]
+T: 281 > Delivered(  57) [Mail Item:: ID:     88 | Arrival:   41 | Destination: 10 | Weight: 1349]
+T: 281 >   R2(0)-> [Mail Item:: ID:    132 | Arrival:   75 | Destination: 10 | Weight: 1190]
+T: 282 > Delivered(  58) [Mail Item:: ID:     19 | Arrival:  107 | Destination: 11 | Weight:  543]
+T: 282 >   R0(0)-> [Mail Item:: ID:     84 | Arrival:  118 | Destination: 11 | Weight:  267]
+T: 282 > Delivered(  59) [Mail Item:: ID:    130 | Arrival:   21 | Destination: 10 | Weight: 1565]
+T: 282 >   R1(0) changed from DELIVERING to RETURNING
+T: 282 > Delivered(  60) [Mail Item:: ID:    132 | Arrival:   75 | Destination: 10 | Weight: 1190]
+T: 282 >   R2(0) changed from DELIVERING to RETURNING
+T: 283 > Delivered(  61) [Mail Item:: ID:     84 | Arrival:  118 | Destination: 11 | Weight:  267]
+T: 283 >   R0(0) changed from DELIVERING to RETURNING
+T: 292 >   R1(0) changed from RETURNING to WAITING
+T: 292 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    136 | Arrival:   92 | Destination: 10 | Weight:  842####Mail Item:: ID:     17 | Arrival:   96 | Destination: 10 | Weight:  373####]
+    [Mail Item:: ID:     28 | Arrival:  115 | Destination: 10 | Weight:  400####Mail Item:: ID:    155 | Arrival:  119 | Destination: 10 | Weight:  297####]
+]
+T: 293 >   R1(1) changed from WAITING to DELIVERING
+T: 293 >   R1(1)-> [Mail Item:: ID:    136 | Arrival:   92 | Destination: 10 | Weight:  842]
+T: 293 >   R2(1) changed from WAITING to DELIVERING
+T: 293 >   R2(1)-> [Mail Item:: ID:     28 | Arrival:  115 | Destination: 10 | Weight:  400]
+T: 294 >   R0(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     13 | Arrival:    7 | Destination:  9 | Weight:  388####Mail Item:: ID:     41 | Arrival:   60 | Destination:  9 | Weight:  953####]
+]
+T: 295 >   R0(1) changed from WAITING to DELIVERING
+T: 295 >   R0(1)-> [Mail Item:: ID:     13 | Arrival:    7 | Destination:  9 | Weight:  388]
+T: 303 > Delivered(  62) [Mail Item:: ID:    136 | Arrival:   92 | Destination: 10 | Weight:  842]
+T: 303 >   R1(0)-> [Mail Item:: ID:     17 | Arrival:   96 | Destination: 10 | Weight:  373]
+T: 303 > Delivered(  63) [Mail Item:: ID:     28 | Arrival:  115 | Destination: 10 | Weight:  400]
+T: 303 >   R2(0)-> [Mail Item:: ID:    155 | Arrival:  119 | Destination: 10 | Weight:  297]
+T: 304 > Delivered(  64) [Mail Item:: ID:     13 | Arrival:    7 | Destination:  9 | Weight:  388]
+T: 304 >   R0(0)-> [Mail Item:: ID:     41 | Arrival:   60 | Destination:  9 | Weight:  953]
+T: 304 > Delivered(  65) [Mail Item:: ID:     17 | Arrival:   96 | Destination: 10 | Weight:  373]
+T: 304 >   R1(0) changed from DELIVERING to RETURNING
+T: 304 > Delivered(  66) [Mail Item:: ID:    155 | Arrival:  119 | Destination: 10 | Weight:  297]
+T: 304 >   R2(0) changed from DELIVERING to RETURNING
+T: 305 > Delivered(  67) [Mail Item:: ID:     41 | Arrival:   60 | Destination:  9 | Weight:  953]
+T: 305 >   R0(0) changed from DELIVERING to RETURNING
+T: 314 >   R0(0) changed from RETURNING to WAITING
+T: 314 >   R1(0) changed from RETURNING to WAITING
+T: 314 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     94 | Arrival:   61 | Destination:  9 | Weight:  843####Mail Item:: ID:    154 | Arrival:   92 | Destination:  9 | Weight:  900####]
+    [Mail Item:: ID:    113 | Arrival:   94 | Destination:  9 | Weight: 1619####Mail Item:: ID:     79 | Arrival:   97 | Destination:  9 | Weight:  864####]
+    [Mail Item:: ID:     51 | Arrival:  107 | Destination:  9 | Weight:  758####Mail Item:: ID:     31 | Arrival:  109 | Destination:  9 | Weight:  419####]
+]
+T: 315 >   R0(1) changed from WAITING to DELIVERING
+T: 315 >   R0(1)-> [Mail Item:: ID:     94 | Arrival:   61 | Destination:  9 | Weight:  843]
+T: 315 >   R1(1) changed from WAITING to DELIVERING
+T: 315 >   R1(1)-> [Mail Item:: ID:    113 | Arrival:   94 | Destination:  9 | Weight: 1619]
+T: 315 >   R2(1) changed from WAITING to DELIVERING
+T: 315 >   R2(1)-> [Mail Item:: ID:     51 | Arrival:  107 | Destination:  9 | Weight:  758]
+T: 324 > Delivered(  68) [Mail Item:: ID:     94 | Arrival:   61 | Destination:  9 | Weight:  843]
+T: 324 >   R0(0)-> [Mail Item:: ID:    154 | Arrival:   92 | Destination:  9 | Weight:  900]
+T: 324 > Delivered(  69) [Mail Item:: ID:    113 | Arrival:   94 | Destination:  9 | Weight: 1619]
+T: 324 >   R1(0)-> [Mail Item:: ID:     79 | Arrival:   97 | Destination:  9 | Weight:  864]
+T: 324 > Delivered(  70) [Mail Item:: ID:     51 | Arrival:  107 | Destination:  9 | Weight:  758]
+T: 324 >   R2(0)-> [Mail Item:: ID:     31 | Arrival:  109 | Destination:  9 | Weight:  419]
+T: 325 > Delivered(  71) [Mail Item:: ID:    154 | Arrival:   92 | Destination:  9 | Weight:  900]
+T: 325 >   R0(0) changed from DELIVERING to RETURNING
+T: 325 > Delivered(  72) [Mail Item:: ID:     79 | Arrival:   97 | Destination:  9 | Weight:  864]
+T: 325 >   R1(0) changed from DELIVERING to RETURNING
+T: 325 > Delivered(  73) [Mail Item:: ID:     31 | Arrival:  109 | Destination:  9 | Weight:  419]
+T: 325 >   R2(0) changed from DELIVERING to RETURNING
+T: 334 >   R0(0) changed from RETURNING to WAITING
+T: 334 >   R1(0) changed from RETURNING to WAITING
+T: 334 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    156 | Arrival:  119 | Destination:  9 | Weight:  277####Mail Item:: ID:     56 | Arrival:   15 | Destination:  8 | Weight: 1276####]
+    [Mail Item:: ID:    116 | Arrival:   17 | Destination:  8 | Weight: 1417####Mail Item:: ID:     76 | Arrival:   30 | Destination:  8 | Weight:  550####]
+    [Mail Item:: ID:    151 | Arrival:   33 | Destination:  8 | Weight:  719########]
+]
+T: 335 >   R0(1) changed from WAITING to DELIVERING
+T: 335 >   R0(1)-> [Mail Item:: ID:    156 | Arrival:  119 | Destination:  9 | Weight:  277]
+T: 335 >   R1(1) changed from WAITING to DELIVERING
+T: 335 >   R1(1)-> [Mail Item:: ID:    116 | Arrival:   17 | Destination:  8 | Weight: 1417]
+T: 335 >   R2(0) changed from WAITING to DELIVERING
+T: 335 >   R2(0)-> [Mail Item:: ID:    151 | Arrival:   33 | Destination:  8 | Weight:  719]
+T: 343 > Delivered(  74) [Mail Item:: ID:    116 | Arrival:   17 | Destination:  8 | Weight: 1417]
+T: 343 >   R1(0)-> [Mail Item:: ID:     76 | Arrival:   30 | Destination:  8 | Weight:  550]
+T: 343 > Delivered(  75) [Mail Item:: ID:    151 | Arrival:   33 | Destination:  8 | Weight:  719]
+T: 343 >   R2(0) changed from DELIVERING to RETURNING
+T: 344 > Delivered(  76) [Mail Item:: ID:    156 | Arrival:  119 | Destination:  9 | Weight:  277]
+T: 344 >   R0(0)-> [Mail Item:: ID:     56 | Arrival:   15 | Destination:  8 | Weight: 1276]
+T: 344 > Delivered(  77) [Mail Item:: ID:     76 | Arrival:   30 | Destination:  8 | Weight:  550]
+T: 344 >   R1(0) changed from DELIVERING to RETURNING
+T: 346 > Delivered(  78) [Mail Item:: ID:     56 | Arrival:   15 | Destination:  8 | Weight: 1276]
+T: 346 >   R0(0) changed from DELIVERING to RETURNING
+T: 351 >   R2(0) changed from RETURNING to WAITING
+T: 352 >   R1(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    105 | Arrival:   45 | Destination:  8 | Weight: 2201####Mail Item:: ID:     55 | Arrival:   65 | Destination:  8 | Weight:  280####]
+    [Mail Item:: ID:    105 | Arrival:   45 | Destination:  8 | Weight: 2201####Mail Item:: ID:    112 | Arrival:   73 | Destination:  8 | Weight:  472####]
+]
+T: 353 >   R1(1) changed from WAITING to DELIVERING
+T: 353 >   R1(1)-> [Mail Item:: ID:    105 | Arrival:   45 | Destination:  8 | Weight: 2201]
+T: 353 >   R2(1) changed from WAITING to DELIVERING
+T: 353 >   R2(1)-> [Mail Item:: ID:    105 | Arrival:   45 | Destination:  8 | Weight: 2201]
+T: 354 >   R0(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     87 | Arrival:   88 | Destination:  8 | Weight:  460####Mail Item:: ID:    115 | Arrival:  110 | Destination:  8 | Weight:  375####]
+]
+T: 355 >   R0(1) changed from WAITING to DELIVERING
+T: 355 >   R0(1)-> [Mail Item:: ID:     87 | Arrival:   88 | Destination:  8 | Weight:  460]
+T: 361 >   R1(0)-> [Mail Item:: ID:    112 | Arrival:   73 | Destination:  8 | Weight:  472]
+T: 361 > Delivered(  79) [Mail Item:: ID:    105 | Arrival:   45 | Destination:  8 | Weight: 2201]
+T: 361 >   R2(0)-> [Mail Item:: ID:     55 | Arrival:   65 | Destination:  8 | Weight:  280]
+T: 362 > Delivered(  80) [Mail Item:: ID:    112 | Arrival:   73 | Destination:  8 | Weight:  472]
+T: 362 >   R1(0) changed from DELIVERING to RETURNING
+T: 362 > Delivered(  81) [Mail Item:: ID:     55 | Arrival:   65 | Destination:  8 | Weight:  280]
+T: 362 >   R2(0) changed from DELIVERING to RETURNING
+T: 363 > Delivered(  82) [Mail Item:: ID:     87 | Arrival:   88 | Destination:  8 | Weight:  460]
+T: 363 >   R0(0)-> [Mail Item:: ID:    115 | Arrival:  110 | Destination:  8 | Weight:  375]
+T: 364 > Delivered(  83) [Mail Item:: ID:    115 | Arrival:  110 | Destination:  8 | Weight:  375]
+T: 364 >   R0(0) changed from DELIVERING to RETURNING
+T: 370 >   R1(0) changed from RETURNING to WAITING
+T: 370 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    119 | Arrival:  114 | Destination:  8 | Weight:  581####Mail Item:: ID:     46 | Arrival:  120 | Destination:  8 | Weight:  852####]
+    [Mail Item:: ID:     68 | Arrival:    5 | Destination:  7 | Weight:  625####Mail Item:: ID:    114 | Arrival:    8 | Destination:  7 | Weight: 1399####]
+]
+T: 371 >   R1(1) changed from WAITING to DELIVERING
+T: 371 >   R1(1)-> [Mail Item:: ID:    119 | Arrival:  114 | Destination:  8 | Weight:  581]
+T: 371 >   R2(1) changed from WAITING to DELIVERING
+T: 371 >   R2(1)-> [Mail Item:: ID:     68 | Arrival:    5 | Destination:  7 | Weight:  625]
+T: 372 >   R0(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     45 | Arrival:   19 | Destination:  7 | Weight: 1896####Mail Item:: ID:     70 | Arrival:   42 | Destination:  7 | Weight: 1533####]
+]
+T: 373 >   R0(1) changed from WAITING to DELIVERING
+T: 373 >   R0(1)-> [Mail Item:: ID:     45 | Arrival:   19 | Destination:  7 | Weight: 1896]
+T: 378 > Delivered(  84) [Mail Item:: ID:     68 | Arrival:    5 | Destination:  7 | Weight:  625]
+T: 378 >   R2(0)-> [Mail Item:: ID:    114 | Arrival:    8 | Destination:  7 | Weight: 1399]
+T: 379 > Delivered(  85) [Mail Item:: ID:    119 | Arrival:  114 | Destination:  8 | Weight:  581]
+T: 379 >   R1(0)-> [Mail Item:: ID:     46 | Arrival:  120 | Destination:  8 | Weight:  852]
+T: 379 > Delivered(  86) [Mail Item:: ID:    114 | Arrival:    8 | Destination:  7 | Weight: 1399]
+T: 379 >   R2(0) changed from DELIVERING to RETURNING
+T: 380 > Delivered(  87) [Mail Item:: ID:     45 | Arrival:   19 | Destination:  7 | Weight: 1896]
+T: 380 >   R0(0)-> [Mail Item:: ID:     70 | Arrival:   42 | Destination:  7 | Weight: 1533]
+T: 380 > Delivered(  88) [Mail Item:: ID:     46 | Arrival:  120 | Destination:  8 | Weight:  852]
+T: 380 >   R1(0) changed from DELIVERING to RETURNING
+T: 381 > Delivered(  89) [Mail Item:: ID:     70 | Arrival:   42 | Destination:  7 | Weight: 1533]
+T: 381 >   R0(0) changed from DELIVERING to RETURNING
+T: 386 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     34 | Arrival:   58 | Destination:  7 | Weight: 1606####Mail Item:: ID:    103 | Arrival:   58 | Destination:  7 | Weight:  309####]
+]
+T: 387 >   R2(1) changed from WAITING to DELIVERING
+T: 387 >   R2(1)-> [Mail Item:: ID:     34 | Arrival:   58 | Destination:  7 | Weight: 1606]
+T: 388 >   R0(0) changed from RETURNING to WAITING
+T: 388 >   R1(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     42 | Arrival:   65 | Destination:  7 | Weight: 2040####Mail Item:: ID:     24 | Arrival:   63 | Destination:  7 | Weight: 1079####]
+    [Mail Item:: ID:     42 | Arrival:   65 | Destination:  7 | Weight: 2040####Mail Item:: ID:     37 | Arrival:   82 | Destination:  7 | Weight: 1669####]
+]
+T: 389 >   R0(1) changed from WAITING to DELIVERING
+T: 389 >   R0(1)-> [Mail Item:: ID:     42 | Arrival:   65 | Destination:  7 | Weight: 2040]
+T: 389 >   R1(1) changed from WAITING to DELIVERING
+T: 389 >   R1(1)-> [Mail Item:: ID:     42 | Arrival:   65 | Destination:  7 | Weight: 2040]
+T: 394 > Delivered(  90) [Mail Item:: ID:     34 | Arrival:   58 | Destination:  7 | Weight: 1606]
+T: 394 >   R2(0)-> [Mail Item:: ID:    103 | Arrival:   58 | Destination:  7 | Weight:  309]
+T: 395 > Delivered(  91) [Mail Item:: ID:    103 | Arrival:   58 | Destination:  7 | Weight:  309]
+T: 395 >   R2(0) changed from DELIVERING to RETURNING
+T: 396 > Delivered(  92) [Mail Item:: ID:     42 | Arrival:   65 | Destination:  7 | Weight: 2040]
+T: 396 >   R0(0)-> [Mail Item:: ID:     24 | Arrival:   63 | Destination:  7 | Weight: 1079]
+T: 396 >   R1(0)-> [Mail Item:: ID:     37 | Arrival:   82 | Destination:  7 | Weight: 1669]
+T: 397 > Delivered(  93) [Mail Item:: ID:     24 | Arrival:   63 | Destination:  7 | Weight: 1079]
+T: 397 >   R0(0) changed from DELIVERING to RETURNING
+T: 397 > Delivered(  94) [Mail Item:: ID:     37 | Arrival:   82 | Destination:  7 | Weight: 1669]
+T: 397 >   R1(0) changed from DELIVERING to RETURNING
+T: 402 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    134 | Arrival:   82 | Destination:  7 | Weight: 1874####Mail Item:: ID:    129 | Arrival:   85 | Destination:  7 | Weight:  290####]
+]
+T: 403 >   R2(1) changed from WAITING to DELIVERING
+T: 403 >   R2(1)-> [Mail Item:: ID:    134 | Arrival:   82 | Destination:  7 | Weight: 1874]
+T: 404 >   R0(0) changed from RETURNING to WAITING
+T: 404 >   R1(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     98 | Arrival:   95 | Destination:  7 | Weight:  216####Mail Item:: ID:     93 | Arrival:   99 | Destination:  7 | Weight: 1725####]
+    [Mail Item:: ID:    124 | Arrival:  102 | Destination:  7 | Weight: 1654####Mail Item:: ID:     83 | Arrival:  112 | Destination:  7 | Weight: 1110####]
+]
+T: 405 >   R0(1) changed from WAITING to DELIVERING
+T: 405 >   R0(1)-> [Mail Item:: ID:     98 | Arrival:   95 | Destination:  7 | Weight:  216]
+T: 405 >   R1(1) changed from WAITING to DELIVERING
+T: 405 >   R1(1)-> [Mail Item:: ID:    124 | Arrival:  102 | Destination:  7 | Weight: 1654]
+T: 410 > Delivered(  95) [Mail Item:: ID:    134 | Arrival:   82 | Destination:  7 | Weight: 1874]
+T: 410 >   R2(0)-> [Mail Item:: ID:    129 | Arrival:   85 | Destination:  7 | Weight:  290]
+T: 411 > Delivered(  96) [Mail Item:: ID:    129 | Arrival:   85 | Destination:  7 | Weight:  290]
+T: 411 >   R2(0) changed from DELIVERING to RETURNING
+T: 412 > Delivered(  97) [Mail Item:: ID:     98 | Arrival:   95 | Destination:  7 | Weight:  216]
+T: 412 >   R0(0)-> [Mail Item:: ID:     93 | Arrival:   99 | Destination:  7 | Weight: 1725]
+T: 412 > Delivered(  98) [Mail Item:: ID:    124 | Arrival:  102 | Destination:  7 | Weight: 1654]
+T: 412 >   R1(0)-> [Mail Item:: ID:     83 | Arrival:  112 | Destination:  7 | Weight: 1110]
+T: 413 > Delivered(  99) [Mail Item:: ID:     93 | Arrival:   99 | Destination:  7 | Weight: 1725]
+T: 413 >   R0(0) changed from DELIVERING to RETURNING
+T: 413 > Delivered( 100) [Mail Item:: ID:     83 | Arrival:  112 | Destination:  7 | Weight: 1110]
+T: 413 >   R1(0) changed from DELIVERING to RETURNING
+T: 418 >   R2(0) changed from RETURNING to WAITING
+T: 420 >   R0(0) changed from RETURNING to WAITING
+T: 420 >   R1(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    150 | Arrival:  112 | Destination:  7 | Weight: 2030####Mail Item:: ID:    137 | Arrival:  117 | Destination:  7 | Weight:  756####]
+    [Mail Item:: ID:    150 | Arrival:  112 | Destination:  7 | Weight: 2030####Mail Item:: ID:     97 | Arrival:  118 | Destination:  7 | Weight: 1951####]
+    [Mail Item:: ID:     62 | Arrival:  120 | Destination:  7 | Weight:  772########]
+]
+T: 421 >   R0(1) changed from WAITING to DELIVERING
+T: 421 >   R0(1)-> [Mail Item:: ID:    150 | Arrival:  112 | Destination:  7 | Weight: 2030]
+T: 421 >   R1(0) changed from WAITING to DELIVERING
+T: 421 >   R1(0)-> [Mail Item:: ID:     62 | Arrival:  120 | Destination:  7 | Weight:  772]
+T: 421 >   R2(1) changed from WAITING to DELIVERING
+T: 421 >   R2(1)-> [Mail Item:: ID:    150 | Arrival:  112 | Destination:  7 | Weight: 2030]
+T: 428 >   R0(0)-> [Mail Item:: ID:     97 | Arrival:  118 | Destination:  7 | Weight: 1951]
+T: 428 > Delivered( 101) [Mail Item:: ID:     62 | Arrival:  120 | Destination:  7 | Weight:  772]
+T: 428 >   R1(0) changed from DELIVERING to RETURNING
+T: 428 > Delivered( 102) [Mail Item:: ID:    150 | Arrival:  112 | Destination:  7 | Weight: 2030]
+T: 428 >   R2(0)-> [Mail Item:: ID:    137 | Arrival:  117 | Destination:  7 | Weight:  756]
+T: 429 > Delivered( 103) [Mail Item:: ID:     97 | Arrival:  118 | Destination:  7 | Weight: 1951]
+T: 429 >   R0(0) changed from DELIVERING to RETURNING
+T: 429 > Delivered( 104) [Mail Item:: ID:    137 | Arrival:  117 | Destination:  7 | Weight:  756]
+T: 429 >   R2(0) changed from DELIVERING to RETURNING
+T: 435 >   R1(0) changed from RETURNING to WAITING
+T: 436 >   R0(0) changed from RETURNING to WAITING
+T: 436 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    145 | Arrival:    5 | Destination:  6 | Weight: 2203########]
+    [Mail Item:: ID:    145 | Arrival:    5 | Destination:  6 | Weight: 2203########]
+]
+T: 437 >   R0(0) changed from WAITING to DELIVERING
+T: 437 >   R0(0)-> [Mail Item:: ID:    145 | Arrival:    5 | Destination:  6 | Weight: 2203]
+T: 437 >   R1(0) changed from WAITING to DELIVERING
+T: 437 >   R1(0)-> [Mail Item:: ID:    145 | Arrival:    5 | Destination:  6 | Weight: 2203]
+T: 443 >   R0(0) changed from DELIVERING to RETURNING
+T: 443 > Delivered( 105) [Mail Item:: ID:    145 | Arrival:    5 | Destination:  6 | Weight: 2203]
+T: 443 >   R1(0) changed from DELIVERING to RETURNING
+T: 449 >   R0(0) changed from RETURNING to WAITING
+T: 449 >   R1(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    109 | Arrival:   12 | Destination:  6 | Weight: 2382####Mail Item:: ID:     90 | Arrival:   50 | Destination:  6 | Weight:  332####]
+    [Mail Item:: ID:    109 | Arrival:   12 | Destination:  6 | Weight: 2382####Mail Item:: ID:      1 | Arrival:   71 | Destination:  6 | Weight:  761####]
+    [Mail Item:: ID:     14 | Arrival:   80 | Destination:  6 | Weight:  682####Mail Item:: ID:    120 | Arrival:   83 | Destination:  6 | Weight:  757####]
+]
+T: 450 >   R0(1) changed from WAITING to DELIVERING
+T: 450 >   R0(1)-> [Mail Item:: ID:    109 | Arrival:   12 | Destination:  6 | Weight: 2382]
+T: 450 >   R1(1) changed from WAITING to DELIVERING
+T: 450 >   R1(1)-> [Mail Item:: ID:     14 | Arrival:   80 | Destination:  6 | Weight:  682]
+T: 450 >   R2(1) changed from WAITING to DELIVERING
+T: 450 >   R2(1)-> [Mail Item:: ID:    109 | Arrival:   12 | Destination:  6 | Weight: 2382]
+T: 456 >   R0(0)-> [Mail Item:: ID:      1 | Arrival:   71 | Destination:  6 | Weight:  761]
+T: 456 > Delivered( 106) [Mail Item:: ID:     14 | Arrival:   80 | Destination:  6 | Weight:  682]
+T: 456 >   R1(0)-> [Mail Item:: ID:    120 | Arrival:   83 | Destination:  6 | Weight:  757]
+T: 456 > Delivered( 107) [Mail Item:: ID:    109 | Arrival:   12 | Destination:  6 | Weight: 2382]
+T: 456 >   R2(0)-> [Mail Item:: ID:     90 | Arrival:   50 | Destination:  6 | Weight:  332]
+T: 457 > Delivered( 108) [Mail Item:: ID:      1 | Arrival:   71 | Destination:  6 | Weight:  761]
+T: 457 >   R0(0) changed from DELIVERING to RETURNING
+T: 457 > Delivered( 109) [Mail Item:: ID:    120 | Arrival:   83 | Destination:  6 | Weight:  757]
+T: 457 >   R1(0) changed from DELIVERING to RETURNING
+T: 457 > Delivered( 110) [Mail Item:: ID:     90 | Arrival:   50 | Destination:  6 | Weight:  332]
+T: 457 >   R2(0) changed from DELIVERING to RETURNING
+T: 463 >   R0(0) changed from RETURNING to WAITING
+T: 463 >   R1(0) changed from RETURNING to WAITING
+T: 463 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    117 | Arrival:   96 | Destination:  6 | Weight: 1365####Mail Item:: ID:    148 | Arrival:   97 | Destination:  6 | Weight:  687####]
+    [Mail Item:: ID:    139 | Arrival:  119 | Destination:  6 | Weight: 1460####Mail Item:: ID:    128 | Arrival:   20 | Destination:  5 | Weight: 1074####]
+    [Mail Item:: ID:    138 | Arrival:   21 | Destination:  5 | Weight:  583####Mail Item:: ID:    102 | Arrival:   56 | Destination:  5 | Weight:  363####]
+]
+T: 464 >   R0(1) changed from WAITING to DELIVERING
+T: 464 >   R0(1)-> [Mail Item:: ID:    117 | Arrival:   96 | Destination:  6 | Weight: 1365]
+T: 464 >   R1(1) changed from WAITING to DELIVERING
+T: 464 >   R1(1)-> [Mail Item:: ID:    139 | Arrival:  119 | Destination:  6 | Weight: 1460]
+T: 464 >   R2(1) changed from WAITING to DELIVERING
+T: 464 >   R2(1)-> [Mail Item:: ID:    138 | Arrival:   21 | Destination:  5 | Weight:  583]
+T: 469 > Delivered( 111) [Mail Item:: ID:    138 | Arrival:   21 | Destination:  5 | Weight:  583]
+T: 469 >   R2(0)-> [Mail Item:: ID:    102 | Arrival:   56 | Destination:  5 | Weight:  363]
+T: 470 > Delivered( 112) [Mail Item:: ID:    117 | Arrival:   96 | Destination:  6 | Weight: 1365]
+T: 470 >   R0(0)-> [Mail Item:: ID:    148 | Arrival:   97 | Destination:  6 | Weight:  687]
+T: 470 > Delivered( 113) [Mail Item:: ID:    139 | Arrival:  119 | Destination:  6 | Weight: 1460]
+T: 470 >   R1(0)-> [Mail Item:: ID:    128 | Arrival:   20 | Destination:  5 | Weight: 1074]
+T: 470 > Delivered( 114) [Mail Item:: ID:    102 | Arrival:   56 | Destination:  5 | Weight:  363]
+T: 470 >   R2(0) changed from DELIVERING to RETURNING
+T: 471 > Delivered( 115) [Mail Item:: ID:    148 | Arrival:   97 | Destination:  6 | Weight:  687]
+T: 471 >   R0(0) changed from DELIVERING to RETURNING
+T: 472 > Delivered( 116) [Mail Item:: ID:    128 | Arrival:   20 | Destination:  5 | Weight: 1074]
+T: 472 >   R1(0) changed from DELIVERING to RETURNING
+T: 475 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    110 | Arrival:   83 | Destination:  5 | Weight:  576####Mail Item:: ID:    159 | Arrival:   86 | Destination:  5 | Weight:  208####]
+]
+T: 476 >   R2(1) changed from WAITING to DELIVERING
+T: 476 >   R2(1)-> [Mail Item:: ID:    110 | Arrival:   83 | Destination:  5 | Weight:  576]
+T: 477 >   R0(0) changed from RETURNING to WAITING
+T: 477 >   R1(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     60 | Arrival:   95 | Destination:  5 | Weight: 1856####Mail Item:: ID:      4 | Arrival:   96 | Destination:  5 | Weight: 1720####]
+    [Mail Item:: ID:     95 | Arrival:  103 | Destination:  5 | Weight: 1227####Mail Item:: ID:     32 | Arrival:  105 | Destination:  5 | Weight:  612####]
+]
+T: 478 >   R0(1) changed from WAITING to DELIVERING
+T: 478 >   R0(1)-> [Mail Item:: ID:     60 | Arrival:   95 | Destination:  5 | Weight: 1856]
+T: 478 >   R1(1) changed from WAITING to DELIVERING
+T: 478 >   R1(1)-> [Mail Item:: ID:     95 | Arrival:  103 | Destination:  5 | Weight: 1227]
+T: 481 > Delivered( 117) [Mail Item:: ID:    110 | Arrival:   83 | Destination:  5 | Weight:  576]
+T: 481 >   R2(0)-> [Mail Item:: ID:    159 | Arrival:   86 | Destination:  5 | Weight:  208]
+T: 482 > Delivered( 118) [Mail Item:: ID:    159 | Arrival:   86 | Destination:  5 | Weight:  208]
+T: 482 >   R2(0) changed from DELIVERING to RETURNING
+T: 483 > Delivered( 119) [Mail Item:: ID:     60 | Arrival:   95 | Destination:  5 | Weight: 1856]
+T: 483 >   R0(0)-> [Mail Item:: ID:      4 | Arrival:   96 | Destination:  5 | Weight: 1720]
+T: 483 > Delivered( 120) [Mail Item:: ID:     95 | Arrival:  103 | Destination:  5 | Weight: 1227]
+T: 483 >   R1(0)-> [Mail Item:: ID:     32 | Arrival:  105 | Destination:  5 | Weight:  612]
+T: 484 > Delivered( 121) [Mail Item:: ID:      4 | Arrival:   96 | Destination:  5 | Weight: 1720]
+T: 484 >   R0(0) changed from DELIVERING to RETURNING
+T: 484 > Delivered( 122) [Mail Item:: ID:     32 | Arrival:  105 | Destination:  5 | Weight:  612]
+T: 484 >   R1(0) changed from DELIVERING to RETURNING
+T: 487 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     30 | Arrival:  108 | Destination:  5 | Weight:  234####Mail Item:: ID:     74 | Arrival:   12 | Destination:  4 | Weight:  910####]
+]
+T: 488 >   R2(1) changed from WAITING to DELIVERING
+T: 488 >   R2(1)-> [Mail Item:: ID:     30 | Arrival:  108 | Destination:  5 | Weight:  234]
+T: 489 >   R0(0) changed from RETURNING to WAITING
+T: 489 >   R1(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     22 | Arrival:   18 | Destination:  4 | Weight:  699####Mail Item:: ID:    140 | Arrival:   69 | Destination:  4 | Weight:  249####]
+    [Mail Item:: ID:     50 | Arrival:   88 | Destination:  4 | Weight:  385####Mail Item:: ID:    135 | Arrival:   92 | Destination:  4 | Weight:  385####]
+]
+T: 490 >   R0(1) changed from WAITING to DELIVERING
+T: 490 >   R0(1)-> [Mail Item:: ID:     22 | Arrival:   18 | Destination:  4 | Weight:  699]
+T: 490 >   R1(1) changed from WAITING to DELIVERING
+T: 490 >   R1(1)-> [Mail Item:: ID:     50 | Arrival:   88 | Destination:  4 | Weight:  385]
+T: 493 > Delivered( 123) [Mail Item:: ID:     30 | Arrival:  108 | Destination:  5 | Weight:  234]
+T: 493 >   R2(0)-> [Mail Item:: ID:     74 | Arrival:   12 | Destination:  4 | Weight:  910]
+T: 494 > Delivered( 124) [Mail Item:: ID:     22 | Arrival:   18 | Destination:  4 | Weight:  699]
+T: 494 >   R0(0)-> [Mail Item:: ID:    140 | Arrival:   69 | Destination:  4 | Weight:  249]
+T: 494 > Delivered( 125) [Mail Item:: ID:     50 | Arrival:   88 | Destination:  4 | Weight:  385]
+T: 494 >   R1(0)-> [Mail Item:: ID:    135 | Arrival:   92 | Destination:  4 | Weight:  385]
+T: 495 > Delivered( 126) [Mail Item:: ID:    140 | Arrival:   69 | Destination:  4 | Weight:  249]
+T: 495 >   R0(0) changed from DELIVERING to RETURNING
+T: 495 > Delivered( 127) [Mail Item:: ID:    135 | Arrival:   92 | Destination:  4 | Weight:  385]
+T: 495 >   R1(0) changed from DELIVERING to RETURNING
+T: 495 > Delivered( 128) [Mail Item:: ID:     74 | Arrival:   12 | Destination:  4 | Weight:  910]
+T: 495 >   R2(0) changed from DELIVERING to RETURNING
+T: 499 >   R0(0) changed from RETURNING to WAITING
+T: 499 >   R1(0) changed from RETURNING to WAITING
+T: 499 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     43 | Arrival:   16 | Destination:  3 | Weight: 2543####Mail Item:: ID:     64 | Arrival:   93 | Destination:  4 | Weight:  295####]
+    [Mail Item:: ID:     43 | Arrival:   16 | Destination:  3 | Weight: 2543####Mail Item:: ID:     21 | Arrival:    3 | Destination:  3 | Weight:  799####]
+    [Mail Item:: ID:     16 | Arrival:    6 | Destination:  3 | Weight: 1649####Mail Item:: ID:     96 | Arrival:   27 | Destination:  3 | Weight: 1397####]
+]
+T: 500 >   R0(1) changed from WAITING to DELIVERING
+T: 500 >   R0(1)-> [Mail Item:: ID:     43 | Arrival:   16 | Destination:  3 | Weight: 2543]
+T: 500 >   R1(1) changed from WAITING to DELIVERING
+T: 500 >   R1(1)-> [Mail Item:: ID:     43 | Arrival:   16 | Destination:  3 | Weight: 2543]
+T: 500 >   R2(1) changed from WAITING to DELIVERING
+T: 500 >   R2(1)-> [Mail Item:: ID:     16 | Arrival:    6 | Destination:  3 | Weight: 1649]
+T: 503 > Delivered( 129) [Mail Item:: ID:     43 | Arrival:   16 | Destination:  3 | Weight: 2543]
+T: 503 >   R0(0)-> [Mail Item:: ID:     64 | Arrival:   93 | Destination:  4 | Weight:  295]
+T: 503 >   R1(0)-> [Mail Item:: ID:     21 | Arrival:    3 | Destination:  3 | Weight:  799]
+T: 503 > Delivered( 130) [Mail Item:: ID:     16 | Arrival:    6 | Destination:  3 | Weight: 1649]
+T: 503 >   R2(0)-> [Mail Item:: ID:     96 | Arrival:   27 | Destination:  3 | Weight: 1397]
+T: 504 > Delivered( 131) [Mail Item:: ID:     21 | Arrival:    3 | Destination:  3 | Weight:  799]
+T: 504 >   R1(0) changed from DELIVERING to RETURNING
+T: 504 > Delivered( 132) [Mail Item:: ID:     96 | Arrival:   27 | Destination:  3 | Weight: 1397]
+T: 504 >   R2(0) changed from DELIVERING to RETURNING
+T: 505 > Delivered( 133) [Mail Item:: ID:     64 | Arrival:   93 | Destination:  4 | Weight:  295]
+T: 505 >   R0(0) changed from DELIVERING to RETURNING
+T: 507 >   R1(0) changed from RETURNING to WAITING
+T: 507 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     25 | Arrival:   41 | Destination:  3 | Weight: 1479####Mail Item:: ID:     86 | Arrival:   49 | Destination:  3 | Weight:  460####]
+    [Mail Item:: ID:     52 | Arrival:   57 | Destination:  3 | Weight:  343####Mail Item:: ID:     53 | Arrival:   68 | Destination:  3 | Weight: 1775####]
+]
+T: 508 >   R1(1) changed from WAITING to DELIVERING
+T: 508 >   R1(1)-> [Mail Item:: ID:     25 | Arrival:   41 | Destination:  3 | Weight: 1479]
+T: 508 >   R2(1) changed from WAITING to DELIVERING
+T: 508 >   R2(1)-> [Mail Item:: ID:     52 | Arrival:   57 | Destination:  3 | Weight:  343]
+T: 509 >   R0(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     29 | Arrival:   83 | Destination:  3 | Weight:  447####Mail Item:: ID:     78 | Arrival:   92 | Destination:  3 | Weight: 1096####]
+]
+T: 510 >   R0(1) changed from WAITING to DELIVERING
+T: 510 >   R0(1)-> [Mail Item:: ID:     29 | Arrival:   83 | Destination:  3 | Weight:  447]
+T: 511 > Delivered( 134) [Mail Item:: ID:     25 | Arrival:   41 | Destination:  3 | Weight: 1479]
+T: 511 >   R1(0)-> [Mail Item:: ID:     86 | Arrival:   49 | Destination:  3 | Weight:  460]
+T: 511 > Delivered( 135) [Mail Item:: ID:     52 | Arrival:   57 | Destination:  3 | Weight:  343]
+T: 511 >   R2(0)-> [Mail Item:: ID:     53 | Arrival:   68 | Destination:  3 | Weight: 1775]
+T: 512 > Delivered( 136) [Mail Item:: ID:     86 | Arrival:   49 | Destination:  3 | Weight:  460]
+T: 512 >   R1(0) changed from DELIVERING to RETURNING
+T: 512 > Delivered( 137) [Mail Item:: ID:     53 | Arrival:   68 | Destination:  3 | Weight: 1775]
+T: 512 >   R2(0) changed from DELIVERING to RETURNING
+T: 513 > Delivered( 138) [Mail Item:: ID:     29 | Arrival:   83 | Destination:  3 | Weight:  447]
+T: 513 >   R0(0)-> [Mail Item:: ID:     78 | Arrival:   92 | Destination:  3 | Weight: 1096]
+T: 514 > Delivered( 139) [Mail Item:: ID:     78 | Arrival:   92 | Destination:  3 | Weight: 1096]
+T: 514 >   R0(0) changed from DELIVERING to RETURNING
+T: 515 >   R1(0) changed from RETURNING to WAITING
+T: 515 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     18 | Arrival:  108 | Destination:  3 | Weight:  672####Mail Item:: ID:    153 | Arrival:  112 | Destination:  3 | Weight: 1052####]
+    [Mail Item:: ID:     11 | Arrival:  117 | Destination:  3 | Weight: 1187####Mail Item:: ID:    108 | Arrival:  118 | Destination:  3 | Weight:  580####]
+]
+T: 516 >   R1(1) changed from WAITING to DELIVERING
+T: 516 >   R1(1)-> [Mail Item:: ID:     18 | Arrival:  108 | Destination:  3 | Weight:  672]
+T: 516 >   R2(1) changed from WAITING to DELIVERING
+T: 516 >   R2(1)-> [Mail Item:: ID:     11 | Arrival:  117 | Destination:  3 | Weight: 1187]
+T: 517 >   R0(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     12 | Arrival:    6 | Destination:  2 | Weight:  448####Mail Item:: ID:     49 | Arrival:   66 | Destination:  2 | Weight: 1297####]
+]
+T: 518 >   R0(1) changed from WAITING to DELIVERING
+T: 518 >   R0(1)-> [Mail Item:: ID:     12 | Arrival:    6 | Destination:  2 | Weight:  448]
+T: 519 > Delivered( 140) [Mail Item:: ID:     18 | Arrival:  108 | Destination:  3 | Weight:  672]
+T: 519 >   R1(0)-> [Mail Item:: ID:    153 | Arrival:  112 | Destination:  3 | Weight: 1052]
+T: 519 > Delivered( 141) [Mail Item:: ID:     11 | Arrival:  117 | Destination:  3 | Weight: 1187]
+T: 519 >   R2(0)-> [Mail Item:: ID:    108 | Arrival:  118 | Destination:  3 | Weight:  580]
+T: 520 > Delivered( 142) [Mail Item:: ID:     12 | Arrival:    6 | Destination:  2 | Weight:  448]
+T: 520 >   R0(0)-> [Mail Item:: ID:     49 | Arrival:   66 | Destination:  2 | Weight: 1297]
+T: 520 > Delivered( 143) [Mail Item:: ID:    153 | Arrival:  112 | Destination:  3 | Weight: 1052]
+T: 520 >   R1(0) changed from DELIVERING to RETURNING
+T: 520 > Delivered( 144) [Mail Item:: ID:    108 | Arrival:  118 | Destination:  3 | Weight:  580]
+T: 520 >   R2(0) changed from DELIVERING to RETURNING
+T: 521 > Delivered( 145) [Mail Item:: ID:     49 | Arrival:   66 | Destination:  2 | Weight: 1297]
+T: 521 >   R0(0) changed from DELIVERING to RETURNING
+T: 523 >   R0(0) changed from RETURNING to WAITING
+T: 523 >   R1(0) changed from RETURNING to WAITING
+T: 523 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    100 | Arrival:   68 | Destination:  2 | Weight: 2156####Mail Item:: ID:    149 | Arrival:   76 | Destination:  2 | Weight:  793####]
+    [Mail Item:: ID:    100 | Arrival:   68 | Destination:  2 | Weight: 2156####Mail Item:: ID:     92 | Arrival:   85 | Destination:  2 | Weight:  263####]
+    [Mail Item:: ID:    123 | Arrival:   93 | Destination:  2 | Weight:  325####Mail Item:: ID:     38 | Arrival:  111 | Destination:  2 | Weight:  505####]
+]
+T: 524 >   R0(1) changed from WAITING to DELIVERING
+T: 524 >   R0(1)-> [Mail Item:: ID:    100 | Arrival:   68 | Destination:  2 | Weight: 2156]
+T: 524 >   R1(1) changed from WAITING to DELIVERING
+T: 524 >   R1(1)-> [Mail Item:: ID:    100 | Arrival:   68 | Destination:  2 | Weight: 2156]
+T: 524 >   R2(1) changed from WAITING to DELIVERING
+T: 524 >   R2(1)-> [Mail Item:: ID:    123 | Arrival:   93 | Destination:  2 | Weight:  325]
+T: 526 > Delivered( 146) [Mail Item:: ID:    100 | Arrival:   68 | Destination:  2 | Weight: 2156]
+T: 526 >   R0(0)-> [Mail Item:: ID:    149 | Arrival:   76 | Destination:  2 | Weight:  793]
+T: 526 >   R1(0)-> [Mail Item:: ID:     92 | Arrival:   85 | Destination:  2 | Weight:  263]
+T: 526 > Delivered( 147) [Mail Item:: ID:    123 | Arrival:   93 | Destination:  2 | Weight:  325]
+T: 526 >   R2(0)-> [Mail Item:: ID:     38 | Arrival:  111 | Destination:  2 | Weight:  505]
+T: 527 > Delivered( 148) [Mail Item:: ID:    149 | Arrival:   76 | Destination:  2 | Weight:  793]
+T: 527 >   R0(0) changed from DELIVERING to RETURNING
+T: 527 > Delivered( 149) [Mail Item:: ID:     92 | Arrival:   85 | Destination:  2 | Weight:  263]
+T: 527 >   R1(0) changed from DELIVERING to RETURNING
+T: 527 > Delivered( 150) [Mail Item:: ID:     38 | Arrival:  111 | Destination:  2 | Weight:  505]
+T: 527 >   R2(0) changed from DELIVERING to RETURNING
+T: 529 >   R0(0) changed from RETURNING to WAITING
+T: 529 >   R1(0) changed from RETURNING to WAITING
+T: 529 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:     33 | Arrival:   20 | Destination:  1 | Weight: 1471####Mail Item:: ID:      5 | Arrival:   23 | Destination:  1 | Weight:  826####]
+    [Mail Item:: ID:     58 | Arrival:   26 | Destination:  1 | Weight: 1337####Mail Item:: ID:      2 | Arrival:   27 | Destination:  1 | Weight: 1316####]
+    [Mail Item:: ID:    125 | Arrival:   41 | Destination:  1 | Weight: 1047####Mail Item:: ID:    131 | Arrival:   44 | Destination:  1 | Weight: 1326####]
+]
+T: 530 >   R0(1) changed from WAITING to DELIVERING
+T: 530 >   R0(1)-> [Mail Item:: ID:     33 | Arrival:   20 | Destination:  1 | Weight: 1471]
+T: 530 >   R1(1) changed from WAITING to DELIVERING
+T: 530 >   R1(1)-> [Mail Item:: ID:     58 | Arrival:   26 | Destination:  1 | Weight: 1337]
+T: 530 >   R2(1) changed from WAITING to DELIVERING
+T: 530 >   R2(1)-> [Mail Item:: ID:    125 | Arrival:   41 | Destination:  1 | Weight: 1047]
+T: 531 > Delivered( 151) [Mail Item:: ID:     33 | Arrival:   20 | Destination:  1 | Weight: 1471]
+T: 531 >   R0(0)-> [Mail Item:: ID:      5 | Arrival:   23 | Destination:  1 | Weight:  826]
+T: 531 > Delivered( 152) [Mail Item:: ID:     58 | Arrival:   26 | Destination:  1 | Weight: 1337]
+T: 531 >   R1(0)-> [Mail Item:: ID:      2 | Arrival:   27 | Destination:  1 | Weight: 1316]
+T: 531 > Delivered( 153) [Mail Item:: ID:    125 | Arrival:   41 | Destination:  1 | Weight: 1047]
+T: 531 >   R2(0)-> [Mail Item:: ID:    131 | Arrival:   44 | Destination:  1 | Weight: 1326]
+T: 532 > Delivered( 154) [Mail Item:: ID:      5 | Arrival:   23 | Destination:  1 | Weight:  826]
+T: 532 >   R0(0) changed from DELIVERING to RETURNING
+T: 532 > Delivered( 155) [Mail Item:: ID:      2 | Arrival:   27 | Destination:  1 | Weight: 1316]
+T: 532 >   R1(0) changed from DELIVERING to RETURNING
+T: 532 > Delivered( 156) [Mail Item:: ID:    131 | Arrival:   44 | Destination:  1 | Weight: 1326]
+T: 532 >   R2(0) changed from DELIVERING to RETURNING
+T: 533 >   R0(0) changed from RETURNING to WAITING
+T: 533 >   R1(0) changed from RETURNING to WAITING
+T: 533 >   R2(0) changed from RETURNING to WAITING
+Loading Plan:
+[
+    [Mail Item:: ID:    101 | Arrival:   46 | Destination:  1 | Weight:  289####Mail Item:: ID:     73 | Arrival:   48 | Destination:  1 | Weight: 1188####]
+    [Mail Item:: ID:     15 | Arrival:   72 | Destination:  1 | Weight: 1308####Mail Item:: ID:     10 | Arrival:   93 | Destination:  1 | Weight: 1278####]
+    [Mail Item:: ID:    142 | Arrival:  117 | Destination:  1 | Weight: 1859########]
+]
+T: 534 >   R0(1) changed from WAITING to DELIVERING
+T: 534 >   R0(1)-> [Mail Item:: ID:    101 | Arrival:   46 | Destination:  1 | Weight:  289]
+T: 534 >   R1(1) changed from WAITING to DELIVERING
+T: 534 >   R1(1)-> [Mail Item:: ID:     15 | Arrival:   72 | Destination:  1 | Weight: 1308]
+T: 534 >   R2(0) changed from WAITING to DELIVERING
+T: 534 >   R2(0)-> [Mail Item:: ID:    142 | Arrival:  117 | Destination:  1 | Weight: 1859]
+T: 535 > Delivered( 157) [Mail Item:: ID:    101 | Arrival:   46 | Destination:  1 | Weight:  289]
+T: 535 >   R0(0)-> [Mail Item:: ID:     73 | Arrival:   48 | Destination:  1 | Weight: 1188]
+T: 535 > Delivered( 158) [Mail Item:: ID:     15 | Arrival:   72 | Destination:  1 | Weight: 1308]
+T: 535 >   R1(0)-> [Mail Item:: ID:     10 | Arrival:   93 | Destination:  1 | Weight: 1278]
+T: 535 > Delivered( 159) [Mail Item:: ID:    142 | Arrival:  117 | Destination:  1 | Weight: 1859]
+T: 535 >   R2(0) changed from DELIVERING to RETURNING
+T: 536 > Delivered( 160) [Mail Item:: ID:     73 | Arrival:   48 | Destination:  1 | Weight: 1188]
+T: 536 >   R0(0) changed from DELIVERING to RETURNING
+T: 536 > Delivered( 161) [Mail Item:: ID:     10 | Arrival:   93 | Destination:  1 | Weight: 1278]
+T: 536 >   R1(0) changed from DELIVERING to RETURNING
+T: 536 >   R2(0) changed from RETURNING to WAITING
+T: 537 | Simulation complete!
+Final Delivery time: 537
+Final Score: 145380.70
