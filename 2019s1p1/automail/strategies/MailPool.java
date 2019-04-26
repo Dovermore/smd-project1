@@ -75,7 +75,8 @@ public class MailPool implements IMailPool {
 	private ArrayList<Robot> robots;
 	private TaskGenerater taskGenerater;
 
-	public MailPool(int nrobots){
+	public MailPool(int nRobots) {
+	    assert (nRobots>0) && (nRobots<=3);
 		// Start empty
 		pool = new ArrayList<>();
 		robots = new ArrayList<>();
