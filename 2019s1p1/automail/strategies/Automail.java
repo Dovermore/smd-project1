@@ -17,7 +17,9 @@ public class Automail {
     	
     	/** Initialize robots */
     	setRobots(new Robot[numRobots]);
-    	for (int i = 0; i < numRobots; i++) robots[i] = new Robot(delivery, mailPool);
+    	for (int i = 0; i < numRobots; i++) {
+    	    robots[i] = new Robot(delivery, mailPool);
+        }
     }
 
     public Robot getRobot(int i) {

@@ -2,8 +2,6 @@ package automail;
 
 import exceptions.ExcessiveDeliveryException;
 import exceptions.ItemTooHeavyException;
-import exceptions.NotEnoughRobotException;
-import exceptions.UnsupportedTooMuchRobotException;
 import strategies.IMailPool;
 import strategies.Task;
 
@@ -29,7 +27,7 @@ public class Robot {
     
     private int deliveryCounter;
     
-    private Task currentTask;
+    private Task currentTask = null;
     /**
      * Initiates the robot's location at the start to be at the mailroom
      * also set it to be waiting for mail.
@@ -46,7 +44,10 @@ public class Robot {
         this.receivedDispatch = false;
         this.deliveryCounter = 0;
 
-        this.currentTask = null;
+        /* initial task for new robot is to return to mailroom */
+        if (this.currentTask == null) {
+            this.currentTask = new Task(this, Building.MAILROOM_LOCATION);
+        }
     }
     
     public void dispatch() {
@@ -69,7 +70,7 @@ public class Robot {
     		/** This state is triggered when the robot is returning to the mailroom after a delivery */
     		case RETURNING:
     			/** If its current position is at the mailroom, then the robot should change state */
-                if(current_floor == Building.MAILROOM_LOCATION) {
+                if(current_floor == this.currentTask.getDestinationFloor()) {
                 	if (tube != null) {
                 		mailPool.addToPool(tube);
                         System.out.printf("T: %3d > old addToPool [%s]%n", Clock.Time(), tube.toString());
@@ -82,8 +83,8 @@ public class Robot {
                 } else {
                 	/** If the robot is not at the mailroom floor yet, then move towards it! */
                     moveTowards(this.currentTask.getDestinationFloor());
-                	break;
                 }
+                break;
     		case WAITING:
                 /** If the StorageTube is ready and the Robot is waiting in the mailroom then start the delivery */
                 if(!isEmpty() && receivedDispatch){
@@ -210,7 +211,7 @@ public class Robot {
 	}
 
 	public void addToHand(MailItem mailItem)
-            throws ItemTooHeavyException, NotEnoughRobotException, UnsupportedTooMuchRobotException {
+            throws ItemTooHeavyException {
 		assert(deliveryItem == null);
 		assert this.currentTask != null;
 		assert this.currentTask.getNumRobot() > 0;
@@ -220,7 +221,7 @@ public class Robot {
 	}
 
 	public void addToTube(MailItem mailItem)
-            throws ItemTooHeavyException, NotEnoughRobotException, UnsupportedTooMuchRobotException {
+            throws ItemTooHeavyException {
 		assert(tube == null);
         assert this.currentTask != null;
         assert this.currentTask.getNumRobot() > 0;
@@ -233,9 +234,7 @@ public class Robot {
 
     public void clearTask() {this.currentTask = null;}
 
-    public void setCurrentTask(Task task) {
-        this.currentTask = task;
-    }
+    public void setCurrentTask(Task task) { this.currentTask = task; }
 
     public boolean isNoTask() {return this.currentTask == null;}
 }

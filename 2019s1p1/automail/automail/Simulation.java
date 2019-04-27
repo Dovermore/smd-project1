@@ -27,7 +27,8 @@ public class Simulation {
     private static ArrayList<MailItem> MAIL_DELIVERED;
     private static double total_score = 0;
 
-    public static void main(String[] args) throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public static void main(String[] args)
+			throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
         Properties automailProperties = new Properties();
 		// Default properties
     	automailProperties.setProperty("Robots", "Standard");
@@ -111,13 +112,11 @@ public class Simulation {
 				for (int i=0; i<robots; i++) {
 					automail.getRobot(i).step();
 				}
-			} catch (ExcessiveDeliveryException|ItemTooHeavyException e) {
+			} catch (ExcessiveDeliveryException|ItemTooHeavyException|UnsupportedTooHeavyMailItem e) {
 				e.printStackTrace();
 				System.out.println("Simulation unable to complete.");
 				System.exit(0);
-			} catch (UnsupportedTooHeavyMailItem unsupportedTooHeavyMailItem) {
-                unsupportedTooHeavyMailItem.printStackTrace();
-            }
+			}
             Clock.Tick();
         }
         printResults();

@@ -3,8 +3,6 @@ package strategies;
 import automail.MailItem;
 import automail.Robot;
 import exceptions.ItemTooHeavyException;
-import exceptions.NotEnoughRobotException;
-import exceptions.UnsupportedTooMuchRobotException;
 import exceptions.UnsupportedTooHeavyMailItem;
 
 import java.util.ArrayList;
@@ -47,7 +45,7 @@ public class TaskGenerater implements ITaskGenerater {
 //	}
 
     private int getNRobotForMailItem(MailItem mailItem)
-            throws NotEnoughRobotException, UnsupportedTooHeavyMailItem, UnsupportedTooMuchRobotException {
+            throws UnsupportedTooHeavyMailItem {
         for (int i = 1; i < 4; i++) {
             if (mailItem.getWeight() <= Task.getTeamWeight(i)) {
                 return i;
@@ -61,7 +59,7 @@ public class TaskGenerater implements ITaskGenerater {
 	private boolean hasPlaceForMailIItem(MailItem mailItem,
                                          MailItem loadedMailItems[][],
                                          int nRobots)
-            throws NotEnoughRobotException, UnsupportedTooMuchRobotException, UnsupportedTooHeavyMailItem {
+            throws UnsupportedTooHeavyMailItem {
 	    assert Task.getTeamWeight(nRobots) >= mailItem.getWeight();
 
         /* try load light item */
@@ -95,8 +93,7 @@ public class TaskGenerater implements ITaskGenerater {
         return false;
     }
 
-    private boolean hasHeavyItem(MailItem loadedMailItems[][], int nRobots)
-            throws NotEnoughRobotException, UnsupportedTooMuchRobotException {
+    private boolean hasHeavyItem(MailItem loadedMailItems[][], int nRobots) {
         for (int i = 0; i < nRobots; i++) {
             for (int j = 0; j < 2; j++) {
                 if ((loadedMailItems[i][j] != null) &&
@@ -111,7 +108,7 @@ public class TaskGenerater implements ITaskGenerater {
     private void loadMailItem(MailItem mailItem,
                               MailItem loadedMailItems[][],
                               int nRobots)
-            throws NotEnoughRobotException, UnsupportedTooMuchRobotException, UnsupportedTooHeavyMailItem {
+            throws UnsupportedTooHeavyMailItem {
         assert hasPlaceForMailIItem(mailItem, loadedMailItems, nRobots);
 
         /* load light item */
@@ -169,7 +166,7 @@ public class TaskGenerater implements ITaskGenerater {
     }
 
     private void singleRobotTask(Robot robot, MailItem[] loadedMailItems)
-            throws ItemTooHeavyException, UnsupportedTooMuchRobotException, NotEnoughRobotException {
+            throws ItemTooHeavyException {
         /* single robot task */
         Task task = new Task(robot, loadedMailItems[0].getDestinationFloor());
         /* give task to robot */
@@ -182,7 +179,7 @@ public class TaskGenerater implements ITaskGenerater {
     }
 
     private void teamRobotTask(ArrayList<Robot> teamRobots, int nTeamRobots, MailItem[]... loadedMailItems)
-            throws ItemTooHeavyException, UnsupportedTooMuchRobotException, NotEnoughRobotException {
+            throws ItemTooHeavyException {
         Task task = new Task(teamRobots, loadedMailItems[0][0].getDestinationFloor());
         /* give task to robot */
         for (Robot teamRobot: teamRobots) {
@@ -202,7 +199,7 @@ public class TaskGenerater implements ITaskGenerater {
 
 	public ArrayList<Robot> loadTaskToRobot(ArrayList<Robot> robots,
                                             ArrayList<MailItem> mailItems)
-            throws NotEnoughRobotException, UnsupportedTooMuchRobotException, ItemTooHeavyException, UnsupportedTooHeavyMailItem {
+            throws ItemTooHeavyException, UnsupportedTooHeavyMailItem {
         int nRobots = robots.size();
 
         /* no loading */
@@ -245,8 +242,8 @@ public class TaskGenerater implements ITaskGenerater {
 
 //        printLoadMailItemPlan(nRobotsUsed, loadedMailItems);
 
-        /* has loaded mail -> has task
-         * assign task and mail items to robots */
+        /* 1. loaded mail plan -> task
+         * 2. assign task and mail items to robots */
         if (nMailItemLoaded > 0) {
             switch (nRobotsUsed) {
                 case 1:
@@ -304,9 +301,6 @@ public class TaskGenerater implements ITaskGenerater {
             }
         }
 
-
-
-
         for (MailItem loadedMail:loadedMaiItem) {
             mailItems.remove(loadedMail);
         }
@@ -318,7 +312,8 @@ public class TaskGenerater implements ITaskGenerater {
 
     private void printLoadMailItemPlan(int nRobotsUsed, MailItem[][] loadedMailItems) {
         if (nRobotsUsed > 0) {
-            System.out.println("[");
+
+            System.out.println("Loading Plan:\n[");
             for (int i = 0; i < nRobotsUsed; i++) {
                 System.out.print("    [");
                 for (int j = 0; j < 2; j++) {

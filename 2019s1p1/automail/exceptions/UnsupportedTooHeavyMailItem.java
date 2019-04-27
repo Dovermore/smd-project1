@@ -9,6 +9,6 @@ package exceptions;
 
 public class UnsupportedTooHeavyMailItem extends Throwable    {
     public UnsupportedTooHeavyMailItem() {
-        super("Too heavy item for triple robot team!");
+        super("Too heavy item even for triple robot team!");
     }
 }

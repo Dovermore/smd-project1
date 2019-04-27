@@ -68,12 +68,9 @@ public class Task {
     public static final int PAIR_MAX_WEIGHT = 2600;
     public static final int TRIPLE_MAX_WEIGHT = 3000;
 
-    public static int getTeamWeight(int nRobots)
-            throws NotEnoughRobotException, UnsupportedTooMuchRobotException {
+    public static int getTeamWeight(int nRobots) {
 
-	    if (nRobots <= 0) {
-            throw new NotEnoughRobotException();
-        }
+		assert (nRobots>0) && (nRobots<=3);
 
 	    switch (nRobots) {
             case 1:
@@ -82,9 +79,9 @@ public class Task {
                 return PAIR_MAX_WEIGHT;
             case 3:
                 return TRIPLE_MAX_WEIGHT;
-            default:
-                throw new UnsupportedTooMuchRobotException();
         }
 
+        // for completeness
+        return 0;
     }
 }

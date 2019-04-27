@@ -101,20 +101,14 @@ public class MailPool implements IMailPool {
      */
 	@Override
 	public void step() throws ItemTooHeavyException, UnsupportedTooHeavyMailItem {
-		try{
-		    if ((robots.size() > 0) && (pool.size() > 0)) {
-                ArrayList<Robot> loadedRobots = this.taskGenerater.loadTaskToRobot(robots, pool);
-                for (Robot loadedRobot:loadedRobots) {
-                    robots.remove(loadedRobot);
-                    loadedRobot.dispatch();
-                }
-            }
-		} catch (UnsupportedTooMuchRobotException | NotEnoughRobotException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            throw e;
-        }
-    }
+		if ((robots.size() > 0) && (pool.size() > 0)) {
+			ArrayList<Robot> loadedRobots = this.taskGenerater.loadTaskToRobot(robots, pool);
+			for (Robot loadedRobot:loadedRobots) {
+				robots.remove(loadedRobot);
+				loadedRobot.dispatch();
+			}
+		}
+	}
 
 	/**
      * load items to robots in Waiting state
