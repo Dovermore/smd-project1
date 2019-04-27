@@ -15,3 +15,11 @@ Java source with top-level folder called “swen30006”).
 4. Static Design Model reflecting your new design and implementation (pdf or png).
 5. Dynamic Design Diagram reflecting your new design and implementation (pdf or png).
 
+# Static Domain Diagram
+![](diagram/StaticDomainDiagram.jpg)
+
+# Static Design Diagram
+![](diagram/StaticDesignDiagram.jpg)
+
+# Dynamic Design Diagram
+![](diagram/DynamicDesignDiagram.jpg)

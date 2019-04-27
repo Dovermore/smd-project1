@@ -156,7 +156,7 @@ fabric.properties
 
 **/.idea
 
-/diagram
+# /diagram
 
 **/*.iml
 
