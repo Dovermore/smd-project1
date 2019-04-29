@@ -29,6 +29,11 @@ public class LoadingRobotPlan {
         /* generate all empty-member team */
         /* how much waiting robots, at most how much team */
         for (int i = 0; i < nRobots; i++) {
+            /* no mail item to load */
+            if (unloadedMailItem.size() <= 0) {
+                break;
+            }
+
             /* TODO create team */
             RobotTeam team = RobotFactory.getInstance().createRobotTeam();
 
@@ -38,8 +43,6 @@ public class LoadingRobotPlan {
                 team.addUnloadedMailItem(tryToLoad);
                 unloadedMailItem.remove(tryToLoad);
             }
-
-            pseudoTeams.add(team);
         }
 
         /* register robot as much as possible; add complete team */
