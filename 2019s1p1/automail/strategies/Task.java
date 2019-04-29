@@ -2,8 +2,6 @@ package strategies;
 
 import java.util.*;
 import automail.*;
-import exceptions.NotEnoughRobotException;
-import exceptions.UnsupportedTooMuchRobotException;
 
 /**
  * Xulin Yang, 904904

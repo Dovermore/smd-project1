@@ -193,7 +193,6 @@ public class TaskGenerater implements ITaskGenerater {
             if (loadedMailItems[r][1] != null) {
                 teamRobots.get(r).addToTube(loadedMailItems[r][1]);
             }
-
         }
     }
 
