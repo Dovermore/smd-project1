@@ -12,13 +12,13 @@ public interface IRobot {
      * List the MailItems added to this IRobot.
      * @return ArrayList of MailItems contained by this IRobot.
      */
-    ArrayList<MailItem> listMailItems();
+    ArrayList<MailItem> getMailItems();
 
     /**
      * List the robots contained in this IRobot.
      * @return ArrayList of robots contained by this IRobot (1 if it's a robot)
      */
-    ArrayList<Robot> listRobots();
+    ArrayList<Robot> getRobots();
 
     /**
      * Checks if given mail item can be added to this IRobot. Takes in account of heavy items.
