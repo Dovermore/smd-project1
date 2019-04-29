@@ -1,5 +1,7 @@
 package automail;
-
+/**
+ * Clock class is used to represent the time
+ */
 public class Clock {
 	
 	/** Represents the current time **/
@@ -8,10 +10,16 @@ public class Clock {
     /** The threshold for the latest time for mail to arrive **/
     public static int LAST_DELIVERY_TIME;
 
+    /**
+     * Get the time of clock
+     */
     public static int Time() {
     	return Time;
     }
-    
+
+    /**
+     * Update the time of clock by 1.
+     */
     public static void Tick() {
     	Time++;
     }

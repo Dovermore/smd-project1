@@ -1,5 +1,9 @@
 package automail;
 
+/**
+ * Building class is used to represent the building that robots work in.
+ */
+
 public class Building {
     /** The number of floors in the building **/
     public static int FLOORS;
