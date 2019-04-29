@@ -25,6 +25,10 @@ public class LoadingRobotPlan {
         int nRobots = waitingRobots.size();
 
         /* TODO generate all empty-member team */
+        /* how much waiting robots, at most how much team */
+        for (int i = 0; i < nRobots; i++) {
+
+        }
 
         /* TODO register robot as much as possible; add complete team */
 

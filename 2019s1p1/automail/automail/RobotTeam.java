@@ -9,7 +9,19 @@ import java.util.ArrayList;
  * description:
  **/
 
-public class RobotTeam {
+public class RobotTeam implements IRobot {
+    private ArrayList<IRobot> robots;
+    private ArrayList<MailItem> unloadedMailItems;
+    private boolean hasHeavyMailItem;
+
+    public RobotTeam() {
+        robots = new ArrayList<>();
+        unloadedMailItems = new ArrayList<>();
+        hasHeavyMailItem = false;
+    }
+
+    public int getTeamSize() {return robots.size();}
+
     /* TODO */
     public ArrayList<Robot> getAllRobots() {return null;}
 
@@ -18,4 +30,16 @@ public class RobotTeam {
 
     /* TODO */
     public void dispatch() {}
+
+
+    public void addUnloadedMailIyem(MailItem mailItem) {
+        unloadedMailItems.add(mailItem);
+
+        /* TODO magic number */
+        if (mailItem.getWeight() > 2000) {
+            hasHeavyMailItem = true;
+        }
+    }
+
+    public boolean isHasHeavyMailItem() {return hasHeavyMailItem;}
 }

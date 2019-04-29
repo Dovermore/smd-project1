@@ -11,7 +11,7 @@ import java.util.TreeMap;
 /**
  * The robot delivers mail!
  */
-public class Robot {
+public class Robot implements IRobot {
     /** Possible states the robot can be in */
     public enum RobotState { DELIVERING, WAITING, RETURNING }
     private IMailDelivery delivery;
