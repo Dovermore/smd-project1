@@ -4,6 +4,7 @@ import automail.MailItem;
 import automail.Robot;
 import automail.RobotFactory;
 import automail.RobotTeam;
+import exceptions.InvalidAddItemException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +35,17 @@ public class LoadingRobotPlan {
                 break;
             }
 
-            /* TODO create team */
+            /* create team */
             RobotTeam pseudoTeam = RobotFactory.getInstance().createRobotTeam();
 
             /* load mail item to pseudo team */
             MailItem tryToLoad = unloadedMailItem.get(0);
-            while(pseudoTeam.hasMailItemSpace(tryToLoad)) {
-                pseudoTeam.addUnloadedMailItem(tryToLoad);
+            while(pseudoTeam.canAddMailItem(tryToLoad)) {
+                try {
+                    pseudoTeam.addMailItem(tryToLoad);
+                } catch (InvalidAddItemException e) {
+                    e.printStackTrace();
+                }
                 unloadedMailItem.remove(tryToLoad);
             }
 
@@ -56,7 +61,8 @@ public class LoadingRobotPlan {
             /* a complete team can dispatch */
             if (pseudoTeam.hasEnoughTeamMember()) {
                 teams.add(pseudoTeam);
-            /* incomplete team detected, not enough robots */
+            /* incomplete team detected, not enough robots,
+             * thus no possible complete team later */
             } else {
                 break;
             }

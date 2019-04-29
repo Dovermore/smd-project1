@@ -72,4 +72,20 @@ public class MailItem {
     public int getArrivalTime() {
         return arrivalTime;
     }
+
+    /* ************************ added methods ****************************** */
+    public int getNRequiredRobot() {
+        assert this.weight <= IRobot.TRIPLE_MAX_WEIGHT;
+
+        if (this.weight <= IRobot.INDIVIDUAL_MAX_WEIGHT) {
+            return 1;
+        } else if (this.weight <= IRobot.PAIR_MAX_WEIGHT) {
+            return 2;
+        } else if (this.weight <= IRobot.TRIPLE_MAX_WEIGHT) {
+            return 3;
+        }
+
+        /* for completeness */
+        return 0;
+    }
 }
