@@ -3,7 +3,6 @@ package automail;
 import exceptions.ExcessiveDeliveryException;
 import exceptions.ItemTooHeavyException;
 import strategies.IMailPool;
-import strategies.Task;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -26,8 +25,7 @@ public class Robot implements IRobot {
     private MailItem tube = null;
     
     private int deliveryCounter;
-    
-    private Task currentTask = null;
+
     /**
      * Initiates the robot's location at the start to be at the mailroom
      * also set it to be waiting for mail.
@@ -44,10 +42,6 @@ public class Robot implements IRobot {
         this.receivedDispatch = false;
         this.deliveryCounter = 0;
 
-        /* initial task for new robot is to return to mailroom */
-        if (this.currentTask == null) {
-            this.currentTask = new Task(this, Building.MAILROOM_LOCATION);
-        }
     }
     
     public void dispatch() {
@@ -70,7 +64,7 @@ public class Robot implements IRobot {
     		/** This state is triggered when the robot is returning to the mailroom after a delivery */
     		case RETURNING:
     			/** If its current position is at the mailroom, then the robot should change state */
-                if(current_floor == this.currentTask.getDestinationFloor()) {
+                if(current_floor == Building.MAILROOM_LOCATION) {
                 	if (tube != null) {
                 		mailPool.addToPool(tube);
                         System.out.printf("T: %3d > old addToPool [%s]%n", Clock.Time(), tube.toString());
@@ -82,13 +76,12 @@ public class Robot implements IRobot {
                 	this.clearTask();
                 } else {
                 	/** If the robot is not at the mailroom floor yet, then move towards it! */
-                    moveTowards(this.currentTask.getDestinationFloor());
+                    moveTowards(Building.MAILROOM_LOCATION);
                 }
                 break;
     		case WAITING:
                 /** If the StorageTube is ready and the Robot is waiting in the mailroom then start the delivery */
                 if(!isEmpty() && receivedDispatch){
-                    assert !isNoTask();
                 	receivedDispatch = false;
                 	deliveryCounter = 0; // reset delivery counter
 //        			setRoute();
@@ -96,12 +89,10 @@ public class Robot implements IRobot {
                 }
                 break;
     		case DELIVERING:
-                if(current_floor == this.currentTask.getDestinationFloor()){ // If already here drop off either way
+                if(current_floor == deliveryItem.getDestinationFloor()){ // If already here drop off either way
                     /** Delivery complete, report this to the simulator! */
-                    /* leading robot report the delivery */
-                    if (this.currentTask.isRobotLeading(this)) {
-                        delivery.deliver(deliveryItem);
-                    }
+                    /* TODO leading robot report the delivery */
+                    delivery.deliver(deliveryItem);
                     deliveryItem = null;
                     deliveryCounter++;
                     if(deliveryCounter > 2){  // Implies a simulation bug
@@ -109,19 +100,17 @@ public class Robot implements IRobot {
                     }
                     /** Check if want to return, i.e. if there is no item in the tube*/
                     if(tube == null) {
-                        this.currentTask = this.currentTask.getReturnTask(this);
                         changeState(RobotState.RETURNING);
 
                     /** If there is another item, set the robot's route to the location to deliver the item */
                     } else {
-                        this.currentTask = this.currentTask.getNextTask(this, this.tube.getDestinationFloor());
                         deliveryItem = tube;
                         tube = null;
                         changeState(RobotState.DELIVERING);
                     }
                 } else {
                     /** The robot is not at the destination yet, move towards it! */
-                    moveTowards(this.currentTask.getDestinationFloor());
+                    moveTowards(deliveryItem.getDestinationFloor());
                 }
                 break;
 
@@ -210,31 +199,18 @@ public class Robot implements IRobot {
 		return (deliveryItem == null && tube == null);
 	}
 
-	public void addToHand(MailItem mailItem)
-            throws ItemTooHeavyException {
+	public void addToHand(MailItem mailItem) throws ItemTooHeavyException {
 		assert(deliveryItem == null);
-		assert this.currentTask != null;
-		assert this.currentTask.getNumRobot() > 0;
 		deliveryItem = mailItem;
-		if (Task.getTeamWeight(this.currentTask.getNumRobot())
-                < mailItem.getWeight()) throw new ItemTooHeavyException();
+		if (IRobot.INDIVIDUAL_MAX_WEIGHT < mailItem.getWeight()) throw new ItemTooHeavyException();
 	}
 
-	public void addToTube(MailItem mailItem)
-            throws ItemTooHeavyException {
+	public void addToTube(MailItem mailItem) throws ItemTooHeavyException {
 		assert(tube == null);
-        assert this.currentTask != null;
-        assert this.currentTask.getNumRobot() > 0;
         tube = mailItem;
-		if (Task.getTeamWeight(1) < mailItem.getWeight()) throw new ItemTooHeavyException();
+		if (IRobot.INDIVIDUAL_MAX_WEIGHT < mailItem.getWeight()) throw new ItemTooHeavyException();
 	}
 
 	/* ************************ added methods ****************************** */
     public String getId() {return this.id;}
-
-    public void clearTask() {this.currentTask = null;}
-
-    public void setCurrentTask(Task task) { this.currentTask = task; }
-
-    public boolean isNoTask() {return this.currentTask == null;}
 }

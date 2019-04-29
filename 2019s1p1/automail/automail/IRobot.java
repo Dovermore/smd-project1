@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 public interface IRobot {
 
+    public static final int INDIVIDUAL_MAX_WEIGHT = 2000;
+    public static final int PAIR_MAX_WEIGHT = 2600;
+    public static final int TRIPLE_MAX_WEIGHT = 3000;
+
     /**
      * List the MailItems added to this IRobot.
      * @return ArrayList of MailItems contained by this IRobot.
