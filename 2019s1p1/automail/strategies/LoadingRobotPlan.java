@@ -35,14 +35,16 @@ public class LoadingRobotPlan {
             }
 
             /* TODO create team */
-            RobotTeam team = RobotFactory.getInstance().createRobotTeam();
+            RobotTeam pseudoTeam = RobotFactory.getInstance().createRobotTeam();
 
             /* load mail item to pseudo team */
             MailItem tryToLoad = unloadedMailItem.get(0);
-            while(team.hasMailItemSpace(tryToLoad)) {
-                team.addUnloadedMailItem(tryToLoad);
+            while(pseudoTeam.hasMailItemSpace(tryToLoad)) {
+                pseudoTeam.addUnloadedMailItem(tryToLoad);
                 unloadedMailItem.remove(tryToLoad);
             }
+
+            pseudoTeams.add(pseudoTeam);
         }
 
         /* register robot as much as possible; add complete team */
