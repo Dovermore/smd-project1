@@ -12,12 +12,10 @@ import java.util.ArrayList;
 public class RobotTeam implements IRobot {
     private ArrayList<IRobot> robots;
     private ArrayList<MailItem> unloadedMailItems;
-    private boolean hasHeavyMailItem;
 
     public RobotTeam() {
         robots = new ArrayList<>();
         unloadedMailItems = new ArrayList<>();
-        hasHeavyMailItem = false;
     }
 
     public int getTeamSize() {return robots.size();}
