@@ -23,9 +23,41 @@ public class LoadingRobotPlan {
         assert waitingRobots.size() > 0;
         assert unloadedMailItem.size() > 0;
 
-        ArrayList<RobotTeam> pseudoTeams = new ArrayList<>();
-        ArrayList<RobotTeam> teams = new ArrayList<>();
+
+
         int nRobots = waitingRobots.size();
+
+        /* generate all empty-member team */
+        ArrayList<RobotTeam> pseudoTeams = generateAllPseudoTeam(nRobots, unloadedMailItem);
+
+        return generateAllDispatchableTeam(waitingRobots, pseudoTeams);
+    }
+
+    private ArrayList<RobotTeam> generateAllDispatchableTeam(List<Robot> waitingRobots,
+                                                             ArrayList<RobotTeam> pseudoTeams) {
+        ArrayList<RobotTeam> teams = new ArrayList<>();
+
+        /* register robot as much as possible; add complete team */
+        for (RobotTeam pseudoTeam: pseudoTeams) {
+            while ((waitingRobots.size() > 0) && (!pseudoTeam.hasEnoughTeamMember())) {
+                pseudoTeam.addRobot(waitingRobots.remove(0));
+            }
+
+            /* a complete team can dispatch */
+            if (pseudoTeam.hasEnoughTeamMember()) {
+                teams.add(pseudoTeam);
+            /* incomplete team detected, not enough robots,
+             * thus no possible complete team later */
+            } else {
+                break;
+            }
+        }
+
+        return teams;
+    }
+
+    private ArrayList<RobotTeam> generateAllPseudoTeam(int nRobots, List<MailItem> unloadedMailItem) {
+        ArrayList<RobotTeam> pseudoTeams = new ArrayList<>();
 
         /* generate all empty-member team */
         /* how much waiting robots, at most how much team */
@@ -52,23 +84,7 @@ public class LoadingRobotPlan {
             pseudoTeams.add(pseudoTeam);
         }
 
-        /* register robot as much as possible; add complete team */
-        for (RobotTeam pseudoTeam: pseudoTeams) {
-            while ((waitingRobots.size() > 0) && (!pseudoTeam.hasEnoughTeamMember())) {
-                pseudoTeam.addRobot(waitingRobots.remove(0));
-            }
-
-            /* a complete team can dispatch */
-            if (pseudoTeam.hasEnoughTeamMember()) {
-                teams.add(pseudoTeam);
-            /* incomplete team detected, not enough robots,
-             * thus no possible complete team later */
-            } else {
-                break;
-            }
-        }
-
-        return teams;
+        return pseudoTeams;
     }
 
 }
