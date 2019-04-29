@@ -2,10 +2,13 @@ package strategies;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import automail.MailItem;
 import automail.PriorityMailItem;
 import automail.Robot;
+import automail.RobotTeam;
 import exceptions.ItemTooHeavyException;
 import exceptions.NotEnoughRobotException;
 import exceptions.UnsupportedTooMuchRobotException;
@@ -73,14 +76,14 @@ public class MailPool implements IMailPool {
 	
 	private ArrayList<MailItem> pool;
 	private ArrayList<Robot> robots;
-	private TaskGenerater taskGenerater;
+	private LoadingRobotPlan loadingRobotPlan;
 
 	public MailPool(int nRobots) {
 	    assert (nRobots>0) && (nRobots<=3);
 		// Start empty
 		pool = new ArrayList<>();
 		robots = new ArrayList<>();
-		taskGenerater = new TaskGenerater();
+		loadingRobotPlan = new LoadingRobotPlan();
 	}
 
 	/**
@@ -102,12 +105,20 @@ public class MailPool implements IMailPool {
      */
 	@Override
 	public void step() throws ItemTooHeavyException, UnsupportedTooHeavyMailItem {
-		if ((robots.size() > 0) && (pool.size() > 0)) {
-			ArrayList<Robot> loadedRobots = this.taskGenerater.loadTaskToRobot(robots, pool);
-			for (Robot loadedRobot:loadedRobots) {
-				robots.remove(loadedRobot);
-				loadedRobot.dispatch();
-			}
+		if (this.hasLoadingEvent()) {
+            ArrayList<RobotTeam> teams = loadingRobotPlan.loadRobot(cloneList(robots), cloneList(pool));
+
+            for (RobotTeam team: teams) {
+                team.dispatch();
+
+                for (Robot robot: team.getAllRobots()) {
+                    unregisterWaitingRobot(robot);
+                }
+
+                for (MailItem mailItem:team.getAllMailItems()) {
+                    unregisterUnloadedMailItem(mailItem);
+                }
+            }
 		}
 	}
 
@@ -143,4 +154,20 @@ public class MailPool implements IMailPool {
 		robots.add(robot);
 	}
 
+	/* ************************ added methods ****************************** */
+	private boolean hasLoadingEvent() {return (robots.size() > 0) && (pool.size() > 0);}
+
+	private <T> List<T> cloneList(List<T> original) {return new ArrayList<>(original);}
+
+	private void unregisterWaitingRobot(Robot robot) {
+        assert robot != null;
+        assert robots.contains(robot);
+        robots.remove(robot);
+    }
+
+    private void unregisterUnloadedMailItem(MailItem mailItem) {
+        assert mailItem != null;
+        assert pool.contains(mailItem);
+        pool.remove(mailItem);
+    }
 }
