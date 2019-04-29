@@ -2,6 +2,8 @@ package strategies;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import automail.MailItem;
 import automail.PriorityMailItem;
@@ -73,14 +75,14 @@ public class MailPool implements IMailPool {
 	
 	private ArrayList<MailItem> pool;
 	private ArrayList<Robot> robots;
-	private TaskGenerater taskGenerater;
+	private LoadingRobotPlan loadingRobotPlan;
 
 	public MailPool(int nRobots) {
 	    assert (nRobots>0) && (nRobots<=3);
 		// Start empty
 		pool = new ArrayList<>();
 		robots = new ArrayList<>();
-		taskGenerater = new TaskGenerater();
+		loadingRobotPlan = new LoadingRobotPlan();
 	}
 
 	/**
@@ -103,11 +105,7 @@ public class MailPool implements IMailPool {
 	@Override
 	public void step() throws ItemTooHeavyException, UnsupportedTooHeavyMailItem {
 		if (this.hasLoadingEvent()) {
-			ArrayList<Robot> loadedRobots = this.taskGenerater.loadTaskToRobot(robots, pool);
-			for (Robot loadedRobot:loadedRobots) {
-				robots.remove(loadedRobot);
-				loadedRobot.dispatch();
-			}
+            loadingRobotPlan.loadRobot(cloneList(robots), cloneList(pool));
 		}
 	}
 
@@ -145,4 +143,8 @@ public class MailPool implements IMailPool {
 
 	/* ************************ added methods ****************************** */
 	private boolean hasLoadingEvent() {return (robots.size() > 0) && (pool.size() > 0);}
+
+	private <T> List<T> cloneList(List<T> original) {
+        return new ArrayList<>(original);
+    }
 }

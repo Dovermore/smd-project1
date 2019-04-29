@@ -1,5 +1,11 @@
 package strategies;
 
+import automail.MailItem;
+import automail.Robot;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Xulin Yang, 904904
  *
@@ -8,4 +14,10 @@ package strategies;
  **/
 
 public class LoadingRobotPlan {
+    public ArrayList<RobotTeam> loadRobot(List<Robot> waitingRobots,
+                                 List<MailItem> unloadedMailItem) {
+
+
+    }
+
 }
