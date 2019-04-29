@@ -17,12 +17,17 @@ import java.util.List;
 public class LoadingRobotPlan {
     public ArrayList<RobotTeam> loadRobot(List<Robot> waitingRobots,
                                           List<MailItem> unloadedMailItem) {
+        /* must has a loading event */
+        assert waitingRobots.size() > 0;
+        assert unloadedMailItem.size() > 0;
+
         ArrayList<RobotTeam> teams = new ArrayList<>();
-        boolean hasNextTeam = true;
+        int nRobots = waitingRobots.size();
 
-        while (hasNextTeam) {
+        /* TODO generate all empty-member team */
 
-        }
+        /* TODO register robot as much as possible; add complete team */
+
 
         return teams;
     }
