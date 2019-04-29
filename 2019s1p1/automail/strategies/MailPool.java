@@ -112,7 +112,7 @@ public class MailPool implements IMailPool {
                     unregisterWaitingRobot(robot);
                 }
 
-                for (MailItem mailItem:team.listMailItems()) {
+                for (MailItem mailItem: team.listMailItems()) {
                     unregisterUnloadedMailItem(mailItem);
                 }
             }
