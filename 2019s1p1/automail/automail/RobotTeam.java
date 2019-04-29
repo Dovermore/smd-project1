@@ -32,7 +32,7 @@ public class RobotTeam implements IRobot {
     public void dispatch() {}
 
 
-    public void addUnloadedMailIyem(MailItem mailItem) {
+    public void addUnloadedMailItem(MailItem mailItem) {
         unloadedMailItems.add(mailItem);
 
         /* TODO magic number */
@@ -41,5 +41,14 @@ public class RobotTeam implements IRobot {
         }
     }
 
-    public boolean isHasHeavyMailItem() {return hasHeavyMailItem;}
+    /* TODO */
+    public boolean hasMailItemSpace(MailItem mailItem) {
+        return false;
+    }
+
+    /* TODO */
+    public boolean hasEnoughTeamMember() {return false;}
+
+    /* TODO */
+    public void addRobot(Robot robot) {}
 }
