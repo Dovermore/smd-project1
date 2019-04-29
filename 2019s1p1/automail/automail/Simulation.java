@@ -1,9 +1,6 @@
 package automail;
 
-import exceptions.ExcessiveDeliveryException;
-import exceptions.ItemTooHeavyException;
-import exceptions.MailAlreadyDeliveredException;
-import exceptions.UnsupportedTooHeavyMailItem;
+import exceptions.*;
 import strategies.Automail;
 import strategies.IMailPool;
 import strategies.MailPool;
@@ -112,7 +109,7 @@ public class Simulation {
 				for (int i=0; i<robots; i++) {
 					automail.getRobot(i).step();
 				}
-			} catch (ExcessiveDeliveryException|ItemTooHeavyException|UnsupportedTooHeavyMailItem e) {
+			} catch (ExcessiveDeliveryException | InvalidDispatchException e) {
 				e.printStackTrace();
 				System.out.println("Simulation unable to complete.");
 				System.exit(0);

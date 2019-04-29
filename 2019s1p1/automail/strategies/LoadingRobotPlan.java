@@ -4,6 +4,7 @@ import automail.MailItem;
 import automail.Robot;
 import automail.RobotFactory;
 import automail.RobotTeam;
+import exceptions.InvalidAddItemException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,30 +23,19 @@ public class LoadingRobotPlan {
         assert waitingRobots.size() > 0;
         assert unloadedMailItem.size() > 0;
 
-        ArrayList<RobotTeam> pseudoTeams = new ArrayList<>();
-        ArrayList<RobotTeam> teams = new ArrayList<>();
+
+
         int nRobots = waitingRobots.size();
 
         /* generate all empty-member team */
-        /* how much waiting robots, at most how much team */
-        for (int i = 0; i < nRobots; i++) {
-            /* no mail item to load */
-            if (unloadedMailItem.size() <= 0) {
-                break;
-            }
+        ArrayList<RobotTeam> pseudoTeams = generateAllPseudoTeam(nRobots, unloadedMailItem);
 
-            /* TODO create team */
-            RobotTeam pseudoTeam = RobotFactory.getInstance().createRobotTeam();
+        return generateAllDispatchableTeam(waitingRobots, pseudoTeams);
+    }
 
-            /* load mail item to pseudo team */
-            MailItem tryToLoad = unloadedMailItem.get(0);
-            while(pseudoTeam.hasMailItemSpace(tryToLoad)) {
-                pseudoTeam.addUnloadedMailItem(tryToLoad);
-                unloadedMailItem.remove(tryToLoad);
-            }
-
-            pseudoTeams.add(pseudoTeam);
-        }
+    private ArrayList<RobotTeam> generateAllDispatchableTeam(List<Robot> waitingRobots,
+                                                             ArrayList<RobotTeam> pseudoTeams) {
+        ArrayList<RobotTeam> teams = new ArrayList<>();
 
         /* register robot as much as possible; add complete team */
         for (RobotTeam pseudoTeam: pseudoTeams) {
@@ -56,13 +46,45 @@ public class LoadingRobotPlan {
             /* a complete team can dispatch */
             if (pseudoTeam.hasEnoughTeamMember()) {
                 teams.add(pseudoTeam);
-            /* incomplete team detected, not enough robots */
+            /* incomplete team detected, not enough robots,
+             * thus no possible complete team later */
             } else {
                 break;
             }
         }
 
         return teams;
+    }
+
+    private ArrayList<RobotTeam> generateAllPseudoTeam(int nRobots, List<MailItem> unloadedMailItem) {
+        ArrayList<RobotTeam> pseudoTeams = new ArrayList<>();
+
+        /* generate all empty-member team */
+        /* how much waiting robots, at most how much team */
+        for (int i = 0; i < nRobots; i++) {
+            /* no mail item to load */
+            if (unloadedMailItem.size() <= 0) {
+                break;
+            }
+
+            /* create team */
+            RobotTeam pseudoTeam = RobotFactory.getInstance().createRobotTeam();
+
+            /* load mail item to pseudo team */
+            MailItem tryToLoad = unloadedMailItem.get(0);
+            while(pseudoTeam.canAddMailItem(tryToLoad)) {
+                try {
+                    pseudoTeam.addMailItem(tryToLoad);
+                } catch (InvalidAddItemException e) {
+                    e.printStackTrace();
+                }
+                unloadedMailItem.remove(tryToLoad);
+            }
+
+            pseudoTeams.add(pseudoTeam);
+        }
+
+        return pseudoTeams;
     }
 
 }

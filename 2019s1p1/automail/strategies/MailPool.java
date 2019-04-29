@@ -9,10 +9,7 @@ import automail.MailItem;
 import automail.PriorityMailItem;
 import automail.Robot;
 import automail.RobotTeam;
-import exceptions.ItemTooHeavyException;
-import exceptions.NotEnoughRobotException;
-import exceptions.UnsupportedTooMuchRobotException;
-import exceptions.UnsupportedTooHeavyMailItem;
+import exceptions.*;
 
 public class MailPool implements IMailPool {
 
@@ -104,18 +101,18 @@ public class MailPool implements IMailPool {
      * load up any waiting robots with mailItems, if any.
      */
 	@Override
-	public void step() throws ItemTooHeavyException, UnsupportedTooHeavyMailItem {
+	public void step() throws InvalidDispatchException {
 		if (this.hasLoadingEvent()) {
             ArrayList<RobotTeam> teams = loadingRobotPlan.loadRobot(cloneList(robots), cloneList(pool));
 
             for (RobotTeam team: teams) {
                 team.dispatch();
 
-                for (Robot robot: team.getAllRobots()) {
+                for (Robot robot: team.listRobots()) {
                     unregisterWaitingRobot(robot);
                 }
 
-                for (MailItem mailItem:team.getAllMailItems()) {
+                for (MailItem mailItem: team.listMailItems()) {
                     unregisterUnloadedMailItem(mailItem);
                 }
             }
