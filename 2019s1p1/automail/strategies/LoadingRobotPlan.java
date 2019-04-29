@@ -2,6 +2,7 @@ package strategies;
 
 import automail.MailItem;
 import automail.Robot;
+import automail.RobotTeam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +16,15 @@ import java.util.List;
 
 public class LoadingRobotPlan {
     public ArrayList<RobotTeam> loadRobot(List<Robot> waitingRobots,
-                                 List<MailItem> unloadedMailItem) {
+                                          List<MailItem> unloadedMailItem) {
+        ArrayList<RobotTeam> teams = new ArrayList<>();
+        boolean hasNextTeam = true;
 
+        while (hasNextTeam) {
 
+        }
+
+        return teams;
     }
 
 }

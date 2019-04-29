@@ -1,5 +1,7 @@
 package automail;
 
+import java.util.ArrayList;
+
 /**
  * Xulin Yang, 904904
  *
@@ -8,4 +10,12 @@ package automail;
  **/
 
 public class RobotTeam {
+    /* TODO */
+    public ArrayList<Robot> getAllRobots() {return null;}
+
+    /* TODO */
+    public ArrayList<MailItem> getAllMailItems() {return null;}
+
+    /* TODO */
+    public void dispatch() {}
 }

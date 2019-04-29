@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import automail.MailItem;
 import automail.PriorityMailItem;
 import automail.Robot;
+import automail.RobotTeam;
 import exceptions.ItemTooHeavyException;
 import exceptions.NotEnoughRobotException;
 import exceptions.UnsupportedTooMuchRobotException;
@@ -105,7 +106,19 @@ public class MailPool implements IMailPool {
 	@Override
 	public void step() throws ItemTooHeavyException, UnsupportedTooHeavyMailItem {
 		if (this.hasLoadingEvent()) {
-            loadingRobotPlan.loadRobot(cloneList(robots), cloneList(pool));
+            ArrayList<RobotTeam> teams = loadingRobotPlan.loadRobot(cloneList(robots), cloneList(pool));
+
+            for (RobotTeam team: teams) {
+                team.dispatch();
+
+                for (Robot robot: team.getAllRobots()) {
+                    unregisterWaitingRobot(robot);
+                }
+
+                for (MailItem mailItem:team.getAllMailItems()) {
+                    unregisterUnloadedMailItem(mailItem);
+                }
+            }
 		}
 	}
 
@@ -144,7 +157,17 @@ public class MailPool implements IMailPool {
 	/* ************************ added methods ****************************** */
 	private boolean hasLoadingEvent() {return (robots.size() > 0) && (pool.size() > 0);}
 
-	private <T> List<T> cloneList(List<T> original) {
-        return new ArrayList<>(original);
+	private <T> List<T> cloneList(List<T> original) {return new ArrayList<>(original);}
+
+	private void unregisterWaitingRobot(Robot robot) {
+        assert robot != null;
+        assert robots.contains(robot);
+        robots.remove(robot);
+    }
+
+    private void unregisterUnloadedMailItem(MailItem mailItem) {
+        assert mailItem != null;
+        assert pool.contains(mailItem);
+        pool.remove(mailItem);
     }
 }
