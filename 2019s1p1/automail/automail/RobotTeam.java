@@ -2,6 +2,7 @@ package automail;
 
 import exceptions.InvalidAddItemException;
 import exceptions.InvalidDispatchException;
+import exceptions.ItemTooHeavyException;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -52,7 +53,7 @@ public class RobotTeam implements IRobot {
      * @return True if can be dispatched else False
      */
     public boolean canDispatch() {
-        return hasUnloadedMailItem() && hasEnoughTeamMember();
+        return !hasUnloadedMailItem() && hasEnoughTeamMember() && listMailItems().size()>0;
     }
 
     /**
@@ -62,7 +63,6 @@ public class RobotTeam implements IRobot {
     @Override
     public void dispatch() throws InvalidDispatchException {
         assert hasUnloadedMailItem();
-        /* TODO load unloaded MailItems to robots now */
 
         /* dispatch all robots */
         for (IRobot robot : robots) {
@@ -173,5 +173,85 @@ public class RobotTeam implements IRobot {
 
     private int getNRequiredRobot() {
         return getHeaviestMailItem().getNRequiredRobot();
+    }
+
+    /**
+     * load all unloaded items to robots
+     * */
+    private void loadUnloadedToTeam() {
+        boolean hasHeavyItem = this.hasHeavyItem();
+
+        /* heavy item for team */
+        if (hasHeavyItem) {
+            assert hasEnoughTeamMember();
+            assert getTeamSize()==getNRequiredRobot();
+            assert getHeaviestMailItem().getNRequiredRobot() == getNRequiredRobot();
+
+            /* add heavy item to all robots' hand */
+            MailItem heavyMailItem = getHeavyMailItem();
+            for (IRobot robot:robots) {
+                assert robot instanceof Robot;
+
+                try {
+                    robot.addMailItem(heavyMailItem);
+                } catch (InvalidAddItemException | ItemTooHeavyException e) {
+                    e.printStackTrace();
+                }
+            }
+            /* heavy item loaded */
+            unloadedMailItems.remove(heavyMailItem);
+
+            /* add remaining light item to tube */
+            for (MailItem lightMailItem:unloadedMailItems) {
+                for (IRobot robot:robots) {
+                    assert robot instanceof Robot;
+
+                    if (robot.canAddMailItem(lightMailItem)) {
+                        try {
+                            robot.addMailItem(lightMailItem);
+                            unloadedMailItems.remove(lightMailItem);
+                        } catch (InvalidAddItemException | ItemTooHeavyException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            /* all items should be loaded */
+            assert !hasUnloadedMailItem();
+
+        /* only light item for single robot */
+        } else {
+            assert getTeamSize()==1;
+            assert robots.get(0) instanceof Robot;
+            assert (getUnloadingMailItemSize()>0) && (getUnloadingMailItemSize()<=2);
+
+            for (MailItem unLoadedMailItem: unloadedMailItems) {
+                try {
+                    robots.get(0).addMailItem(unLoadedMailItem);
+                } catch (InvalidAddItemException | ItemTooHeavyException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * return a Robot(individual task) or TeamRobot(team task) that can be
+     * dispatched
+     * */
+    public IRobot loadMailItemToTeamRobot() {
+        loadUnloadedToTeam();
+
+        boolean hasHeavyItem = this.hasHeavyItem();
+
+        /* RobotTeam */
+        if (hasHeavyItem) {
+            return this;
+        /* Robot */
+        } else {
+            assert getTeamSize()==1;
+            return robots.get(0);
+        }
     }
 }

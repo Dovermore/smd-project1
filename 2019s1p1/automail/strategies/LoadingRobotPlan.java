@@ -1,9 +1,6 @@
 package strategies;
 
-import automail.MailItem;
-import automail.Robot;
-import automail.RobotFactory;
-import automail.RobotTeam;
+import automail.*;
 import exceptions.InvalidAddItemException;
 
 import java.util.ArrayList;
@@ -17,7 +14,7 @@ import java.util.List;
  **/
 
 public class LoadingRobotPlan {
-    public ArrayList<RobotTeam> loadRobot(List<Robot> waitingRobots,
+    public ArrayList<IRobot> loadRobot(List<Robot> waitingRobots,
                                           List<MailItem> unloadedMailItem) {
         /* must has a loading event */
         assert waitingRobots.size() > 0;
@@ -30,7 +27,21 @@ public class LoadingRobotPlan {
         /* generate all empty-member team */
         ArrayList<RobotTeam> pseudoTeams = generateAllPseudoTeam(nRobots, unloadedMailItem);
 
-        return generateAllDispatchableTeam(waitingRobots, pseudoTeams);
+        /* load waitingRobots to empty-member team */
+        ArrayList<RobotTeam> unloadedDispatchableTeam = generateAllDispatchableTeam(waitingRobots, pseudoTeams);
+
+        /* divide to individual team or TeamRobot with unloadedMailItem loaded */
+        return loadMailItemToTeamRobot(unloadedDispatchableTeam);
+    }
+
+    private ArrayList<IRobot> loadMailItemToTeamRobot(ArrayList<RobotTeam> unloadedDispatchableTeam) {
+        ArrayList<IRobot> res = new ArrayList<>();
+
+        for (RobotTeam team:unloadedDispatchableTeam) {
+            res.add(team.loadMailItemToTeamRobot());
+        }
+
+        return res;
     }
 
     private ArrayList<RobotTeam> generateAllDispatchableTeam(List<Robot> waitingRobots,
