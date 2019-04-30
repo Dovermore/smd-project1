@@ -108,6 +108,13 @@ public class RobotTeam implements IRobot {
     }
 
     /**
+     * Take next actionk
+     */
+    public void step() {
+        // TODO
+    }
+
+    /**
      * IRobot delivers the item.
      */
     public void deliver() {
@@ -239,6 +246,7 @@ public class RobotTeam implements IRobot {
     /**
      * return a Robot(individual task) or TeamRobot(team task) that can be
      * dispatched
+     * @return a Robot or TeamRobot can be dispatched by mailPool
      * */
     public IRobot loadMailItemToTeamRobot() {
         loadUnloadedToTeam();
