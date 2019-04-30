@@ -96,8 +96,6 @@ public class Simulation {
 
         /* initialize hole system */
         Automail automail = new Automail(new ReportDelivery(), robots);
-        automail.setMailPoolAutoMail();
-        automail.setAllRobotsAutoMail();
 
         MailGenerator mailGenerator = new MailGenerator(MAIL_TO_CREATE, MAIL_MAX_WEIGHT, automail.getMailPool(), seedMap);
         

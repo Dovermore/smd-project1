@@ -7,17 +7,7 @@ import exceptions.ItemTooHeavyException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-/**
- * Xulin Yang, 904904
- *
- * @create 2019-04-29 20:00
- * description:
- **/
-
 public class RobotTeam implements IRobot {
-    /** team make a move every time_elapse */
-    public static final int TIME_ELAPSE = 3;
-
     private ArrayList<IRobot> robots;
     private ArrayList<MailItem> unloadedMailItems;
 
@@ -111,10 +101,10 @@ public class RobotTeam implements IRobot {
     }
 
     /**
-     * Take next actionk
+     * Take next action
      */
-    public void step() {
-        // TODO
+    public ArrayList<IRobot> step() {
+        // TODO implement
     }
 
     /**
@@ -129,13 +119,17 @@ public class RobotTeam implements IRobot {
      * return the number of robots work in the team
      * @return the number of robots work in the team
      * */
-    public int getTeamSize() {return robots.size();}
+    private int getTeamSize() {
+        return robots.size();
+    }
 
     /**
      * return the number of unloaded mail items
      * @return the number of unloaded mail items in team
      * */
-    public int getUnloadingMailItemSize() {return unloadedMailItems.size();}
+    private int getUnloadingMailItemSize() {
+        return unloadedMailItems.size();
+    }
 
     /**
      * check there is any unloaded mail item
@@ -248,7 +242,7 @@ public class RobotTeam implements IRobot {
 
             /* add remaining light item to tube */
             ArrayList<MailItem> loadedLightMailItems = new ArrayList<>();
-            for (MailItem lightMailItem:unloadedMailItems) {
+            for (MailItem lightMailItem: unloadedMailItems) {
                 for (IRobot robot:robots) {
                     assert robot instanceof Robot;
 
@@ -262,6 +256,7 @@ public class RobotTeam implements IRobot {
                     }
                 }
             }
+
             /* remove loaded mail items */
             for (MailItem loadedLightMailItem:loadedLightMailItems) {
                 unloadedMailItems.remove(loadedLightMailItem);
@@ -304,5 +299,61 @@ public class RobotTeam implements IRobot {
             assert getTeamSize()==1;
             return robots.get(0);
         }
+    }
+
+    @Override
+    public void moveTowards(int destination) {
+        int floor;
+        int prev_floor = -1;
+        for (IRobot robot: robots) {
+            robot.moveTowards(destination);
+
+            // Ensure all robots now at the same floor
+            floor = robot.getFloor();
+            assert prev_floor == -1 || floor == prev_floor;
+            prev_floor = floor;
+        }
+    }
+
+    @Override
+    public void changeState(RobotState robotState) {
+        // TODO (Dovermore, 2019-04-30): Implement changeState
+    }
+
+    @Override
+    public MailItem getCurrentMailItem() {
+        return null;// TODO (Dovermore, 2019-04-30): Implement getCurrentMailItem
+    }
+
+    @Override
+    public boolean hasNextMailItem() {
+        return false;// TODO (Dovermore, 2019-04-30): Implement hasNextMailItem
+    }
+
+    @Override
+    public void loadNextMailItem() {
+        // TODO (Dovermore, 2019-04-30): Implement loadNextMailItem
+    }
+
+    @Override
+    public int getFloor() {
+        try {
+            return robots.get(0).getFloor();
+        } catch (IndexOutOfBoundsException e) {
+            System.err.println("Robot team still empty");
+            System.exit(1);
+            return 1;
+        }
+    }
+
+    /**
+     * RobotTeam do not need to register waiting (In the current model)
+     */
+    @Override
+    public void registerWaiting() { }
+
+    @Override
+    public ArrayList<IRobot> availableIRobots() {
+        return null;// TODO (Dovermore, 2019-04-30): Implement availableIRobots
     }
 }

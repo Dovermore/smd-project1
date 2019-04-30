@@ -2,6 +2,8 @@ package automail;
 
 import exceptions.InvalidDispatchException;
 
+import java.util.ArrayList;
+
 /**
  * Defines the states IRobot can be at, and actions they should take.
  */
@@ -11,12 +13,12 @@ public enum RobotState implements IRobotState {
      */
     DELIVERING {
         @Override
-        public void step(IRobot iRobot) {
+        public ArrayList<IRobot> step(IRobot iRobot) {
             MailItem mailItem = iRobot.getCurrentMailItem();
             int destination = mailItem.getDestinationFloor();
 
             // Deliver item and (load next item / return to base)
-            if (iRobot.atFloor(destination)) {
+            if (iRobot.getFloor() == destination) {
                 iRobot.deliver();
 
                 if (iRobot.hasNextMailItem()) {
@@ -28,6 +30,7 @@ public enum RobotState implements IRobotState {
             } else {
                 iRobot.moveTowards(destination);
             }
+            return iRobot.availableIRobots();
         }
     },
     /**
@@ -35,13 +38,14 @@ public enum RobotState implements IRobotState {
      */
     RETURNING {
         @Override
-        public void step(IRobot iRobot) {
-            if (iRobot.atFloor(Building.MAILROOM_LOCATION)) {
+        public ArrayList<IRobot> step(IRobot iRobot) {
+            if (iRobot.getFloor() == Building.MAILROOM_LOCATION) {
                 iRobot.registerWaiting();
                 iRobot.changeState(RobotState.WAITING);
             } else {
                 iRobot.moveTowards(Building.MAILROOM_LOCATION);
             }
+            return iRobot.availableIRobots();
         }
     },
     /**
@@ -49,7 +53,7 @@ public enum RobotState implements IRobotState {
      */
     WAITING {
         @Override
-        public void step(IRobot iRobot) {
+        public ArrayList<IRobot> step(IRobot iRobot) {
             if (iRobot.canDispatch()) {
                 try {
                     iRobot.dispatch();
@@ -57,6 +61,7 @@ public enum RobotState implements IRobotState {
                     e.printStackTrace();
                 }
             }
+            return iRobot.availableIRobots();
         }
     };
 
@@ -66,7 +71,9 @@ public enum RobotState implements IRobotState {
      * @param iRobot The robot to act on
      */
     @Override
-    public void step(IRobot iRobot) {}
+    public ArrayList<IRobot> step(IRobot iRobot) {
+        return null;
+    }
 }
 //
 //    	switch(current_state) {

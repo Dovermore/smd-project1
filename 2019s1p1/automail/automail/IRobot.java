@@ -95,14 +95,10 @@ public interface IRobot {
     void loadNextMailItem();
 
     /**
-     * Checks if IRobot is at some certain floor.
-     * It's implemented this way because in the future there might be cases where IRobot could be on different floors
-     * the same time (Maybe conducting some cross-floor operations). And this abstracts away the number of floors IRobot
-     * can have.
-     * @param floor The floor to check
-     * @return True is IRobot is at certain floor, else False
+     * Return the floor the IRobot is at
+     * @return the floor of IRobot
      */
-    boolean atFloor(int floor);
+    int getFloor();
 
     /**
      * The robot got to base, now waiting for order
@@ -110,7 +106,13 @@ public interface IRobot {
     void registerWaiting();
 
     /**
-     * Take next actionk
+     * Returns all IRobots available from this team to take next action
+     * @return all robots that can take action
      */
-    void step();
+    ArrayList<IRobot> availableIRobots();
+
+    /**
+     * Take next action
+     */
+    ArrayList<IRobot> step();
 }

@@ -1,12 +1,11 @@
 package automail;
 
-import exceptions.ExcessiveDeliveryException;
 import exceptions.InvalidAddItemException;
 import exceptions.ItemTooHeavyException;
-import strategies.Automail;
 import strategies.IMailPool;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -22,12 +21,9 @@ public class Robot implements IRobot {
     private RobotState robotState;
     private int currentFloor;
     private boolean receivedDispatch;
-    private int numberTeamMember;
 
     private MailItem deliveryItem = null;
     private MailItem tube = null;
-
-    private Automail automail;
 
     /**
      * Initiates the robot's location at the start to be at the mailroom
@@ -43,8 +39,6 @@ public class Robot implements IRobot {
         this.delivery = delivery;
         this.mailPool = mailPool;
         this.receivedDispatch = false;
-        this.numberTeamMember = 1;
-        this.automail = null;
     }
     
     public void dispatch() {
@@ -54,8 +48,8 @@ public class Robot implements IRobot {
     /**
      * This is called on every time step
      */
-    public void step() {
-        robotState.step(this);
+    public ArrayList<IRobot> step() {
+        return robotState.step(this);
     }
 
     /**
@@ -184,8 +178,8 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public boolean atFloor (int floor) {
-	    return currentFloor == floor;
+    public int getFloor() {
+	    return currentFloor;
     }
 
     @Override
@@ -205,13 +199,8 @@ public class Robot implements IRobot {
 	    return this.id;
 	}
 
-    public void setAutomail(Automail automail) {
-	    assert automail == null;
-	    this.automail = automail;
-	}
-
-    public void addToAutoMail() {
-	    assert automail != null;
-	    automail.addIRobot(this, false);
+    @Override
+    public ArrayList<IRobot> availableIRobots() {
+	    return new ArrayList<>(Collections.singletonList(this));
     }
 }

@@ -3,7 +3,6 @@ package strategies;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import automail.*;
 import exceptions.*;
@@ -71,14 +70,12 @@ public class MailPool implements IMailPool {
 	private ArrayList<MailItem> pool;
 	private ArrayList<Robot> robots;
 	private LoadingRobotPlan loadingRobotPlan;
-	private Automail automail;
 
 	public MailPool() {
 		// Start empty
 		pool = new ArrayList<>();
 		robots = new ArrayList<>();
 		loadingRobotPlan = new LoadingRobotPlan();
-		this.automail = null;
 	}
 
 	/**
@@ -99,29 +96,27 @@ public class MailPool implements IMailPool {
      * load up any waiting robots with mailItems, if any.
      */
 	@Override
-	public void step() throws InvalidDispatchException {
+	public ArrayList<IRobot> step() throws InvalidDispatchException {
+		ArrayList<IRobot> iRobots = null;
 		if (this.hasLoadingEvent()) {
 		    /* derived dispatchable IRobot */
-            ArrayList<IRobot> teams = loadingRobotPlan.loadRobot(cloneList(robots), cloneList(pool));
+            iRobots = loadingRobotPlan.loadRobot(cloneList(robots), cloneList(pool));
 
-            for (IRobot team: teams) {
-                team.dispatch();
+            for (IRobot iRobot: iRobots) {
+                iRobot.dispatch();
 
                 /* update waiting robots in mail pool */
-                for (Robot robot: team.listRobots()) {
+                for (Robot robot: iRobot.listRobots()) {
                     unregisterWaitingRobot(robot);
                 }
 
                 /* update undelivered in mail pool */
-                for (MailItem mailItem: team.listMailItems()) {
+                for (MailItem mailItem: iRobot.listMailItems()) {
                     unregisterUnloadedMailItem(mailItem);
                 }
-
-                /* step this IRobot immediately after mail pool finished its
-                 * step in current time frame */
-                automail.addIRobot(team, true);
             }
 		}
+		return iRobots;
 	}
 
 	/**
@@ -187,9 +182,5 @@ public class MailPool implements IMailPool {
         assert mailItem != null;
         assert pool.contains(mailItem);
         pool.remove(mailItem);
-    }
-
-    public void setAutomail(Automail automail) {
-        this.automail = automail;
     }
 }
