@@ -101,7 +101,7 @@ public class MailPool implements IMailPool {
 	@Override
 	public void step() throws InvalidDispatchException {
 		if (this.hasLoadingEvent()) {
-		    /* dispatchable IRobot */
+		    /* derived dispatchable IRobot */
             ArrayList<IRobot> teams = loadingRobotPlan.loadRobot(cloneList(robots), cloneList(pool));
 
             for (IRobot team: teams) {
@@ -166,6 +166,7 @@ public class MailPool implements IMailPool {
 	private <T> List<T> cloneList(List<T> original) {return new ArrayList<>(original);}
 
 	/**
+     * update waitingRobots
      * @param robot: robot is not waiting
      * */
 	private void unregisterWaitingRobot(Robot robot) {
@@ -175,6 +176,7 @@ public class MailPool implements IMailPool {
     }
 
     /**
+     * update pool
      * @param mailItem: mail item is loaded to robot and delivering
      * */
     private void unregisterUnloadedMailItem(MailItem mailItem) {
