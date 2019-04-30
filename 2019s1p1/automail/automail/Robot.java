@@ -32,7 +32,7 @@ public class Robot implements IRobot {
      * @param delivery governs the final delivery
      * @param mailPool is the source of mail items
      */
-    public Robot(IMailDelivery delivery, IMailPool mailPool){
+    public Robot(IMailDelivery delivery, IMailPool mailPool) {
     	id = "R" + hashCode();
 //        robotState = RobotState.WAITING;
     	robotState = RobotState.WAITING;

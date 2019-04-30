@@ -9,14 +9,13 @@ public class Automail {
     private Robot[] robots;
     private IMailPool mailPool;
     
-    public Automail(IMailPool mailPool, IMailDelivery delivery, int numRobots) {
+    public Automail(IMailDelivery delivery, int numRobots) {
     	// Swap between simple provided strategies and your strategies here
     	    	
-    	/** Initialize the MailPool */
+    	/* Initialize the MailPool */
+    	mailPool = new MailPool(numRobots, this);
     	
-    	this.setMailPool(mailPool);
-    	
-    	/** Initialize robots */
+    	/* Initialize robots */
     	setRobots(new Robot[numRobots]);
     	for (int i = 0; i < numRobots; i++) {
     	    robots[i] = RobotFactory.getInstance().createRobot(mailPool, delivery);
@@ -35,7 +34,4 @@ public class Automail {
         return mailPool;
     }
 
-    public void setMailPool(IMailPool mailPool) {
-        this.mailPool = mailPool;
-    }
 }

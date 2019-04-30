@@ -71,13 +71,15 @@ public class MailPool implements IMailPool {
 	private ArrayList<MailItem> pool;
 	private ArrayList<Robot> robots;
 	private LoadingRobotPlan loadingRobotPlan;
+	private Automail automail;
 
-	public MailPool(int nRobots) {
+	public MailPool(int nRobots, Automail automail) {
 	    assert (nRobots>0) && (nRobots<=3);
 		// Start empty
 		pool = new ArrayList<>();
 		robots = new ArrayList<>();
 		loadingRobotPlan = new LoadingRobotPlan();
+		this.automail = automail;
 	}
 
 	/**
@@ -149,16 +151,30 @@ public class MailPool implements IMailPool {
 	}
 
 	/* ************************ added methods ****************************** */
+    /**
+     * check whether we need to try to start a delivery
+     * @return true if there is any waiting robots and undelivered mails
+     * */
 	private boolean hasLoadingEvent() {return (robots.size() > 0) && (pool.size() > 0);}
 
+	/**
+     * @param original: list to be cloned
+     * @return a reference of a list
+     * */
 	private <T> List<T> cloneList(List<T> original) {return new ArrayList<>(original);}
 
+	/**
+     * @param robot: robot is not waiting
+     * */
 	private void unregisterWaitingRobot(Robot robot) {
         assert robot != null;
         assert robots.contains(robot);
         robots.remove(robot);
     }
 
+    /**
+     * @param mailItem: mail item is loaded to robot and delivering
+     * */
     private void unregisterUnloadedMailItem(MailItem mailItem) {
         assert mailItem != null;
         assert pool.contains(mailItem);
