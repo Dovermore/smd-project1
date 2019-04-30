@@ -116,6 +116,10 @@ public class MailPool implements IMailPool {
                 for (MailItem mailItem: team.listMailItems()) {
                     unregisterUnloadedMailItem(mailItem);
                 }
+
+                /* step this IRobot immediately after mail pool finished its
+                 * step in current time frame */
+                automail.addIRobot(team, true);
             }
 		}
 	}

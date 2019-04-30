@@ -2,6 +2,7 @@ package strategies;
 
 import automail.IMailDelivery;
 import automail.IRobot;
+import automail.Robot;
 import automail.RobotFactory;
 import exceptions.InvalidDispatchException;
 
@@ -55,14 +56,30 @@ public class Automail {
     /**
      * add new IRobot to be stepped in the auto mail system
      * @param robot: robot or robot team to be stepped in next time frame
+     * @param stepInCurrentTimeFrame: step IRobot after mailPool.step()
      * */
-    public void addIRobot(IRobot robot) {
+    public void addIRobot(IRobot robot, boolean stepInCurrentTimeFrame) {
         assert robot != null;
+        if (!stepInCurrentTimeFrame) {
+            nextStepIRobotList.add(robot);
+        } else {
+            currentStepIRobotList.add(robot);
+        }
     }
 
     public void setMailPoolAutoMail() {
         assert mailPool instanceof MailPool;
 
         ((MailPool)this.mailPool).setAutomail(this);
+    }
+
+    public void setAllRobotsAutoMail() {
+        assert mailPool instanceof MailPool;
+        assert currentStepIRobotList.size()>0;
+
+        for (IRobot robot:currentStepIRobotList) {
+            assert robot instanceof Robot;
+            ((Robot)robot).setAutomail(this);
+        }
     }
 }

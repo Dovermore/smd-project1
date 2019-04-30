@@ -3,6 +3,7 @@ package automail;
 import exceptions.ExcessiveDeliveryException;
 import exceptions.InvalidAddItemException;
 import exceptions.ItemTooHeavyException;
+import strategies.Automail;
 import strategies.IMailPool;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class Robot implements IRobot {
     private MailItem deliveryItem = null;
     private MailItem tube = null;
 
+    private Automail automail;
+
     /**
      * Initiates the robot's location at the start to be at the mailroom
      * also set it to be waiting for mail.
@@ -41,6 +44,7 @@ public class Robot implements IRobot {
         this.mailPool = mailPool;
         this.receivedDispatch = false;
         this.numberTeamMember = 1;
+        this.automail = null;
     }
     
     public void dispatch() {
@@ -200,4 +204,14 @@ public class Robot implements IRobot {
     public String getId() {
 	    return this.id;
 	}
+
+    public void setAutomail(Automail automail) {
+	    assert automail == null;
+	    this.automail = automail;
+	}
+
+    public void addToAutoMail() {
+	    assert automail != null;
+	    automail.addIRobot(this, false);
+    }
 }
