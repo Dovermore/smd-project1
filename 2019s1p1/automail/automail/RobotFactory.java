@@ -1,5 +1,7 @@
 package automail;
 
+import strategies.IMailPool;
+
 /**
  * Xulin Yang, 904904
  *
@@ -10,12 +12,15 @@ package automail;
 public class RobotFactory {
     private static RobotFactory robotFactory = null;
 
-    public static RobotFactory getInstance()
-    {
+    public static RobotFactory getInstance() {
         if (robotFactory == null)
             robotFactory = new RobotFactory();
 
         return robotFactory;
+    }
+
+    public Robot createRobot(IMailPool mailPool, IMailDelivery delivery) {
+        return new Robot(delivery, mailPool);
     }
 
     public RobotTeam createRobotTeam() {

@@ -2,6 +2,7 @@ package strategies;
 
 import automail.IMailDelivery;
 import automail.Robot;
+import automail.RobotFactory;
 
 public class Automail {
 	      
@@ -18,7 +19,7 @@ public class Automail {
     	/** Initialize robots */
     	setRobots(new Robot[numRobots]);
     	for (int i = 0; i < numRobots; i++) {
-    	    robots[i] = new Robot(delivery, mailPool);
+    	    robots[i] = RobotFactory.getInstance().createRobot(mailPool, delivery);
         }
     }
 
