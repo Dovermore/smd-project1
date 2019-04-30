@@ -5,13 +5,18 @@ import exceptions.InvalidDispatchException;
 import exceptions.ItemTooHeavyException;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.Collections;
 
 public class RobotTeam implements IRobot {
-    private ArrayList<IRobot> robots;
+
+    private RobotState robotState;
+    private ArrayList<Robot> robots;
+    // TODO change to this
+    private MailItem unloadedHeavyItem;
     private ArrayList<MailItem> unloadedMailItems;
 
     public RobotTeam() {
+        robotState = RobotState.WAITING;
         robots = new ArrayList<>();
         unloadedMailItems = new ArrayList<>();
     }
@@ -35,10 +40,7 @@ public class RobotTeam implements IRobot {
      */
     @Override
     public ArrayList<Robot> listRobots() {
-        return robots.stream()
-                        .filter(obj -> obj instanceof Robot)
-                        .map(obj -> (Robot) obj)
-                        .collect(Collectors.toCollection(ArrayList::new));
+        return robots;
     }
 
     /**
@@ -85,7 +87,7 @@ public class RobotTeam implements IRobot {
     @Override
     public boolean canAddMailItem(MailItem mailItem) {
         boolean hasHeavyItem = hasHeavyItem(),
-                isHeavyItem = mailItem.getWeight() > IRobot.INDIVIDUAL_MAX_WEIGHT;
+                isHeavyItem = mailItem.getWeight() > TeamState.SINGLE.validWeight();
 
         /* no item return true;
          * ensure heavy item is only in 1st loading order */
@@ -104,7 +106,7 @@ public class RobotTeam implements IRobot {
      * Take next action
      */
     public ArrayList<IRobot> step() {
-        // TODO implement
+        return robotState.step(this);
     }
 
     /**
@@ -165,7 +167,7 @@ public class RobotTeam implements IRobot {
      * */
     private boolean hasHeavyItem() {
         for (MailItem mailItem: unloadedMailItems) {
-            if (mailItem.getWeight() > IRobot.INDIVIDUAL_MAX_WEIGHT) {
+            if (mailItem.getWeight() > TeamState.SINGLE.validWeight()) {
                 return true;
             }
         }
@@ -180,7 +182,7 @@ public class RobotTeam implements IRobot {
         assert hasHeavyItem();
 
         for (MailItem mailItem: unloadedMailItems) {
-            if (mailItem.getWeight() > IRobot.INDIVIDUAL_MAX_WEIGHT) {
+            if (mailItem.getWeight() > TeamState.SINGLE.validWeight()) {
                 return mailItem;
             }
         }
@@ -211,72 +213,56 @@ public class RobotTeam implements IRobot {
      * get number of robots required based on unloaded mail items
      * */
     private int getNRequiredRobot() {
-        return getHeaviestMailItem().getNRequiredRobot();
+        return ITeamState.getNRequiredRobot(getHeaviestMailItem());
+    }
+
+    private void loadHeavyItem() {
+        /* add heavy item to all robots' hand */
+        MailItem heavyMailItem = getHeavyMailItem();
+        for (IRobot robot: robots) {
+            try {
+                robot.addMailItem(heavyMailItem);
+            } catch (InvalidAddItemException | ItemTooHeavyException e) {
+                e.printStackTrace();
+            }
+        }
+        /* heavy item loaded */
+        unloadedMailItems.remove(heavyMailItem);
+    }
+
+    private void loadLightItems() {
+        ArrayList<MailItem> loadedLightMailItems = new ArrayList<>();
+        for (MailItem lightMailItem: unloadedMailItems) {
+            for (IRobot robot: robots) {
+                if (robot.canAddMailItem(lightMailItem)) {
+                    try {
+                        robot.addMailItem(lightMailItem);
+                        loadedLightMailItems.add(lightMailItem);
+                    } catch (InvalidAddItemException | ItemTooHeavyException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+            }
+        }
+        /* remove loaded mail items */
+        for (MailItem loadedLightMailItem:loadedLightMailItems) {
+            unloadedMailItems.remove(loadedLightMailItem);
+        }
     }
 
     /**
      * load all unloaded items to robots
      * */
-    private void loadUnloadedToTeam() {
-        boolean hasHeavyItem = this.hasHeavyItem();
-
+    private void loadUnloadedToRobots() {
         /* heavy item for team */
-        if (hasHeavyItem) {
+        if (hasHeavyItem()) {
             assert hasEnoughTeamMember();
             assert getTeamSize()==getNRequiredRobot();
-            assert getHeaviestMailItem().getNRequiredRobot() == getNRequiredRobot();
-
-            /* add heavy item to all robots' hand */
-            MailItem heavyMailItem = getHeavyMailItem();
-            for (IRobot robot:robots) {
-                assert robot instanceof Robot;
-
-                try {
-                    robot.addMailItem(heavyMailItem);
-                } catch (InvalidAddItemException | ItemTooHeavyException e) {
-                    e.printStackTrace();
-                }
-            }
-            /* heavy item loaded */
-            unloadedMailItems.remove(heavyMailItem);
-
-            /* add remaining light item to tube */
-            ArrayList<MailItem> loadedLightMailItems = new ArrayList<>();
-            for (MailItem lightMailItem: unloadedMailItems) {
-                for (IRobot robot:robots) {
-                    assert robot instanceof Robot;
-
-                    if (robot.canAddMailItem(lightMailItem)) {
-                        try {
-                            robot.addMailItem(lightMailItem);
-                            loadedLightMailItems.add(lightMailItem);
-                        } catch (InvalidAddItemException | ItemTooHeavyException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-
-            /* remove loaded mail items */
-            for (MailItem loadedLightMailItem:loadedLightMailItems) {
-                unloadedMailItems.remove(loadedLightMailItem);
-            }
-
-        /* only light item for single robot */
-        } else {
-            assert getTeamSize()==1;
-            assert robots.get(0) instanceof Robot;
-            assert (getUnloadingMailItemSize()>0) && (getUnloadingMailItemSize()<=2);
-
-            for (MailItem unLoadedMailItem: unloadedMailItems) {
-                try {
-                    robots.get(0).addMailItem(unLoadedMailItem);
-                } catch (InvalidAddItemException | ItemTooHeavyException e) {
-                    e.printStackTrace();
-                }
-            }
+            assert ITeamState.getNRequiredRobot(getHeaviestMailItem()) == getNRequiredRobot();
+            loadHeavyItem();
         }
-
+        loadLightItems();
         /* all items should be loaded */
         assert !hasUnloadedMailItem();
     }
@@ -287,7 +273,7 @@ public class RobotTeam implements IRobot {
      * @return a Robot or TeamRobot can be dispatched by mailPool
      * */
     public IRobot loadMailItemToTeamRobot() {
-        loadUnloadedToTeam();
+        loadUnloadedToRobots();
 
         boolean hasHeavyItem = this.hasHeavyItem();
 
@@ -317,23 +303,35 @@ public class RobotTeam implements IRobot {
 
     @Override
     public void changeState(RobotState robotState) {
-        // TODO (Dovermore, 2019-04-30): Implement changeState
+        // Change to same state or change to waiting state is never possible is never possible
+        assert this.robotState != robotState && robotState != RobotState.WAITING;
+        this.robotState = robotState;
+        for (IRobot robot: robots) {
+            if (robotState == RobotState.DELIVERING) {
+                robot.changeState(robotState);
+            } else {
+                robot.changeTeamState(TeamState.SINGLE);
+                robot.getRobotState().postDelivery(robot);
+            }
+        }
     }
 
     @Override
     public MailItem getCurrentMailItem() {
-        return null;// TODO (Dovermore, 2019-04-30): Implement getCurrentMailItem
+        return robots.get(0).getCurrentMailItem();
     }
 
+    /**
+     * Currently team task will have at most one item. In the future, this behavior can be easily modified.
+     * @return always false
+     */
     @Override
     public boolean hasNextMailItem() {
-        return false;// TODO (Dovermore, 2019-04-30): Implement hasNextMailItem
+        return false;
     }
 
     @Override
-    public void loadNextMailItem() {
-        // TODO (Dovermore, 2019-04-30): Implement loadNextMailItem
-    }
+    public void loadNextMailItem() { }
 
     @Override
     public int getFloor() {
@@ -354,6 +352,35 @@ public class RobotTeam implements IRobot {
 
     @Override
     public ArrayList<IRobot> availableIRobots() {
-        return null;// TODO (Dovermore, 2019-04-30): Implement availableIRobots
+        if (robotState == RobotState.RETURNING) {
+            return new ArrayList<>(robots);
+        } else {
+            return new ArrayList<>(Collections.singletonList(this));
+        }
+    }
+
+    @Override
+    public RobotState getRobotState() {
+        return robotState;
+    }
+
+    @Override
+    public TeamState getTeamState() {
+        switch (getTeamSize()) {
+            case 1:
+                return TeamState.SINGLE;
+            case 2:
+                return TeamState.DOUBLE;
+            case 3:
+                return TeamState.TRIPLE;
+            default:
+                return TeamState.INVALID;
+        }
+    }
+
+    @Override
+    public void changeTeamState(TeamState teamState) {
+        // You can not set this
+        assert false;
     }
 }

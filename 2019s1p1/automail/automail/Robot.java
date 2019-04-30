@@ -19,6 +19,7 @@ public class Robot implements IRobot {
 
     private final String id;
     private RobotState robotState;
+    private TeamState teamState;
     private int currentFloor;
     private boolean receivedDispatch;
 
@@ -33,8 +34,8 @@ public class Robot implements IRobot {
      */
     public Robot(IMailDelivery delivery, IMailPool mailPool) {
     	id = "R" + hashCode();
-//        robotState = RobotState.WAITING;
     	robotState = RobotState.WAITING;
+    	teamState = TeamState.SINGLE;
         currentFloor = Building.MAILROOM_LOCATION;
         this.delivery = delivery;
         this.mailPool = mailPool;
@@ -84,28 +85,19 @@ public class Robot implements IRobot {
     	}
     }
 
-	public MailItem getTube() {
-		return tube;
-	}
-    
 	static private int count = 0;
 	static private Map<Integer, Integer> hashMap = new TreeMap<>();
-
-
-	public boolean isEmpty() {
-		return (deliveryItem == null && tube == null);
-	}
 
 	private void addToHand(MailItem mailItem) throws ItemTooHeavyException {
 		assert(deliveryItem == null);
 		deliveryItem = mailItem;
-		if (IRobot.INDIVIDUAL_MAX_WEIGHT < mailItem.getWeight()) throw new ItemTooHeavyException();
+		if (teamState.validWeight() < mailItem.getWeight()) throw new ItemTooHeavyException();
 	}
 
 	private void addToTube(MailItem mailItem) throws ItemTooHeavyException {
 		assert(tube == null);
         tube = mailItem;
-		if (IRobot.INDIVIDUAL_MAX_WEIGHT < mailItem.getWeight()) throw new ItemTooHeavyException();
+		if (teamState.validWeight() < mailItem.getWeight()) throw new ItemTooHeavyException();
 	}
 
     @Override
@@ -130,7 +122,7 @@ public class Robot implements IRobot {
     @Override
     public boolean canAddMailItem(MailItem mailItem) {
 	    // correct weight
-	    if (IRobot.INDIVIDUAL_MAX_WEIGHT < mailItem.getWeight()) {
+	    if (teamState.validWeight() < mailItem.getWeight()) {
 	        return false;
         }
 	    // Return have space for item
@@ -202,5 +194,20 @@ public class Robot implements IRobot {
     @Override
     public ArrayList<IRobot> availableIRobots() {
 	    return new ArrayList<>(Collections.singletonList(this));
+    }
+
+    @Override
+    public RobotState getRobotState() {
+        return robotState;
+    }
+
+    @Override
+    public TeamState getTeamState() {
+	    return teamState;
+    }
+
+    @Override
+    public void changeTeamState(TeamState teamState) {
+	    this.teamState = teamState;
     }
 }

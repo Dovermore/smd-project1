@@ -8,10 +8,6 @@ import java.util.ArrayList;
 
 public interface IRobot {
 
-    int INDIVIDUAL_MAX_WEIGHT = 2000;
-    int PAIR_MAX_WEIGHT = 2600;
-    int TRIPLE_MAX_WEIGHT = 3000;
-
     /* ------------------------------------------------------------------------------------------------ */
     /*                                     Pre dispatch                                                 */
     /* ------------------------------------------------------------------------------------------------ */
@@ -71,8 +67,6 @@ public interface IRobot {
      */
     void moveTowards(int destination);
 
-    // TODO Redefine change state for Team robots
-    // TODO From team to individual should be here
     /**
      * Change the state of this robot
      * @param robotState The state to change to
@@ -111,8 +105,30 @@ public interface IRobot {
      */
     ArrayList<IRobot> availableIRobots();
 
+    /* ------------------------------------------------------------------------------------------------ */
+    /*                                     Generic methods                                              */
+    /* ------------------------------------------------------------------------------------------------ */
+
     /**
      * Take next action
      */
     ArrayList<IRobot> step();
+
+    /**
+     * Get the state of this IRobot
+     * @return robotState of that robot
+     */
+    RobotState getRobotState();
+
+    /**
+     * Get the TeamState of this IRobot
+     * @return TeamState of that robot
+     */
+    TeamState getTeamState();
+
+    /**
+     * Set the TeamState of this IRobot
+     * @param teamState The TeamState to set to
+     */
+    void changeTeamState(TeamState teamState);
 }

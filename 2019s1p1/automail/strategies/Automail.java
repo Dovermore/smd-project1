@@ -2,7 +2,6 @@ package strategies;
 
 import automail.IMailDelivery;
 import automail.IRobot;
-import automail.Robot;
 import automail.RobotFactory;
 import exceptions.InvalidDispatchException;
 
@@ -39,14 +38,14 @@ public class Automail {
      * step every component in the system
      * */
     public void step() throws InvalidDispatchException {
-        this.mailPool.step();
-
+        // Add robots just got loaded
+        currentStepIRobotList.addAll(this.mailPool.step());
         for (IRobot currentIRobot: this.currentStepIRobotList) {
-            currentIRobot.step();
+            nextStepIRobotList.addAll(currentIRobot.step());
         }
 
         this.currentStepIRobotList = this.nextStepIRobotList;
-        this.nextStepIRobotList.clear();
+        this.nextStepIRobotList = new ArrayList<>();
     }
 
     /** return the mail pool in the auto mail */
