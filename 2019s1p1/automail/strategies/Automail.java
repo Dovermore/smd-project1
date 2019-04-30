@@ -1,12 +1,16 @@
 package strategies;
 
 import automail.IMailDelivery;
-import automail.Robot;
+import automail.IRobot;
 import automail.RobotFactory;
+import exceptions.InvalidDispatchException;
+
+import java.util.ArrayList;
 
 public class Automail {
 	      
-    private Robot[] robots;
+    private ArrayList<IRobot> currentStepIRobotList;
+    private ArrayList<IRobot> nextStepIRobotList;
     private IMailPool mailPool;
     
     public Automail(IMailDelivery delivery, int numRobots) {
@@ -16,22 +20,30 @@ public class Automail {
     	mailPool = new MailPool(this);
     	
     	/* Initialize robots */
-    	setRobots(new Robot[numRobots]);
+        currentStepIRobotList = new ArrayList<>();
+        nextStepIRobotList = new ArrayList<>();
+        /* initial robot in returning state to mail room */
     	for (int i = 0; i < numRobots; i++) {
-    	    robots[i] = RobotFactory.getInstance().createRobot(mailPool, delivery);
+            currentStepIRobotList.add(RobotFactory.getInstance().createRobot(mailPool, delivery));
         }
     }
 
-    public Robot getRobot(int i) {
-        return robots[i];
-    }
+    public void step() throws InvalidDispatchException {
+        this.mailPool.step();
 
-    public void setRobots(Robot[] robots) {
-        this.robots = robots;
+        for (IRobot currentIRobot: this.currentStepIRobotList) {
+            currentIRobot.step();
+        }
+
+        this.currentStepIRobotList = this.nextStepIRobotList;
+        this.nextStepIRobotList.clear();
     }
 
     public IMailPool getMailPool() {
         return mailPool;
     }
 
+    public void addIRobot(IRobot robot) {
+        assert robot != null;
+    }
 }

@@ -103,10 +103,7 @@ public class Simulation {
 //        	 System.out.printf("Delivered: %4d; Created: %4d%n", MAIL_DELIVERED.size(), mailGenerator.MAIL_TO_CREATE);
             mailGenerator.step();
             try {
-                automail.getMailPool().step();
-				for (int i=0; i<robots; i++) {
-					automail.getRobot(i).step();
-				}
+                automail.step();
 			} catch (InvalidDispatchException e) {
 				e.printStackTrace();
 				System.out.println("Simulation unable to complete.");
