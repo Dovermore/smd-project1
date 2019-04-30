@@ -16,14 +16,15 @@ public class Automail {
 
     /**
      * create AutoMail with two components (mail pool and robots) in the system
+     * @param mailPool: MailPool in the system
      * @param delivery: Confirm the delivery and calculate the total score
      * @param numRobots: number of robots in the building
      * */
-    public Automail(IMailDelivery delivery, int numRobots) {
+    public Automail(MailPool mailPool, IMailDelivery delivery, int numRobots) {
     	// Swap between simple provided strategies and your strategies here
-    	    	
+
     	/* Initialize the MailPool */
-    	mailPool = new MailPool();
+    	this.mailPool = mailPool;
     	
     	/* Initialize robots */
         currentStepIRobotList = new ArrayList<>();
@@ -51,11 +52,5 @@ public class Automail {
     /** return the mail pool in the auto mail */
     public IMailPool getMailPool() {
         return mailPool;
-    }
-
-    public void setMailPoolAutoMail() {
-        assert mailPool instanceof MailPool;
-
-        ((MailPool)this.mailPool).setAutomail(this);
     }
 }

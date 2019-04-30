@@ -2,7 +2,6 @@ package automail;
 
 import exceptions.*;
 import strategies.Automail;
-import strategies.IMailPool;
 import strategies.MailPool;
 
 import java.io.FileReader;
@@ -94,8 +93,9 @@ public class Simulation {
         Integer seed = seedMap.get(true);
         System.out.printf("Seed: %s%n", seed == null ? "null" : seed.toString());
 
-        /* initialize hole system */
-        Automail automail = new Automail(new ReportDelivery(), robots);
+        /* initialize whole system */
+        MailPool mailPool = new MailPool();
+        Automail automail = new Automail(mailPool, new ReportDelivery(), robots);
 
         MailGenerator mailGenerator = new MailGenerator(MAIL_TO_CREATE, MAIL_MAX_WEIGHT, automail.getMailPool(), seedMap);
         
