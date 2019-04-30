@@ -247,6 +247,7 @@ public class RobotTeam implements IRobot {
             unloadedMailItems.remove(heavyMailItem);
 
             /* add remaining light item to tube */
+            ArrayList<MailItem> loadedLightMailItems = new ArrayList<>();
             for (MailItem lightMailItem:unloadedMailItems) {
                 for (IRobot robot:robots) {
                     assert robot instanceof Robot;
@@ -254,12 +255,16 @@ public class RobotTeam implements IRobot {
                     if (robot.canAddMailItem(lightMailItem)) {
                         try {
                             robot.addMailItem(lightMailItem);
-                            unloadedMailItems.remove(lightMailItem);
+                            loadedLightMailItems.add(lightMailItem);
                         } catch (InvalidAddItemException | ItemTooHeavyException e) {
                             e.printStackTrace();
                         }
                     }
                 }
+            }
+            /* remove loaded mail items */
+            for (MailItem loadedLightMailItem:loadedLightMailItems) {
+                unloadedMailItems.remove(loadedLightMailItem);
             }
 
         /* only light item for single robot */
