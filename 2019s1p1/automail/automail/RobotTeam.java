@@ -1,7 +1,6 @@
 package automail;
 
 import exceptions.InvalidAddItemException;
-import exceptions.InvalidDeliverException;
 import exceptions.InvalidDispatchException;
 
 import java.util.ArrayList;

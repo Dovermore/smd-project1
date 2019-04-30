@@ -109,7 +109,7 @@ public class Simulation {
 				for (int i=0; i<robots; i++) {
 					automail.getRobot(i).step();
 				}
-			} catch (ExcessiveDeliveryException | InvalidDispatchException e) {
+			} catch (InvalidDispatchException e) {
 				e.printStackTrace();
 				System.out.println("Simulation unable to complete.");
 				System.exit(0);

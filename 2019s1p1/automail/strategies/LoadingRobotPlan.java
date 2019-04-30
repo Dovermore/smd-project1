@@ -75,10 +75,10 @@ public class LoadingRobotPlan {
             while(pseudoTeam.canAddMailItem(tryToLoad)) {
                 try {
                     pseudoTeam.addMailItem(tryToLoad);
+                    unloadedMailItem.remove(tryToLoad);
                 } catch (InvalidAddItemException e) {
                     e.printStackTrace();
                 }
-                unloadedMailItem.remove(tryToLoad);
             }
 
             pseudoTeams.add(pseudoTeam);
