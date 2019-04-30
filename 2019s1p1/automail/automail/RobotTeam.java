@@ -15,6 +15,9 @@ import java.util.stream.Collectors;
  **/
 
 public class RobotTeam implements IRobot {
+    /** team make a move every time_elapse */
+    public static final int TIME_ELAPSE = 3;
+
     private ArrayList<IRobot> robots;
     private ArrayList<MailItem> unloadedMailItems;
 
