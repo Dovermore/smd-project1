@@ -205,13 +205,15 @@ public class Robot implements IRobot {
 	    return this.id;
 	}
 
+    @Override
     public void setAutomail(Automail automail) {
-	    assert automail == null;
-	    this.automail = automail;
+	    if (this.automail==null) {
+	        this.automail = automail;
+        }
 	}
 
-    public void addToAutoMail() {
+    public void addToAutoMail(boolean stepInCurrentTimeFrame) {
 	    assert automail != null;
-	    automail.addIRobot(this, false);
+	    automail.addIRobot(this, stepInCurrentTimeFrame);
     }
 }

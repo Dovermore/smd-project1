@@ -95,9 +95,12 @@ public class Simulation {
         System.out.printf("Seed: %s%n", seed == null ? "null" : seed.toString());
 
         /* initialize whole system */
-        Automail automail = new Automail(new ReportDelivery(), robots);
-        automail.setMailPoolAutoMail();
+        MailPool mailPool = new MailPool();
+        Automail automail = new Automail(mailPool, new ReportDelivery(), robots);
+//        automail.setMailPoolAutoMail();
+        mailPool.setAutomail(automail);
         automail.setAllRobotsAutoMail();
+
 
         MailGenerator mailGenerator = new MailGenerator(MAIL_TO_CREATE, MAIL_MAX_WEIGHT, automail.getMailPool(), seedMap);
         

@@ -105,6 +105,8 @@ public class MailPool implements IMailPool {
             ArrayList<IRobot> teams = loadingRobotPlan.loadRobot(cloneList(robots), cloneList(pool));
 
             for (IRobot team: teams) {
+                /* if team is Robot, then this setAutomail has no effect */
+                team.setAutomail(this.automail); // thus Plan has no dependency on Automail
                 team.dispatch();
 
                 /* update waiting robots in mail pool */
@@ -119,7 +121,7 @@ public class MailPool implements IMailPool {
 
                 /* step this IRobot immediately after mail pool finished its
                  * step in current time frame */
-                automail.addIRobot(team, true);
+                team.addToAutoMail(true);
             }
 		}
 	}

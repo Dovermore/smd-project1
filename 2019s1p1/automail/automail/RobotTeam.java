@@ -3,6 +3,7 @@ package automail;
 import exceptions.InvalidAddItemException;
 import exceptions.InvalidDispatchException;
 import exceptions.ItemTooHeavyException;
+import strategies.Automail;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -20,10 +21,13 @@ public class RobotTeam implements IRobot {
 
     private ArrayList<IRobot> robots;
     private ArrayList<MailItem> unloadedMailItems;
+    private Automail automail;
 
     public RobotTeam() {
         robots = new ArrayList<>();
         unloadedMailItems = new ArrayList<>();
+
+        automail = null;
     }
 
     /**
@@ -304,5 +308,16 @@ public class RobotTeam implements IRobot {
             assert getTeamSize()==1;
             return robots.get(0);
         }
+    }
+
+    public void setAutomail(Automail automail) {
+        assert automail == null;
+
+        this.automail = automail;
+    }
+
+    public void addToAutoMail(boolean stepInCurrentTimeFrame) {
+        assert automail != null;
+        automail.addIRobot(this, stepInCurrentTimeFrame);
     }
 }

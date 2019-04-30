@@ -3,6 +3,7 @@ package automail;
 import exceptions.InvalidAddItemException;
 import exceptions.InvalidDispatchException;
 import exceptions.ItemTooHeavyException;
+import strategies.Automail;
 
 import java.util.ArrayList;
 
@@ -113,4 +114,8 @@ public interface IRobot {
      * Take next actionk
      */
     void step();
+
+    void setAutomail(Automail automail);
+
+    void addToAutoMail(boolean stepInCurrentTimeFrame);
 }
