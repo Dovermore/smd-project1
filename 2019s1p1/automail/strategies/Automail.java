@@ -67,12 +67,18 @@ public class Automail {
         }
     }
 
+    /**
+     * initialize mail pool with the current automail system
+     * */
     public void setMailPoolAutoMail() {
         assert mailPool instanceof MailPool;
 
         ((MailPool)this.mailPool).setAutomail(this);
     }
 
+    /**
+     * initialize robots with the current automail system
+     * */
     public void setAllRobotsAutoMail() {
         assert mailPool instanceof MailPool;
         assert currentStepIRobotList.size()>0;

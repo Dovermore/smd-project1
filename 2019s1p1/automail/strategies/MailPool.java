@@ -189,6 +189,9 @@ public class MailPool implements IMailPool {
         pool.remove(mailItem);
     }
 
+    /**
+     * set mail pool with automail system
+     * */
     public void setAutomail(Automail automail) {
         this.automail = automail;
     }

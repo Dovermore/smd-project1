@@ -94,7 +94,7 @@ public class Simulation {
         Integer seed = seedMap.get(true);
         System.out.printf("Seed: %s%n", seed == null ? "null" : seed.toString());
 
-        /* initialize hole system */
+        /* initialize whole system */
         Automail automail = new Automail(new ReportDelivery(), robots);
         automail.setMailPoolAutoMail();
         automail.setAllRobotsAutoMail();
