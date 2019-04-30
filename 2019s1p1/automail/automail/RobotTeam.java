@@ -122,12 +122,28 @@ public class RobotTeam implements IRobot {
         robots.get(0).deliver();
     }
 
+    /**
+     * return the number of robots work in the team
+     * @return the number of robots work in the team
+     * */
     public int getTeamSize() {return robots.size();}
 
+    /**
+     * return the number of unloaded mail items
+     * @return the number of unloaded mail items in team
+     * */
     public int getUnloadingMailItemSize() {return unloadedMailItems.size();}
 
+    /**
+     * check there is any unloaded mail item
+     * @return true if there is a unloaded mail item
+     * */
     private boolean hasUnloadedMailItem() {return unloadedMailItems.size()>0;}
 
+    /**
+     * check there is enough robots to start the team delivery
+     * @return true if this team has enough robots
+     * */
     public boolean hasEnoughTeamMember() {
         assert hasUnloadedMailItem();
         /* has enough team member for max weight of heaviest items */
@@ -136,12 +152,20 @@ public class RobotTeam implements IRobot {
 
     }
 
+    /**
+     * register a robot to the team
+     * */
     public void addRobot(Robot robot) {
         assert !hasEnoughTeamMember();
 
         robots.add(robot);
     }
 
+    /**
+     * check whether there is a mail item that can't be delivered individually
+     * in unloaded mail item list
+     * @return true if there is a mail item that can't be delivered individually
+     * */
     private boolean hasHeavyItem() {
         for (MailItem mailItem: unloadedMailItems) {
             if (mailItem.getWeight() > IRobot.INDIVIDUAL_MAX_WEIGHT) {
@@ -151,6 +175,10 @@ public class RobotTeam implements IRobot {
         return false;
     }
 
+    /**
+     * get first unloaded mail item can't be delivered individually
+     * @return first mail item in unloaded List can't be delivered individually
+     * */
     private MailItem getHeavyMailItem() {
         assert hasHeavyItem();
 
@@ -164,6 +192,10 @@ public class RobotTeam implements IRobot {
         return null;
     }
 
+    /**
+     * get unloaded mail item with max weight
+     * @return mail item in unloaded List with max weight
+     * */
     private MailItem getHeaviestMailItem() {
         assert hasHeavyItem();
         int curMailItemMaxWeight = 0;
@@ -178,6 +210,9 @@ public class RobotTeam implements IRobot {
         return heaviestMailItem;
     }
 
+    /**
+     * get number of robots required based on unloaded mail items
+     * */
     private int getNRequiredRobot() {
         return getHeaviestMailItem().getNRequiredRobot();
     }
