@@ -21,7 +21,8 @@ public class Robot implements IRobot {
     private RobotState robotState;
     private int currentFloor;
     private boolean receivedDispatch;
-    
+    private int numberTeamMember;
+
     private MailItem deliveryItem = null;
     private MailItem tube = null;
 
@@ -39,6 +40,7 @@ public class Robot implements IRobot {
         this.delivery = delivery;
         this.mailPool = mailPool;
         this.receivedDispatch = false;
+        this.numberTeamMember = 1;
     }
     
     public void dispatch() {

@@ -103,18 +103,17 @@ public class RobotTeam implements IRobot {
         } else if (!hasHeavyItem && !isHeavyItem && (this.getUnloadingMailItemSize()<2)) {
             return true;
         /* has 1 heavy item && has 1 space for light item */
-        } else if (hasHeavyItem && !isHeavyItem  && (this.getUnloadingMailItemSize()<this.getNRequiredRobot())) {
-            return true;
+        } else  {
+            return (hasHeavyItem && !isHeavyItem  && (this.getUnloadingMailItemSize()<this.getNRequiredRobot()));
         }
-
-        return false;
     }
 
     /**
      * IRobot delivers the item.
      */
-    public void deliver() throws InvalidDeliverException {
-        // TODO
+    public void deliver() {
+        // TODO deliver (Need one more variable store or a new class)
+        robots.get(0).deliver();
     }
 
     public int getTeamSize() {return robots.size();}

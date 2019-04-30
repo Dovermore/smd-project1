@@ -1,6 +1,5 @@
 package automail;
 
-import exceptions.InvalidDeliverException;
 import exceptions.InvalidAddItemException;
 import exceptions.InvalidDispatchException;
 import exceptions.ItemTooHeavyException;
