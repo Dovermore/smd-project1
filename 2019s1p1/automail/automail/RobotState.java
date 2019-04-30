@@ -1,5 +1,7 @@
 package automail;
 
+import exceptions.InvalidDispatchException;
+
 /**
  * Defines the states IRobot can be at, and actions they should take.
  */
@@ -8,8 +10,9 @@ public enum RobotState implements IRobotState {
      * IRobot still has uncompleted task
      */
     DELIVERING {
+        @Override
         public void step(IRobot iRobot) {
-            MailItem mailItem = iRobot.getMailItem();
+            MailItem mailItem = iRobot.getCurrentMailItem();
             int destination = mailItem.getDestinationFloor();
 
             // Deliver item and (load next item / return to base)
@@ -26,13 +29,36 @@ public enum RobotState implements IRobotState {
                 iRobot.moveTowards(destination);
             }
         }
-    } ,
+    },
+    /**
+     * Returning to base
+     */
     RETURNING {
+        @Override
         public void step(IRobot iRobot) {
-            iRobot.moveTowards(Building.MAILROOM_LOCATION);
+            if (iRobot.atFloor(Building.MAILROOM_LOCATION)) {
+                iRobot.registerWaiting();
+                iRobot.changeState(RobotState.WAITING);
+            } else {
+                iRobot.moveTowards(Building.MAILROOM_LOCATION);
+            }
         }
-    } ,
-    WAITING;
+    },
+    /**
+     * Waiting for order
+     */
+    WAITING {
+        @Override
+        public void step(IRobot iRobot) {
+            if (iRobot.canDispatch()) {
+                try {
+                    iRobot.dispatch();
+                } catch (InvalidDispatchException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
 
 
     /**
@@ -62,7 +88,7 @@ public enum RobotState implements IRobotState {
 //                }
 //                break;
 //                case WAITING:
-//                /** If the StorageTube is ready and the Robot is waiting in the mailroom then start the delivery */
+//                /** If the StorageTube is ready and the Robot is in the mailroom then start the delivery */
 //                if(!isEmpty() && receivedDispatch){
 //                receivedDispatch = false;
 //                deliveryCounter = 0; // reset delivery counter
