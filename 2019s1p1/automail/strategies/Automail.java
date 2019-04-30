@@ -13,7 +13,7 @@ public class Automail {
     	// Swap between simple provided strategies and your strategies here
     	    	
     	/* Initialize the MailPool */
-    	mailPool = new MailPool(numRobots, this);
+    	mailPool = new MailPool(this);
     	
     	/* Initialize robots */
     	setRobots(new Robot[numRobots]);

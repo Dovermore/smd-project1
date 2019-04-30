@@ -73,8 +73,7 @@ public class MailPool implements IMailPool {
 	private LoadingRobotPlan loadingRobotPlan;
 	private Automail automail;
 
-	public MailPool(int nRobots, Automail automail) {
-	    assert (nRobots>0) && (nRobots<=3);
+	public MailPool(Automail automail) {
 		// Start empty
 		pool = new ArrayList<>();
 		robots = new ArrayList<>();
@@ -102,15 +101,18 @@ public class MailPool implements IMailPool {
 	@Override
 	public void step() throws InvalidDispatchException {
 		if (this.hasLoadingEvent()) {
+		    /* dispatchable IRobot */
             ArrayList<IRobot> teams = loadingRobotPlan.loadRobot(cloneList(robots), cloneList(pool));
 
             for (IRobot team: teams) {
                 team.dispatch();
 
+                /* update waiting robots in mail pool */
                 for (Robot robot: team.listRobots()) {
                     unregisterWaitingRobot(robot);
                 }
 
+                /* update undelivered in mail pool */
                 for (MailItem mailItem: team.listMailItems()) {
                     unregisterUnloadedMailItem(mailItem);
                 }
