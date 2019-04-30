@@ -5,10 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import automail.MailItem;
-import automail.PriorityMailItem;
-import automail.Robot;
-import automail.RobotTeam;
+import automail.*;
 import exceptions.*;
 
 public class MailPool implements IMailPool {
@@ -103,9 +100,9 @@ public class MailPool implements IMailPool {
 	@Override
 	public void step() throws InvalidDispatchException {
 		if (this.hasLoadingEvent()) {
-            ArrayList<RobotTeam> teams = loadingRobotPlan.loadRobot(cloneList(robots), cloneList(pool));
+            ArrayList<IRobot> teams = loadingRobotPlan.loadRobot(cloneList(robots), cloneList(pool));
 
-            for (RobotTeam team: teams) {
+            for (IRobot team: teams) {
                 team.dispatch();
 
                 for (Robot robot: team.listRobots()) {

@@ -1,8 +1,8 @@
 package automail;
 
-import exceptions.InvalidDeliverException;
 import exceptions.InvalidAddItemException;
 import exceptions.InvalidDispatchException;
+import exceptions.ItemTooHeavyException;
 
 import java.util.ArrayList;
 
@@ -40,7 +40,7 @@ public interface IRobot {
      * @param mailItem The MailItem to be added
      * @throws InvalidAddItemException Indicates the Item can not be added to the IRobot.
      */
-    void addMailItem(MailItem mailItem) throws InvalidAddItemException;
+    void addMailItem(MailItem mailItem) throws InvalidAddItemException, ItemTooHeavyException;
 
     /**
      * Checks if given IRobot can be dispatched to send the mail
@@ -72,6 +72,7 @@ public interface IRobot {
     void moveTowards(int destination);
 
     // TODO Redefine change state for Team robots
+    // TODO From team to individual should be here
     /**
      * Change the state of this robot
      * @param robotState The state to change to
@@ -79,7 +80,7 @@ public interface IRobot {
     void changeState(RobotState robotState);
 
 
-    MailItem getMailItem();
+    MailItem getCurrentMailItem();
 
     /**
      * Checks if the IRobot has more item(s) to deliver
@@ -104,7 +105,12 @@ public interface IRobot {
     boolean atFloor(int floor);
 
     /**
-     * Tells the IRobot to maintain active and wait for more orders from control system.
+     * The robot got to base, now waiting for order
      */
-    void maintainActive();
+    void registerWaiting();
+
+    /**
+     * Take next actionk
+     */
+    void step();
 }

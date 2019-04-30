@@ -1,9 +1,6 @@
 package strategies;
 
-import automail.MailItem;
-import automail.Robot;
-import automail.RobotFactory;
-import automail.RobotTeam;
+import automail.*;
 import exceptions.InvalidAddItemException;
 
 import java.util.ArrayList;
@@ -13,31 +10,61 @@ import java.util.List;
  * Xulin Yang, 904904
  *
  * @create 2019-04-29 19:50
- * description:
+ * description: based on mail pool, generate all possible IRobot for mail pool
+ * to dispatch
  **/
 
 public class LoadingRobotPlan {
-    public ArrayList<RobotTeam> loadRobot(List<Robot> waitingRobots,
-                                          List<MailItem> unloadedMailItem) {
+    /**
+     * based on inputted waiting robots in pool and unloaded mail items,
+     * generate all IRobot can be dispatched
+     * @param waitingRobots: robots are in the waiting state
+     * @param unloadedMailItem: mail items are not loaded to robots in order to
+     *                          be delivered
+     * @return list of IRobot can be dispatched
+     * */
+    public ArrayList<IRobot> loadRobot(List<Robot> waitingRobots,
+                                       List<MailItem> unloadedMailItem) {
         /* must has a loading event */
         assert waitingRobots.size() > 0;
         assert unloadedMailItem.size() > 0;
-
-
 
         int nRobots = waitingRobots.size();
 
         /* generate all empty-member team */
         ArrayList<RobotTeam> pseudoTeams = generateAllPseudoTeam(nRobots, unloadedMailItem);
 
-        return generateAllDispatchableTeam(waitingRobots, pseudoTeams);
+        /* load waitingRobots to empty-member team */
+        ArrayList<RobotTeam> unloadedDispatchableTeam = generateAllDispatchableTeam(waitingRobots, pseudoTeams);
+
+        /* divide to individual team or TeamRobot with unloadedMailItem loaded */
+        return loadMailItemToTeamRobot(unloadedDispatchableTeam);
     }
 
     /**
-     * @param waitingRobots A List of Robot s, which are at mailPool and at WAITING STATE
-     * @param pseudoTeams An ArrayList of RobotTeam s, which has unloaded MailItems but has no team member
-     * @return An ArrayList of RobotTeam which each robotTeam is ready to dispatch
-     */
+     * based on team with mail items and distributed robots, load unloaded mail
+     * items to robots in the team
+     * @param unloadedDispatchableTeam: team with mail items to be delivered and
+     *                                  robots to deliver
+     * @return list of IRobot can be dispatched
+     * */
+    private ArrayList<IRobot> loadMailItemToTeamRobot(ArrayList<RobotTeam> unloadedDispatchableTeam) {
+        ArrayList<IRobot> res = new ArrayList<>();
+
+        for (RobotTeam team:unloadedDispatchableTeam) {
+            res.add(team.loadMailItemToTeamRobot());
+        }
+
+        return res;
+    }
+
+    /**
+     * based on undistributed robots and team with unloaded mail items to be
+     * delivered, distribute robots to team
+     * @param pseudoTeams: team with mail items to be loaded
+     * @param waitingRobots: robots can be distributed to team
+     * @return RobotTeam with enough distributed robots and mail items to be loaded
+     * */
     private ArrayList<RobotTeam> generateAllDispatchableTeam(List<Robot> waitingRobots,
                                                              ArrayList<RobotTeam> pseudoTeams) {
         ArrayList<RobotTeam> teams = new ArrayList<>();
@@ -62,11 +89,12 @@ public class LoadingRobotPlan {
     }
 
     /**
-     *
-     * @param nRobots The number of Robot s  at mailPool which at WAITING State
-     * @param unloadedMailItem An ArrayList of MailItem s which are not loaded
-     * @return An ArrayList of RobotTeam s, which has unloaded MailItems but has no team member
-     */
+     * based on number of waiting robots and all waiting to be delivered mail
+     * items, derive team with mail items to be delivered
+     * @param nRobots: number of waiting robots
+     * @param unloadedMailItem: mail items are in the mail pool
+     * @return list of RobotTeam with mail items to be loaded
+     * */
     private ArrayList<RobotTeam> generateAllPseudoTeam(int nRobots, List<MailItem> unloadedMailItem) {
         ArrayList<RobotTeam> pseudoTeams = new ArrayList<>();
 
@@ -86,10 +114,10 @@ public class LoadingRobotPlan {
             while(pseudoTeam.canAddMailItem(tryToLoad)) {
                 try {
                     pseudoTeam.addMailItem(tryToLoad);
+                    unloadedMailItem.remove(tryToLoad);
                 } catch (InvalidAddItemException e) {
                     e.printStackTrace();
                 }
-                unloadedMailItem.remove(tryToLoad);
             }
 
             pseudoTeams.add(pseudoTeam);

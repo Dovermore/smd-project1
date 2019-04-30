@@ -1,6 +1,7 @@
 package automail;
 
 import exceptions.ExcessiveDeliveryException;
+import exceptions.InvalidAddItemException;
 import exceptions.ItemTooHeavyException;
 import strategies.IMailPool;
 
@@ -20,11 +21,10 @@ public class Robot implements IRobot {
     private RobotState robotState;
     private int currentFloor;
     private boolean receivedDispatch;
-    
+    private int numberTeamMember;
+
     private MailItem deliveryItem = null;
     private MailItem tube = null;
-    
-    private int deliveryCounter;
 
     /**
      * Initiates the robot's location at the start to be at the mailroom
@@ -40,7 +40,7 @@ public class Robot implements IRobot {
         this.delivery = delivery;
         this.mailPool = mailPool;
         this.receivedDispatch = false;
-        this.deliveryCounter = 0;
+        this.numberTeamMember = 1;
     }
     
     public void dispatch() {
@@ -49,9 +49,8 @@ public class Robot implements IRobot {
 
     /**
      * This is called on every time step
-     * @throws ExcessiveDeliveryException if robot delivers more than the capacity of the tube without refilling
      */
-    public void step() throws ExcessiveDeliveryException {
+    public void step() {
         robotState.step(this);
     }
 
@@ -92,52 +91,113 @@ public class Robot implements IRobot {
 	}
     
 	static private int count = 0;
-	static private Map<Integer, Integer> hashMap = new TreeMap<Integer, Integer>();
+	static private Map<Integer, Integer> hashMap = new TreeMap<>();
 
-	@Override
-	public int hashCode() {
-		Integer hash0 = super.hashCode();
-		Integer hash = hashMap.get(hash0);
-		if (hash == null) { hash = count++; hashMap.put(hash0, hash); }
-		return hash;
-	}
 
 	public boolean isEmpty() {
 		return (deliveryItem == null && tube == null);
 	}
 
-	public void addToHand(MailItem mailItem) throws ItemTooHeavyException {
+	private void addToHand(MailItem mailItem) throws ItemTooHeavyException {
 		assert(deliveryItem == null);
 		deliveryItem = mailItem;
 		if (IRobot.INDIVIDUAL_MAX_WEIGHT < mailItem.getWeight()) throw new ItemTooHeavyException();
 	}
 
-	public void addToTube(MailItem mailItem) throws ItemTooHeavyException {
+	private void addToTube(MailItem mailItem) throws ItemTooHeavyException {
 		assert(tube == null);
         tube = mailItem;
 		if (IRobot.INDIVIDUAL_MAX_WEIGHT < mailItem.getWeight()) throw new ItemTooHeavyException();
 	}
 
-
-
-	/* ************************ added methods ****************************** */
-    public String getId() {return this.id;}
-
     @Override
     public ArrayList<MailItem> listMailItems() {
-        ArrayList<MailItem> listMailItems = new ArrayList<>();
-        if (this.deliveryItem != null){
-            listMailItems.add(this.deliveryItem);
+        ArrayList<MailItem> mailItems = new ArrayList<>();
+        if (deliveryItem != null) {
+            mailItems.add(deliveryItem);
         }
-        if (this.tube != null){
-            listMailItems.add(this.tube)
+        if (tube != null) {
+            mailItems.add(tube);
         }
-        return listMailItems;
+        return mailItems;
     }
 
+    @Override
     public ArrayList<Robot> listRobots() {
         ArrayList<Robot> robots = new ArrayList<>();
         robots.add(this);
         return robots;
     }
+
+    @Override
+    public boolean canAddMailItem(MailItem mailItem) {
+	    // correct weight
+	    if (IRobot.INDIVIDUAL_MAX_WEIGHT < mailItem.getWeight()) {
+	        return false;
+        }
+	    // Return have space for item
+        return (deliveryItem == null | tube == null);
+    }
+
+    @Override
+    public void addMailItem(MailItem mailItem) throws InvalidAddItemException, ItemTooHeavyException {
+	    if (deliveryItem == null) {
+	        addToHand(mailItem);
+        } else if (tube == null) {
+	        addToTube(mailItem);
+        } else {
+	        throw new InvalidAddItemException();
+        }
+    }
+
+    @Override
+    public boolean canDispatch() {
+	    return receivedDispatch;
+    }
+
+    @Override
+    public void deliver() {
+	    delivery.deliver(deliveryItem);
+    }
+
+    @Override
+    public MailItem getCurrentMailItem() {
+	    return deliveryItem;
+    }
+
+    @Override
+    public boolean hasNextMailItem() {
+	    return tube != null;
+    }
+
+    @Override
+    public void loadNextMailItem() {
+	    try {
+	        addToHand(tube);
+        } catch (ItemTooHeavyException e) {
+	        e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean atFloor (int floor) {
+	    return currentFloor == floor;
+    }
+
+    @Override
+    public void registerWaiting() {
+	    mailPool.registerWaiting(this);
+    }
+
+    @Override
+    public int hashCode() {
+        Integer hash0 = super.hashCode();
+        Integer hash = hashMap.get(hash0);
+        if (hash == null) { hash = count++; hashMap.put(hash0, hash); }
+        return hash;
+    }
+
+    public String getId() {
+	    return this.id;
+	}
 }
