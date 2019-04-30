@@ -262,9 +262,6 @@ public class RobotTeam implements IRobot {
                 }
             }
 
-            /* all items should be loaded */
-            assert !hasUnloadedMailItem();
-
         /* only light item for single robot */
         } else {
             assert getTeamSize()==1;
@@ -279,6 +276,9 @@ public class RobotTeam implements IRobot {
                 }
             }
         }
+
+        /* all items should be loaded */
+        assert !hasUnloadedMailItem();
     }
 
     /**
