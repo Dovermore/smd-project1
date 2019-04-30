@@ -34,7 +34,7 @@ public class Robot implements IRobot {
      */
     public Robot(IMailDelivery delivery, IMailPool mailPool) {
     	id = "R" + hashCode();
-    	robotState = RobotState.WAITING;
+    	robotState = RobotState.RETURNING;
     	teamState = TeamState.SINGLE;
         currentFloor = Building.MAILROOM_LOCATION;
         this.delivery = delivery;
@@ -209,5 +209,10 @@ public class Robot implements IRobot {
     @Override
     public void changeTeamState(TeamState teamState) {
 	    this.teamState = teamState;
+    }
+
+    @Override
+    public boolean canStartDelivery() {
+        return receivedDispatch;
     }
 }

@@ -383,4 +383,14 @@ public class RobotTeam implements IRobot {
         // You can not set this
         assert false;
     }
+
+    /**
+     * Checks if this RobotTeam can be sent out for delivery
+     * @return true if all robots in this team can start.
+     */
+    @Override
+    public boolean canStartDelivery() {
+        return robots.stream()
+                .allMatch(Robot::canStartDelivery);
+    }
 }

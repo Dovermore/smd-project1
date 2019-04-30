@@ -55,6 +55,12 @@ public interface IRobot {
     /* ------------------------------------------------------------------------------------------------ */
 
     /**
+     * Checks if the IRobot can start delivery (State can be changed to Delivery if this is true)
+     * @return True if can start, false otherwise
+     */
+    boolean canStartDelivery();
+
+    /**
      * IRobot delivers the item.
      */
     void deliver();

@@ -99,10 +99,13 @@ public class MailPool implements IMailPool {
 	public ArrayList<IRobot> step() throws InvalidDispatchException {
 		ArrayList<IRobot> iRobots = new ArrayList<>();
 		if (this.hasLoadingEvent()) {
+
 		    /* derived dispatchable IRobot */
             iRobots = loadingRobotPlan.loadRobot(cloneList(robots), cloneList(pool));
 
             for (IRobot iRobot: iRobots) {
+            	iRobot.dispatch();
+
                 /* update waiting robots in mail pool */
                 for (Robot robot: iRobot.listRobots()) {
                     unregisterWaitingRobot(robot);

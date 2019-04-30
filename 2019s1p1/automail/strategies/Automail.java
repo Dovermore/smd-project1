@@ -39,9 +39,12 @@ public class Automail {
      * */
     public void step() throws InvalidDispatchException {
         // Add robots just got loaded
-        currentStepIRobotList.addAll(this.mailPool.step());
+        ArrayList<IRobot> dispatchedRobots = this.mailPool.step();
+        currentStepIRobotList.addAll(dispatchedRobots);
+
         for (IRobot currentIRobot: this.currentStepIRobotList) {
-            nextStepIRobotList.addAll(currentIRobot.step());
+            ArrayList<IRobot> activeRobots = currentIRobot.step();
+            nextStepIRobotList.addAll(activeRobots);
         }
 
         this.currentStepIRobotList = this.nextStepIRobotList;

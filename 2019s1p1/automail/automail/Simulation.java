@@ -132,6 +132,7 @@ public class Simulation {
     				throw new MailAlreadyDeliveredException();
     			} catch (MailAlreadyDeliveredException e) {
     				e.printStackTrace();
+    				System.exit(1);
     			}
     		}
     	}

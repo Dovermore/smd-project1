@@ -49,10 +49,12 @@ public enum RobotState implements IRobotState {
             if (iRobot.getFloor() == Building.MAILROOM_LOCATION) {
                 iRobot.registerWaiting();
                 iRobot.changeState(RobotState.WAITING);
+                // Waiting for order from now on
+                return new ArrayList<>();
             } else {
                 iRobot.moveTowards(Building.MAILROOM_LOCATION);
+                return iRobot.availableIRobots();
             }
-            return iRobot.availableIRobots();
         }
     },
     /**
@@ -61,12 +63,8 @@ public enum RobotState implements IRobotState {
     WAITING {
         @Override
         public ArrayList<IRobot> step(IRobot iRobot) {
-            if (iRobot.canDispatch()) {
-                try {
-                    iRobot.dispatch();
-                } catch (InvalidDispatchException e) {
-                    e.printStackTrace();
-                }
+            if (iRobot.canStartDelivery()) {
+                iRobot.changeState(RobotState.DELIVERING);
             }
             return iRobot.availableIRobots();
         }
