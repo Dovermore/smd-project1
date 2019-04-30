@@ -33,6 +33,11 @@ public class LoadingRobotPlan {
         return generateAllDispatchableTeam(waitingRobots, pseudoTeams);
     }
 
+    /**
+     * @param waitingRobots A List of Robot s, which are at mailPool and at WAITING STATE
+     * @param pseudoTeams An ArrayList of RobotTeam s, which has unloaded MailItems but has no team member
+     * @return An ArrayList of RobotTeam which each robotTeam is ready to dispatch
+     */
     private ArrayList<RobotTeam> generateAllDispatchableTeam(List<Robot> waitingRobots,
                                                              ArrayList<RobotTeam> pseudoTeams) {
         ArrayList<RobotTeam> teams = new ArrayList<>();
@@ -56,6 +61,12 @@ public class LoadingRobotPlan {
         return teams;
     }
 
+    /**
+     *
+     * @param nRobots The number of Robot s  at mailPool which at WAITING State
+     * @param unloadedMailItem An ArrayList of MailItem s which are not loaded
+     * @return An ArrayList of RobotTeam s, which has unloaded MailItems but has no team member
+     */
     private ArrayList<RobotTeam> generateAllPseudoTeam(int nRobots, List<MailItem> unloadedMailItem) {
         ArrayList<RobotTeam> pseudoTeams = new ArrayList<>();
 

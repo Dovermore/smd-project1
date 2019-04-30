@@ -4,6 +4,7 @@ import exceptions.ExcessiveDeliveryException;
 import exceptions.ItemTooHeavyException;
 import strategies.IMailPool;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -121,4 +122,22 @@ public class Robot implements IRobot {
 
 	/* ************************ added methods ****************************** */
     public String getId() {return this.id;}
+
+    @Override
+    public ArrayList<MailItem> listMailItems() {
+        ArrayList<MailItem> listMailItems = new ArrayList<>();
+        if (this.deliveryItem != null){
+            listMailItems.add(this.deliveryItem);
+        }
+        if (this.tube != null){
+            listMailItems.add(this.tube)
+        }
+        return listMailItems;
+    }
+
+    public ArrayList<Robot> listRobots() {
+        ArrayList<Robot> robots = new ArrayList<>();
+        robots.add(this);
+        return robots;
+    }
 }
