@@ -94,6 +94,7 @@ public class Simulation {
         Integer seed = seedMap.get(true);
         System.out.printf("Seed: %s%n", seed == null ? "null" : seed.toString());
         Automail automail = new Automail(new ReportDelivery(), robots);
+        automail.setMailPoolAutoMail();
         MailGenerator mailGenerator = new MailGenerator(MAIL_TO_CREATE, MAIL_MAX_WEIGHT, automail.getMailPool(), seedMap);
         
         /** Initiate all the mail */

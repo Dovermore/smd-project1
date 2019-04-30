@@ -73,12 +73,12 @@ public class MailPool implements IMailPool {
 	private LoadingRobotPlan loadingRobotPlan;
 	private Automail automail;
 
-	public MailPool(Automail automail) {
+	public MailPool() {
 		// Start empty
 		pool = new ArrayList<>();
 		robots = new ArrayList<>();
 		loadingRobotPlan = new LoadingRobotPlan();
-		this.automail = automail;
+		this.automail = null;
 	}
 
 	/**
@@ -183,5 +183,9 @@ public class MailPool implements IMailPool {
         assert mailItem != null;
         assert pool.contains(mailItem);
         pool.remove(mailItem);
+    }
+
+    public void setAutomail(Automail automail) {
+        this.automail = automail;
     }
 }

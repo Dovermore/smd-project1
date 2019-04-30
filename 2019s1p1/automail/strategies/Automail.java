@@ -22,7 +22,7 @@ public class Automail {
     	// Swap between simple provided strategies and your strategies here
     	    	
     	/* Initialize the MailPool */
-    	mailPool = new MailPool(this);
+    	mailPool = new MailPool();
     	
     	/* Initialize robots */
         currentStepIRobotList = new ArrayList<>();
@@ -58,5 +58,11 @@ public class Automail {
      * */
     public void addIRobot(IRobot robot) {
         assert robot != null;
+    }
+
+    public void setMailPoolAutoMail() {
+        assert mailPool instanceof MailPool;
+
+        ((MailPool)this.mailPool).setAutomail(this);
     }
 }
