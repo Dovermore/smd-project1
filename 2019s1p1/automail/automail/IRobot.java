@@ -69,6 +69,8 @@ public interface IRobot {
      */
     boolean canStartDelivery();
 
+    void startDelivery();
+
     /**
      * IRobot delivers the item.
      */

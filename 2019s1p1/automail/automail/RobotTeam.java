@@ -113,8 +113,8 @@ public class RobotTeam implements IRobot {
      * IRobot delivers the item.
      */
     public void deliver() {
-        // TODO deliver (Need one more variable store or a new class)
         robots.get(0).deliver();
+        robots.forEach(Robot::clearDeliveryItem);
     }
 
     /**
@@ -281,9 +281,8 @@ public class RobotTeam implements IRobot {
      * @return a Robot or TeamRobot can be dispatched by mailPool
      * */
     public IRobot loadMailItemToTeamRobot() {
-        loadUnloadedToRobots();
-
         boolean hasHeavyItem = this.hasHeavyItem();
+        loadUnloadedToRobots();
 
         /* RobotTeam */
         if (hasHeavyItem) {
@@ -399,7 +398,7 @@ public class RobotTeam implements IRobot {
     @Override
     public boolean canStartDelivery() {
         return robots.stream()
-                .allMatch(Robot::canStartDelivery);
+                        .allMatch(Robot::canStartDelivery);
     }
 
     @Override
@@ -421,5 +420,12 @@ public class RobotTeam implements IRobot {
     public String getId() {
         assert hasEnoughTeamMember();
         return robots.get(0).getId();
+    }
+
+    @Override
+    public void startDelivery() {
+        for (Robot robot: robots) {
+            robot.startDelivery();
+        }
     }
 }

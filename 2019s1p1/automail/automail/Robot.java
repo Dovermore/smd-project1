@@ -43,6 +43,9 @@ public class Robot implements IRobot {
     	receivedDispatch = true;
     }
 
+    @Override
+    public void startDelivery() {receivedDispatch = false;}
+
     /**
      * This is called on every time step
      */
@@ -145,6 +148,10 @@ public class Robot implements IRobot {
     @Override
     public void deliver() {
 	    delivery.deliver(deliveryItem);
+	    deliveryItem = null;
+    }
+
+    public void clearDeliveryItem() {
 	    deliveryItem = null;
     }
 

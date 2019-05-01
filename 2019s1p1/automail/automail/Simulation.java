@@ -37,8 +37,8 @@ public class Simulation {
     	// Read properties
 		FileReader inStream = null;
 		try {
-            inStream = new FileReader("./testResource/automail_0.properties");
-//			inStream = new FileReader("./testResource/automail_1.properties");
+//            inStream = new FileReader("./testResource/automail_0.properties");
+			inStream = new FileReader("./testResource/automail_1.properties");
 //			inStream = new FileReader("./testResource/automail_2.properties");
 //          inStream = new FileReader("./testResource/automail_3.properties");
 //          inStream = new FileReader("./testResource/automail_4.properties");
@@ -131,6 +131,7 @@ public class Simulation {
     			try {
     				throw new MailAlreadyDeliveredException();
     			} catch (MailAlreadyDeliveredException e) {
+                    System.err.println(deliveryItem.toString());
     				e.printStackTrace();
     				System.exit(1);
     			}
