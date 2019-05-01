@@ -148,6 +148,7 @@ public class Robot implements IRobot {
     @Override
     public void deliver() {
 	    delivery.deliver(deliveryItem);
+	    deliveryItem = null;
     }
 
     @Override
@@ -164,6 +165,7 @@ public class Robot implements IRobot {
     public void loadNextMailItem() {
 	    try {
 	        addToHand(tube);
+	        tube = null;
         } catch (ItemTooHeavyException e) {
 	        e.printStackTrace();
         }
