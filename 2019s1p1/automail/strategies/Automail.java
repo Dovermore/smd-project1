@@ -53,7 +53,5 @@ public class Automail {
     }
 
     /** return the mail pool in the auto mail */
-    public IMailPool getMailPool() {
-        return mailPool;
-    }
+    public IMailPool getMailPool() {return mailPool;}
 }

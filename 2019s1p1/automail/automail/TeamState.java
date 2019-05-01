@@ -7,18 +7,21 @@ public enum TeamState implements ITeamState {
             return SINGLE_MAX_WEIGHT;
         }
     },
+
     DOUBLE {
         @Override
         public int validWeight() {
             return DOUBLE_MAX_WEIGHT;
         }
     },
+
     TRIPLE {
         @Override
         public int validWeight() {
             return TRIPLE_MAX_WEIGHT;
         }
     },
+
     INVALID;
 
     /**

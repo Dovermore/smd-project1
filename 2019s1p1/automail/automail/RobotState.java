@@ -76,9 +76,7 @@ public enum RobotState implements IRobotState {
      * @param iRobot The robot to act on
      */
     @Override
-    public ArrayList<IRobot> step(IRobot iRobot) {
-        return null;
-    }
+    public ArrayList<IRobot> step(IRobot iRobot) {return new ArrayList<>();}
 
     /**
      * Do nothing

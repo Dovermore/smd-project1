@@ -150,6 +150,4 @@ public interface IRobot {
      * @param teamState The TeamState to set to
      */
     void changeTeamState(TeamState teamState);
-
-    void printIRobot();
 }

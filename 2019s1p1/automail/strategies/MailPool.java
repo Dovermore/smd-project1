@@ -72,12 +72,13 @@ public class MailPool implements IMailPool {
 	private ISelectMailItemToDeliverPlan selectMailItemToDeliverPlan;
     private ISelectRobotToDeliverPlan selectRobotToDeliverPlan;
 
-	public MailPool() {
+	public MailPool(ISelectMailItemToDeliverPlan selectMailItemToDeliverPlan,
+                    ISelectRobotToDeliverPlan selectRobotToDeliverPlan) {
 		// Start empty
 		pool = new ArrayList<>();
 		robots = new ArrayList<>();
-		selectMailItemToDeliverPlan = new SelectMailItemToDeliverPlan();
-		selectRobotToDeliverPlan = new SelectRobotToDeliverPlan();
+		this.selectMailItemToDeliverPlan = selectMailItemToDeliverPlan;
+		this.selectRobotToDeliverPlan = selectRobotToDeliverPlan;
 	}
 
 	/**
@@ -101,15 +102,13 @@ public class MailPool implements IMailPool {
 	public ArrayList<IRobot> step() throws InvalidDispatchException {
 		ArrayList<IRobot> iRobots = new ArrayList<>();
 		if (this.hasLoadingEvent()) {
-
-		    /* derived mail items to be delivered by single robot or a robot team */
-
             boolean isPlanAdapted = true;
 
             while (isPlanAdapted) {
                 isPlanAdapted = false;
                 ArrayList<MailItem> deliverMailItemPlan = selectMailItemToDeliverPlan.generateDeliverMailItemPlan(cloneList(pool));
 
+		        /* derived mail items to be delivered by single robot or a robot team */
                 if (!deliverMailItemPlan.isEmpty() &&
                         selectMailItemToDeliverPlan.hasEnoughRobot(robots.size(), deliverMailItemPlan)) {
                     int nRequiredRobots = selectMailItemToDeliverPlan.getPlanRequiredRobot(deliverMailItemPlan);
@@ -118,6 +117,7 @@ public class MailPool implements IMailPool {
                     IRobot iRobot = RobotFactory.getInstance().createIRobot(selectedRobot, deliverMailItemPlan);
 
                     iRobot.dispatch();
+
                     /* update waiting robots in mail pool */
                     for (Robot robot: iRobot.listRobots()) {
                         unregisterWaitingRobot(robot);
@@ -129,50 +129,13 @@ public class MailPool implements IMailPool {
                     }
 
                     iRobots.add(iRobot);
+                    isPlanAdapted = true;
                 }
 
             }
-
-//            for (IRobot iRobot: iRobots) {
-//            	iRobot.dispatch();
-//
-//                /* update waiting robots in mail pool */
-//                for (Robot robot: iRobot.listRobots()) {
-//                    unregisterWaitingRobot(robot);
-//                }
-//
-//                /* update undelivered in mail pool */
-//                for (MailItem mailItem: iRobot.listMailItems()) {
-//                    unregisterUnloadedMailItem(mailItem);
-//                }
-//            }
 		}
 		return iRobots;
 	}
-
-	/**
-     * load items to robots in Waiting state
-     * */
-//	private void loadRobot(ListIterator<Robot> i) throws ItemTooHeavyException {
-//		Robot robot = i.next();
-//		assert(robot.isEmpty());
-//		// System.out.printf("P: %3d%n", pool.size());
-//		ListIterator<Item> j = pool.listIterator();
-//		if (pool.size() > 0) {
-//			try {
-//				robot.addToHand(j.next().mailItem); // hand first as we want higher priority delivered first
-//				j.remove();
-//				if (pool.size() > 0) {
-//					robot.addToTube(j.next().mailItem);
-//					j.remove();
-//				}
-//				robot.dispatch(); // send the robot off if it has any items to deliver
-//				i.remove();       // remove from mailPool queue
-//			} catch (Exception e) {
-//	            throw e;
-//	        }
-//		}
-//	}
 
     /**
      * @param robot refers to a robot which has arrived back ready for more mailItems to deliver

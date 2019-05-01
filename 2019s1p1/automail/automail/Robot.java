@@ -222,19 +222,4 @@ public class Robot implements IRobot {
     public boolean canStartDelivery() {
         return receivedDispatch;
     }
-
-    @Override
-    public void printIRobot() {
-        System.out.println(String.format("Robot:: %s", getId()));
-
-        if (deliveryItem != null) {
-            System.out.print(String.format("%s####", deliveryItem.toString()));
-        }
-
-        if (tube!=null) {
-            System.out.print(tube.toString());
-        }
-
-        System.out.println();
-    }
 }

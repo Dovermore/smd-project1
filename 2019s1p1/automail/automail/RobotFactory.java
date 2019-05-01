@@ -50,8 +50,4 @@ public class RobotFactory {
             return new RobotTeam(teamRobotMember, mailItemsToDelivers);
         }
     }
-
-//    public RobotTeam createRobotTeam() {
-//        return new RobotTeam();
-//    }
 }

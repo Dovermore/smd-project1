@@ -72,6 +72,4 @@ public class MailItem {
     public int getArrivalTime() {
         return arrivalTime;
     }
-
-    /* ************************ added methods ****************************** */
 }

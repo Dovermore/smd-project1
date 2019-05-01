@@ -3,6 +3,8 @@ package automail;
 import exceptions.*;
 import strategies.Automail;
 import strategies.MailPool;
+import strategies.SelectMailItemToDeliverPlan;
+import strategies.SelectRobotToDeliverPlan;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -97,7 +99,7 @@ public class Simulation {
         System.out.printf("Seed: %s%n", seed == null ? "null" : seed.toString());
 
         /* initialize whole system */
-        MailPool mailPool = new MailPool();
+        MailPool mailPool = new MailPool(new SelectMailItemToDeliverPlan(), new SelectRobotToDeliverPlan());
         Automail automail = new Automail(mailPool, new ReportDelivery(), robots);
 
         MailGenerator mailGenerator = new MailGenerator(MAIL_TO_CREATE, MAIL_MAX_WEIGHT, automail.getMailPool(), seedMap);
