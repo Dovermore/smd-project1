@@ -5,8 +5,17 @@ import exceptions.InvalidDispatchException;
 import exceptions.ItemTooHeavyException;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public interface IRobot {
+    class IRobotComparator implements Comparator<IRobot> {
+        @Override
+        public int compare(IRobot r1, IRobot r2) {
+            return r1.getId().compareTo(r2.getId());
+        }
+    }
+
+    IRobotComparator IRobotComparator = new IRobotComparator();
 
     /* ------------------------------------------------------------------------------------------------ */
     /*                                     Pre dispatch                                                 */
@@ -115,6 +124,8 @@ public interface IRobot {
     /*                                     Generic methods                                              */
     /* ------------------------------------------------------------------------------------------------ */
 
+    String getId();
+
     /**
      * Take next action
      */
@@ -137,4 +148,6 @@ public interface IRobot {
      * @param teamState The TeamState to set to
      */
     void changeTeamState(TeamState teamState);
+
+    void printIRobot();
 }

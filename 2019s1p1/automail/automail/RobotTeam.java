@@ -158,6 +158,7 @@ public class RobotTeam implements IRobot {
         assert !hasEnoughTeamMember();
 
         robots.add(robot);
+        robots.sort(IRobot.IRobotComparator);
     }
 
     /**
@@ -392,5 +393,26 @@ public class RobotTeam implements IRobot {
     public boolean canStartDelivery() {
         return robots.stream()
                 .allMatch(Robot::canStartDelivery);
+    }
+
+    @Override
+    public void printIRobot() {
+        System.out.println(String.format("UnLoadedItem: %d, working robot: %d", getUnloadingMailItemSize(), getTeamSize()));
+
+        for (IRobot robot: robots) {
+            if (robot instanceof Robot) {
+                robot.printIRobot();
+            }
+        }
+
+        for (MailItem mailItem: unloadedMailItems) {
+            System.out.println(mailItem.toString());
+        }
+    }
+
+    @Override
+    public String getId() {
+        assert hasEnoughTeamMember();
+        return robots.get(0).getId();
     }
 }

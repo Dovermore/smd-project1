@@ -24,7 +24,7 @@ public class Simulation {
     private static double total_score = 0;
 
     public static void main(String[] args)
-			throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+			throws IOException {
         Properties automailProperties = new Properties();
 		// Default properties
     	automailProperties.setProperty("Robots", "Standard");
@@ -37,8 +37,8 @@ public class Simulation {
     	// Read properties
 		FileReader inStream = null;
 		try {
-//            inStream = new FileReader("./testResource/automail_0.properties");
-			inStream = new FileReader("./testResource/automail_1.properties");
+            inStream = new FileReader("./testResource/automail_0.properties");
+//			inStream = new FileReader("./testResource/automail_1.properties");
 //			inStream = new FileReader("./testResource/automail_2.properties");
 //          inStream = new FileReader("./testResource/automail_3.properties");
 //          inStream = new FileReader("./testResource/automail_4.properties");

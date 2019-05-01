@@ -4,10 +4,7 @@ import exceptions.InvalidAddItemException;
 import exceptions.ItemTooHeavyException;
 import strategies.IMailPool;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * The robot delivers mail!
@@ -189,6 +186,7 @@ public class Robot implements IRobot {
         return hash;
     }
 
+    @Override
     public String getId() {
 	    return this.id;
 	}
@@ -216,5 +214,20 @@ public class Robot implements IRobot {
     @Override
     public boolean canStartDelivery() {
         return receivedDispatch;
+    }
+
+    @Override
+    public void printIRobot() {
+        System.out.println(String.format("Robot:: %s", getId()));
+
+        if (deliveryItem != null) {
+            System.out.print(String.format("%s####", deliveryItem.toString()));
+        }
+
+        if (tube!=null) {
+            System.out.print(tube.toString());
+        }
+
+        System.out.println();
     }
 }

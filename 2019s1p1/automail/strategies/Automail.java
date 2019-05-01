@@ -41,6 +41,7 @@ public class Automail {
         // Add robots just got loaded
         ArrayList<IRobot> dispatchedRobots = this.mailPool.step();
         currentStepIRobotList.addAll(dispatchedRobots);
+        currentStepIRobotList.sort(IRobot.IRobotComparator);
 
         for (IRobot currentIRobot: this.currentStepIRobotList) {
             ArrayList<IRobot> activeRobots = currentIRobot.step();

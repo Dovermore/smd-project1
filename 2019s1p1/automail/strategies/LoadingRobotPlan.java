@@ -116,6 +116,7 @@ public class LoadingRobotPlan {
                     tryToLoad = unloadedMailItem.get(0);
 
                     if (!pseudoTeam.canAddMailItem(tryToLoad)) {
+
                         break;
                     }
 
