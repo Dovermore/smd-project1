@@ -7,6 +7,7 @@ import exceptions.ItemTooHeavyException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RobotTeam implements IRobot {
 
@@ -91,6 +92,10 @@ public class RobotTeam implements IRobot {
      * IRobot delivers the item.
      */
     public void deliver() {
+        System.out.printf("T: %3d >*  [%s] at floor(%3d) %s is now reporting deliver [%s]%n",
+                Clock.Time(), getId(), robots.get(0).getFloor(),
+                robots.get(0).getId(), robots.get(0).getCurrentMailItem().toString());
+
         robots.get(0).deliver();
         robots.forEach(Robot::clearDeliveryItem);
     }
@@ -306,7 +311,7 @@ public class RobotTeam implements IRobot {
     @Override
     public String getId() {
         assert !robots.isEmpty();
-        return robots.get(0).getId();
+        return robots.stream().map(Robot::getId).collect(Collectors.joining());
     }
 
     @Override
