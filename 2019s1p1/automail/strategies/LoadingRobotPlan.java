@@ -110,9 +110,15 @@ public class LoadingRobotPlan {
             RobotTeam pseudoTeam = RobotFactory.getInstance().createRobotTeam();
 
             /* load mail item to pseudo team */
-            MailItem tryToLoad = unloadedMailItem.get(0);
-            while(pseudoTeam.canAddMailItem(tryToLoad)) {
+            MailItem tryToLoad;
+            while (!unloadedMailItem.isEmpty()) {
                 try {
+                    tryToLoad = unloadedMailItem.get(0);
+
+                    if (!pseudoTeam.canAddMailItem(tryToLoad)) {
+                        break;
+                    }
+
                     pseudoTeam.addMailItem(tryToLoad);
                     unloadedMailItem.remove(tryToLoad);
                 } catch (InvalidAddItemException e) {
