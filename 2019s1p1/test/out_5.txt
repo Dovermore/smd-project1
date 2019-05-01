@@ -1,0 +1,56 @@
+Floors:    14
+Fragile: false
+Mail_to_Create:     9
+Mail_Max_Weight:  2000
+Last_Delivery_Time:    27
+Robots: 3
+Seed: 1998
+T:   0 >   R0(0) changed from RETURNING to WAITING
+T:   0 >   R1(0) changed from RETURNING to WAITING
+T:   0 >   R2(0) changed from RETURNING to WAITING
+T:   1 > new addToPool [Mail Item:: ID:      0 | Arrival:    1 | Destination:  8 | Weight: 1331]
+T:   1 >   R0(0) changed from WAITING to DELIVERING
+T:   1 >   R0(0)-> [Mail Item:: ID:      0 | Arrival:    1 | Destination:  8 | Weight: 1331]
+T:   7 > new addToPool [Mail Item:: ID:      5 | Arrival:    7 | Destination:  7 | Weight: 1452]
+T:   7 > new addToPool [Mail Item:: ID:      6 | Arrival:    7 | Destination:  3 | Weight: 1449 | Priority:  40]
+T:   7 >   R1(1) changed from WAITING to DELIVERING
+T:   7 >   R1(1)-> [Mail Item:: ID:      6 | Arrival:    7 | Destination:  3 | Weight: 1449 | Priority:  40]
+T:   9 > new addToPool [Mail Item:: ID:      8 | Arrival:    9 | Destination: 10 | Weight:  351]
+T:   9 > Delivered(   1) [Mail Item:: ID:      0 | Arrival:    1 | Destination:  8 | Weight: 1331]
+T:   9 >   R0(0) changed from DELIVERING to RETURNING
+T:   9 >   R2(0) changed from WAITING to DELIVERING
+T:   9 >   R2(0)-> [Mail Item:: ID:      8 | Arrival:    9 | Destination: 10 | Weight:  351]
+T:  10 > new addToPool [Mail Item:: ID:      2 | Arrival:   10 | Destination:  3 | Weight:  722]
+T:  10 > Delivered(   2) [Mail Item:: ID:      6 | Arrival:    7 | Destination:  3 | Weight: 1449 | Priority:  40]
+T:  10 >   R1(0)-> [Mail Item:: ID:      5 | Arrival:    7 | Destination:  7 | Weight: 1452]
+T:  11 > new addToPool [Mail Item:: ID:      3 | Arrival:   11 | Destination: 13 | Weight:  930 | Priority:  50]
+T:  12 > new addToPool [Mail Item:: ID:      7 | Arrival:   12 | Destination:  1 | Weight: 1659]
+T:  13 > new addToPool [Mail Item:: ID:      4 | Arrival:   13 | Destination:  9 | Weight:  515]
+T:  15 > Delivered(   3) [Mail Item:: ID:      5 | Arrival:    7 | Destination:  7 | Weight: 1452]
+T:  15 >   R1(0) changed from DELIVERING to RETURNING
+T:  16 > new addToPool [Mail Item:: ID:      1 | Arrival:   16 | Destination: 11 | Weight:  641 | Priority:  30]
+T:  17 >   R0(0) changed from RETURNING to WAITING
+T:  18 >   R0(1) changed from WAITING to DELIVERING
+T:  18 >   R0(1)-> [Mail Item:: ID:      3 | Arrival:   11 | Destination: 13 | Weight:  930 | Priority:  50]
+T:  19 > Delivered(   4) [Mail Item:: ID:      8 | Arrival:    9 | Destination: 10 | Weight:  351]
+T:  19 >   R2(0) changed from DELIVERING to RETURNING
+T:  22 >   R1(0) changed from RETURNING to WAITING
+T:  23 >   R1(1) changed from WAITING to DELIVERING
+T:  23 >   R1(1)-> [Mail Item:: ID:      4 | Arrival:   13 | Destination:  9 | Weight:  515]
+T:  29 >   R2(0) changed from RETURNING to WAITING
+T:  30 >   R2(0) changed from WAITING to DELIVERING
+T:  30 >   R2(0)-> [Mail Item:: ID:      7 | Arrival:   12 | Destination:  1 | Weight: 1659]
+T:  31 > Delivered(   5) [Mail Item:: ID:      3 | Arrival:   11 | Destination: 13 | Weight:  930 | Priority:  50]
+T:  31 >   R0(0)-> [Mail Item:: ID:      1 | Arrival:   16 | Destination: 11 | Weight:  641 | Priority:  30]
+T:  31 > Delivered(   6) [Mail Item:: ID:      7 | Arrival:   12 | Destination:  1 | Weight: 1659]
+T:  31 >   R2(0) changed from DELIVERING to RETURNING
+T:  32 > Delivered(   7) [Mail Item:: ID:      4 | Arrival:   13 | Destination:  9 | Weight:  515]
+T:  32 >   R1(0)-> [Mail Item:: ID:      2 | Arrival:   10 | Destination:  3 | Weight:  722]
+T:  32 >   R2(0) changed from RETURNING to WAITING
+T:  34 > Delivered(   8) [Mail Item:: ID:      1 | Arrival:   16 | Destination: 11 | Weight:  641 | Priority:  30]
+T:  34 >   R0(0) changed from DELIVERING to RETURNING
+T:  39 > Delivered(   9) [Mail Item:: ID:      2 | Arrival:   10 | Destination:  3 | Weight:  722]
+T:  39 >   R1(0) changed from DELIVERING to RETURNING
+T: 40 | Simulation complete!
+Final Delivery time: 40
+Final Score: 694.53

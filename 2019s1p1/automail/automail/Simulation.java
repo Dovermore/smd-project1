@@ -34,16 +34,19 @@ public class Simulation {
     	automailProperties.setProperty("Mail_to_Create", "80");
     	automailProperties.setProperty("Last_Delivery_Time", "100");
 
+    	String filename = "./automail.properties";
+
+    	/* The first argument is treated as place holder and second argument as the real argument */
+    	if (args.length == 2) {
+    		filename = args[1];
+    		/* Reset the args to an empty arg */
+    		args = new String[]{};
+		}
+
     	// Read properties
 		FileReader inStream = null;
 		try {
-//            inStream = new FileReader("./testResource/automail_0.properties");
-			inStream = new FileReader("./testResource/automail_1.properties");
-//			inStream = new FileReader("./testResource/automail_2.properties");
-//          inStream = new FileReader("./testResource/automail_3.properties");
-//          inStream = new FileReader("./testResource/automail_4.properties");
-//          inStream = new FileReader("./testResource/automail_5.properties");
-//          inStream = new FileReader("./testResource/automail_6.properties");
+			inStream = new FileReader(filename);
 			automailProperties.load(inStream);
 		} finally {
 			 if (inStream != null) {
@@ -102,7 +105,7 @@ public class Simulation {
         /** Initiate all the mail */
         mailGenerator.generateAllMail();
         // PriorityMailItem priority;  // Not used in this version
-        while(MAIL_DELIVERED.size() != mailGenerator.MAIL_TO_CREATE) {
+        while (MAIL_DELIVERED.size() != mailGenerator.MAIL_TO_CREATE) {
 //        	 System.out.printf("Delivered: %4d; Created: %4d%n", MAIL_DELIVERED.size(), mailGenerator.MAIL_TO_CREATE);
             mailGenerator.step();
             try {

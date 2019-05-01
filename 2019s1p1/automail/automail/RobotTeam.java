@@ -9,10 +9,11 @@ import java.util.Collections;
 
 public class RobotTeam implements IRobot {
 
+    private static final int SLOW_FACTOR = 3;
+
     private RobotState robotState;
+    private int robotStep = 0;
     private ArrayList<Robot> robots;
-    // TODO change to this
-    private MailItem unloadedHeavyItem;
     private ArrayList<MailItem> unloadedMailItems;
 
     public RobotTeam() {
@@ -296,6 +297,14 @@ public class RobotTeam implements IRobot {
 
     @Override
     public void moveTowards(int destination) {
+        /* Update robot step */
+        robotStep = (robotStep + 1) % SLOW_FACTOR;
+        /* Only move if it's a cycle */
+        if (robotStep != 0) {
+            return;
+        }
+
+        /* Move all the robots */
         int floor;
         int prev_floor = -1;
         for (IRobot robot: robots) {

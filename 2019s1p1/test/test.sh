@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
-#diff out_1.txt sample_1.txt
-#diff out_6.txt sample_6.txt
-#diff sample_2.txt sample_1.txt
+# Assume the directory is at project level root
+
+sample_dir=test/
+output_prefix=out_
+sample_prefix=sample_
+postfix=.txt
+
+for subscript in {1..6}; do
+    sample_file=$sample_dir$sample_prefix$subscript$postfix
+    output_file=$sample_dir$output_prefix$subscript$postfix
+    diff $output_file $sample_file
+done
