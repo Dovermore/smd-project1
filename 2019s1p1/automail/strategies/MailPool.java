@@ -69,7 +69,7 @@ public class MailPool implements IMailPool {
 	
 	private ArrayList<MailItem> pool;
 	private ArrayList<Robot> robots;
-	private LoadingRobotPlan loadingRobotPlan;
+	private ILoadingRobotPlan loadingRobotPlan;
 
 	public MailPool() {
 		// Start empty
@@ -100,24 +100,34 @@ public class MailPool implements IMailPool {
 		ArrayList<IRobot> iRobots = new ArrayList<>();
 		if (this.hasLoadingEvent()) {
 
-		    /* derived dispatchable IRobot */
-            iRobots = loadingRobotPlan.loadRobot(cloneList(robots), cloneList(pool));
+		    /* derived mail items to be delivered by single robot or a robot team */
 
-            for (IRobot iRobot: iRobots) {
-            	iRobot.dispatch();
+            boolean isPlanAdapted = true;
 
-                /* update waiting robots in mail pool */
-                for (Robot robot: iRobot.listRobots()) {
-                    unregisterWaitingRobot(robot);
+            while (isPlanAdapted) {
+                isPlanAdapted = false;
+                ArrayList<MailItem> deliverMailItemPlan = loadingRobotPlan.generateDeliverMailItemPlan(cloneList(pool));
+
+                if (!deliverMailItemPlan.isEmpty() &&
+                        loadingRobotPlan.hasEnoughRobot(robots.size(), deliverMailItemPlan)) {
+                    List<Robot> selectedRobot = loadingRobotPlan.selectRobotToDeliver(robots, deliverMailItemPlan);
                 }
 
-                /* update undelivered in mail pool */
-                for (MailItem mailItem: iRobot.listMailItems()) {
-                    unregisterUnloadedMailItem(mailItem);
-                }
-
-//                iRobot.printIRobot();
             }
+
+//            for (IRobot iRobot: iRobots) {
+//            	iRobot.dispatch();
+//
+//                /* update waiting robots in mail pool */
+//                for (Robot robot: iRobot.listRobots()) {
+//                    unregisterWaitingRobot(robot);
+//                }
+//
+//                /* update undelivered in mail pool */
+//                for (MailItem mailItem: iRobot.listMailItems()) {
+//                    unregisterUnloadedMailItem(mailItem);
+//                }
+//            }
 		}
 		return iRobots;
 	}

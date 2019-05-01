@@ -1,7 +1,6 @@
 package strategies;
 
 import automail.*;
-import exceptions.InvalidAddItemException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,128 +8,75 @@ import java.util.List;
 /**
  * Xulin Yang, 904904
  *
- * @create 2019-04-29 19:50
- * description: based on mail pool, generate all possible IRobot for mail pool
- * to dispatch
+ * @create 2019-05-01 19:42
+ * description:
  **/
 
-public class LoadingRobotPlan {
-    /**
-     * based on inputted waiting robots in pool and unloaded mail items,
-     * generate all IRobot can be dispatched
-     * @param waitingRobots: robots are in the waiting state
-     * @param unloadedMailItem: mail items are not loaded to robots in order to
-     *                          be delivered
-     * @return list of IRobot can be dispatched
-     * */
-    public ArrayList<IRobot> loadRobot(List<Robot> waitingRobots,
-                                       List<MailItem> unloadedMailItem) {
-        /* must has a loading event */
-        assert waitingRobots.size() > 0;
-        assert unloadedMailItem.size() > 0;
+public class LoadingRobotPlan implements ILoadingRobotPlan {
 
-        int nRobots = waitingRobots.size();
+    @Override
+    public ArrayList<MailItem> generateDeliverMailItemPlan(List<MailItem> unloadedMailItem) {
+        ArrayList<MailItem> plan = new ArrayList<>();
 
-        /* generate all empty-member team */
-        ArrayList<RobotTeam> pseudoTeams = generateAllPseudoTeam(nRobots, unloadedMailItem);
-
-        /* load waitingRobots to empty-member team */
-        ArrayList<RobotTeam> unloadedDispatchableTeam = generateAllDispatchableTeam(waitingRobots, pseudoTeams);
-
-        /* divide to individual team or TeamRobot with unloadedMailItem loaded */
-        return loadMailItemToTeamRobot(unloadedDispatchableTeam);
-    }
-
-    /**
-     * based on team with mail items and distributed robots, load unloaded mail
-     * items to robots in the team
-     * @param unloadedDispatchableTeam: team with mail items to be delivered and
-     *                                  robots to deliver
-     * @return list of IRobot can be dispatched
-     * */
-    private ArrayList<IRobot> loadMailItemToTeamRobot(ArrayList<RobotTeam> unloadedDispatchableTeam) {
-        ArrayList<IRobot> res = new ArrayList<>();
-
-        for (RobotTeam team:unloadedDispatchableTeam) {
-            res.add(team.loadMailItemToTeamRobot());
+        while (!unloadedMailItem.isEmpty() &&
+                canAddMailItem(plan, unloadedMailItem.get(0))) {
+            plan.add(unloadedMailItem.remove(0));
         }
 
-        return res;
+        return plan;
     }
 
+    @Override
+    public boolean hasEnoughRobot(int nAvailableRobot, List<MailItem> plan) {
+        return nAvailableRobot>=getPlanRequiredRobot(plan);
+    }
+
+    @Override
+    public List<Robot> selectRobotToDeliver(ArrayList<Robot> availableRobot, List<MailItem> plan) {
+        assert hasEnoughRobot(availableRobot.size(), plan);
+
+        return availableRobot.subList(0, getPlanRequiredRobot(plan));
+    }
+
+    private boolean canAddMailItem(ArrayList<MailItem> plan, MailItem mailItemToAdd) {
+        boolean hasHeavyItem = plan.stream().anyMatch(x -> x.getWeight()> ITeamState.SINGLE_MAX_WEIGHT),
+                isHeavyItem = mailItemToAdd.getWeight() > TeamState.SINGLE.validWeight();
+
+        /* no item return true;
+         * ensure heavy item is only in 1st loading order */
+        if (plan.isEmpty()) {
+            return true;
+        /* can has 2 light mail items for single robot with no heavy mail item */
+        } else if (!hasHeavyItem && !isHeavyItem && (plan.size()<2)) {
+            return true;
+        /* has 1 heavy item && has 1 space for light item */
+        } else  {
+            // -1 for exclude heavy mail item from plan
+            return (hasHeavyItem && !isHeavyItem  && (plan.size()-1<getPlanRequiredRobot(plan)));
+        }
+    }
+
+
     /**
-     * based on undistributed robots and team with unloaded mail items to be
-     * delivered, distribute robots to team
-     * @param pseudoTeams: team with mail items to be loaded
-     * @param waitingRobots: robots can be distributed to team
-     * @return RobotTeam with enough distributed robots and mail items to be loaded
+     * get unloaded mail item with max weight
+     * @return mail item in unloaded List with max weight
      * */
-    private ArrayList<RobotTeam> generateAllDispatchableTeam(List<Robot> waitingRobots,
-                                                             ArrayList<RobotTeam> pseudoTeams) {
-        ArrayList<RobotTeam> teams = new ArrayList<>();
+    private static MailItem getHeaviestMailItem(List<MailItem> mailItems) {
+        assert mailItems.size()>0;
+        int curMailItemMaxWeight = 0;
+        MailItem heaviestMailItem = null;
 
-        /* register robot as much as possible; add complete team */
-        for (RobotTeam pseudoTeam: pseudoTeams) {
-            while ((waitingRobots.size() > 0) && (!pseudoTeam.hasEnoughTeamMember())) {
-                pseudoTeam.addRobot(waitingRobots.remove(0));
-            }
-
-            /* a complete team can dispatch */
-            if (pseudoTeam.hasEnoughTeamMember()) {
-                teams.add(pseudoTeam);
-            /* incomplete team detected, not enough robots,
-             * thus no possible complete team later */
-            } else {
-                break;
+        for (MailItem mailItem: mailItems) {
+            if (mailItem.getWeight() > curMailItemMaxWeight) {
+                heaviestMailItem = mailItem;
+                curMailItemMaxWeight = heaviestMailItem.getWeight();
             }
         }
 
-        return teams;
+        return heaviestMailItem;
     }
 
-    /**
-     * based on number of waiting robots and all waiting to be delivered mail
-     * items, derive team with mail items to be delivered
-     * @param nRobots: number of waiting robots
-     * @param unloadedMailItem: mail items are in the mail pool
-     * @return list of RobotTeam with mail items to be loaded
-     * */
-    private ArrayList<RobotTeam> generateAllPseudoTeam(int nRobots, List<MailItem> unloadedMailItem) {
-        ArrayList<RobotTeam> pseudoTeams = new ArrayList<>();
-
-        /* generate all empty-member team */
-        /* how much waiting robots, at most how much team */
-        for (int i = 0; i < nRobots; i++) {
-            /* no mail item to load */
-            if (unloadedMailItem.size() <= 0) {
-                break;
-            }
-
-            /* create team */
-            RobotTeam pseudoTeam = RobotFactory.getInstance().createRobotTeam();
-
-            /* load mail item to pseudo team */
-            MailItem tryToLoad;
-            while (!unloadedMailItem.isEmpty()) {
-                try {
-                    tryToLoad = unloadedMailItem.get(0);
-
-                    if (!pseudoTeam.canAddMailItem(tryToLoad)) {
-
-                        break;
-                    }
-
-                    pseudoTeam.addMailItem(tryToLoad);
-                    unloadedMailItem.remove(tryToLoad);
-                } catch (InvalidAddItemException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            pseudoTeams.add(pseudoTeam);
-        }
-
-        return pseudoTeams;
+    private int getPlanRequiredRobot(List<MailItem> plan) {
+        return ITeamState.getNRequiredRobot(getHeaviestMailItem(plan));
     }
-
 }
