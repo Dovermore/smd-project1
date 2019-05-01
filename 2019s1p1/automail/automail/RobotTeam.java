@@ -147,7 +147,7 @@ public class RobotTeam implements IRobot {
         assert hasUnloadedMailItem();
         /* has enough team member for max weight of heaviest items */
         return getTeamSize() > 0 &&
-                getTeamSize() == this.getNRequiredRobot();
+                (getTeamSize() == this.getNRequiredRobot());
 
     }
 
@@ -204,6 +204,7 @@ public class RobotTeam implements IRobot {
         for (MailItem mailItem: unloadedMailItems) {
             if (mailItem.getWeight() > curMailItemMaxWeight) {
                 heaviestMailItem = mailItem;
+                curMailItemMaxWeight = heaviestMailItem.getWeight();
             }
         }
 
@@ -225,6 +226,7 @@ public class RobotTeam implements IRobot {
                 robot.addMailItem(heavyMailItem);
             } catch (InvalidAddItemException | ItemTooHeavyException e) {
                 e.printStackTrace();
+                System.exit(1);
             }
         }
         /* heavy item loaded */
@@ -256,6 +258,11 @@ public class RobotTeam implements IRobot {
      * load all unloaded items to robots
      * */
     private void loadUnloadedToRobots() {
+        /* before loading item to robots, change to corresponding TeamState */
+        for (IRobot robot: robots) {
+            robot.changeTeamState(this.getTeamState());
+        }
+
         /* heavy item for team */
         if (hasHeavyItem()) {
             assert hasEnoughTeamMember();

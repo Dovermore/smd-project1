@@ -47,8 +47,8 @@ public class Simulation {
 			automailProperties.load(inStream);
 		} finally {
 			 if (inStream != null) {
-	                inStream.close();
-	            }
+                inStream.close();
+            }
 		}
 
 		//Seed
