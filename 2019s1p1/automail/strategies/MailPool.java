@@ -127,6 +127,8 @@ public class MailPool implements IMailPool {
                     for (MailItem mailItem: iRobot.listMailItems()) {
                         unregisterUnloadedMailItem(mailItem);
                     }
+
+                    iRobots.add(iRobot);
                 }
 
             }

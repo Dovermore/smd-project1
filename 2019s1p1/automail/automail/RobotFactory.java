@@ -28,14 +28,14 @@ public class RobotFactory {
     }
 
     public IRobot createIRobot(List<Robot> teamRobotMember, List<MailItem> mailItemsToDelivers) {
-        assert mailItemsToDelivers.size()>0;
+        assert !mailItemsToDelivers.isEmpty();
 
         if (teamRobotMember.size()==1) {
             assert mailItemsToDelivers.size()<=2;
 
             Robot robot = teamRobotMember.get(0);
 
-            for (int i = 0; i < 2; i++) {
+            while (!mailItemsToDelivers.isEmpty()) {
                 try {
                     robot.addMailItem(mailItemsToDelivers.remove(0));
                 } catch (InvalidAddItemException | ItemTooHeavyException e) {
@@ -43,8 +43,6 @@ public class RobotFactory {
                     System.exit(1);
                 }
             }
-
-            assert mailItemsToDelivers.isEmpty();
 
             return robot;
 

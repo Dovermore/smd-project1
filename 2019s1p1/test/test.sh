@@ -2,7 +2,7 @@
 
 # Assume the directory is at project level root
 
-sample_dir=test/
+sample_dir=./test/
 output_prefix=out_
 sample_prefix=sample_
 postfix=.txt

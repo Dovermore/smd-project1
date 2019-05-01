@@ -26,6 +26,7 @@ public class RobotTeam implements IRobot {
     public RobotTeam(List<Robot> teamRobotMember, List<MailItem> mailItemsToDeliver) {
         robotState = RobotState.WAITING;
         robots = new ArrayList<>(teamRobotMember);
+        robots.sort(IRobot.IRobotComparator);
         loadUnloadedToRobots(mailItemsToDeliver);
     }
 
