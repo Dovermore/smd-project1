@@ -1,7 +1,6 @@
 package strategies;
 
 import automail.MailItem;
-import automail.Robot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +14,10 @@ public interface ISelectMailItemToDeliverPlan {
     /**
      * Generate deliver mail item plan array list.
      *
-     * @param unloadedMailItem the unloaded mail item
+     * @param unloadedMailItems the unloaded mail item
      * @return the array list
      */
-    ArrayList<MailItem> generateDeliverMailItemPlan(List<MailItem> unloadedMailItem);
+    ArrayList<MailItem> generateDeliverMailItemPlan(List<MailItem> unloadedMailItems);
 
     boolean hasEnoughRobot(int nAvailableRobot, List<MailItem> plan);
 

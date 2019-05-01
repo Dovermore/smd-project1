@@ -15,16 +15,18 @@ public class RobotTeam implements IRobot {
     private RobotState robotState;
     private int robotStep = 0;
     private ArrayList<Robot> robots;
-    private ArrayList<MailItem> unloadedMailItems;
+//    private ArrayList<MailItem> unloadedMailItems;
 
     public RobotTeam() {
         robotState = RobotState.WAITING;
         robots = new ArrayList<>();
-        unloadedMailItems = new ArrayList<>();
+//        unloadedMailItems = new ArrayList<>();
     }
 
     public RobotTeam(List<Robot> teamRobotMember, List<MailItem> mailItemsToDeliver) {
-
+        robotState = RobotState.WAITING;
+        robots = new ArrayList<>(teamRobotMember);
+        loadUnloadedToRobots(mailItemsToDeliver);
     }
 
     /**
@@ -54,7 +56,8 @@ public class RobotTeam implements IRobot {
      * @return True if can be dispatched else False
      */
     public boolean canDispatch() {
-        return !hasUnloadedMailItem() && hasEnoughTeamMember() && listMailItems().size()>0;
+//        return !hasUnloadedMailItem() && hasEnoughTeamMember() && listMailItems().size()>0;
+        return !listMailItems().isEmpty();
     }
 
     /**
@@ -63,7 +66,7 @@ public class RobotTeam implements IRobot {
      */
     @Override
     public void dispatch() throws InvalidDispatchException {
-        assert hasUnloadedMailItem();
+//        assert hasUnloadedMailItem();
 
         /* dispatch all robots */
         for (IRobot robot : robots) {
@@ -77,13 +80,15 @@ public class RobotTeam implements IRobot {
      * @throws InvalidAddItemException Indicates the Item can not be added to the IRobot.
      */
     @Override
-    public void addMailItem(MailItem mailItem) throws InvalidAddItemException {
-        if (!canAddMailItem(mailItem)) {
-            throw new InvalidAddItemException();
-        } else {
-            unloadedMailItems.add(mailItem);
-        }
-    }
+    public void addMailItem(MailItem mailItem) throws InvalidAddItemException {}
+//    @Override
+//    public void addMailItem(MailItem mailItem) throws InvalidAddItemException {
+//        if (!canAddMailItem(mailItem)) {
+//            throw new InvalidAddItemException();
+//        } else {
+//            unloadedMailItems.add(mailItem);
+//        }
+//    }
 
     /**
      * Checks if given mail item can be added to this IRobot. Takes in account of heavy items.
@@ -91,22 +96,24 @@ public class RobotTeam implements IRobot {
      * @return True if can add (Enough space to add the item) else False (Not enough space)
      */
     @Override
-    public boolean canAddMailItem(MailItem mailItem) {
-        boolean hasHeavyItem = hasHeavyItem(),
-                isHeavyItem = mailItem.getWeight() > TeamState.SINGLE.validWeight();
-
-        /* no item return true;
-         * ensure heavy item is only in 1st loading order */
-        if (!hasUnloadedMailItem()) {
-            return true;
-        /* can has 2 light mail items for single robot with no heavy mail item */
-        } else if (!hasHeavyItem && !isHeavyItem && (this.getUnloadingMailItemSize()<2)) {
-            return true;
-        /* has 1 heavy item && has 1 space for light item */
-        } else  {
-            return (hasHeavyItem && !isHeavyItem  && (this.getUnloadingMailItemSize()<this.getNRequiredRobot()));
-        }
-    }
+    public boolean canAddMailItem(MailItem mailItem) {return false;}
+//    @Override
+//    public boolean canAddMailItem(MailItem mailItem) {
+//        boolean hasHeavyItem = hasHeavyItem(),
+//                isHeavyItem = mailItem.getWeight() > TeamState.SINGLE.validWeight();
+//
+//        /* no item return true;
+//         * ensure heavy item is only in 1st loading order */
+//        if (!hasUnloadedMailItem()) {
+//            return true;
+//        /* can has 2 light mail items for single robot with no heavy mail item */
+//        } else if (!hasHeavyItem && !isHeavyItem && (this.getUnloadingMailItemSize()<2)) {
+//            return true;
+//        /* has 1 heavy item && has 1 space for light item */
+//        } else  {
+//            return (hasHeavyItem && !isHeavyItem  && (this.getUnloadingMailItemSize()<this.getNRequiredRobot()));
+//        }
+//    }
 
     /**
      * Take next action
@@ -131,48 +138,48 @@ public class RobotTeam implements IRobot {
         return robots.size();
     }
 
-    /**
-     * return the number of unloaded mail items
-     * @return the number of unloaded mail items in team
-     * */
-    private int getUnloadingMailItemSize() {
-        return unloadedMailItems.size();
-    }
+//    /**
+//     * return the number of unloaded mail items
+//     * @return the number of unloaded mail items in team
+//     * */
+//    private int getUnloadingMailItemSize() {
+//        return unloadedMailItems.size();
+//    }
 
-    /**
-     * check there is any unloaded mail item
-     * @return true if there is a unloaded mail item
-     * */
-    private boolean hasUnloadedMailItem() {return unloadedMailItems.size()>0;}
+//    /**
+//     * check there is any unloaded mail item
+//     * @return true if there is a unloaded mail item
+//     * */
+//    private boolean hasUnloadedMailItem() {return unloadedMailItems.size()>0;}
 
-    /**
-     * check there is enough robots to start the team delivery
-     * @return true if this team has enough robots
-     * */
-    public boolean hasEnoughTeamMember() {
-        assert hasUnloadedMailItem();
-        /* has enough team member for max weight of heaviest items */
-        return getTeamSize() > 0 &&
-                (getTeamSize() == this.getNRequiredRobot());
+//    /**
+//     * check there is enough robots to start the team delivery
+//     * @return true if this team has enough robots
+//     * */
+//    public boolean hasEnoughTeamMember() {
+//        assert hasUnloadedMailItem();
+//        /* has enough team member for max weight of heaviest items */
+//        return getTeamSize() > 0 &&
+//                (getTeamSize() == this.getNRequiredRobot());
+//
+//    }
 
-    }
-
-    /**
-     * register a robot to the team
-     * */
-    public void addRobot(Robot robot) {
-        assert !hasEnoughTeamMember();
-
-        robots.add(robot);
-        robots.sort(IRobot.IRobotComparator);
-    }
+//    /**
+//     * register a robot to the team
+//     * */
+//    public void addRobot(Robot robot) {
+//        assert !hasEnoughTeamMember();
+//
+//        robots.add(robot);
+//        robots.sort(IRobot.IRobotComparator);
+//    }
 
     /**
      * check whether there is a mail item that can't be delivered individually
      * in unloaded mail item list
      * @return true if there is a mail item that can't be delivered individually
      * */
-    private boolean hasHeavyItem() {
+    private boolean hasHeavyItem(List<MailItem> unloadedMailItems) {
         for (MailItem mailItem: unloadedMailItems) {
             if (mailItem.getWeight() > TeamState.SINGLE.validWeight()) {
                 return true;
@@ -185,8 +192,8 @@ public class RobotTeam implements IRobot {
      * get first unloaded mail item can't be delivered individually
      * @return first mail item in unloaded List can't be delivered individually
      * */
-    private MailItem getHeavyMailItem() {
-        assert hasHeavyItem();
+    private MailItem getHeavyMailItem(List<MailItem> unloadedMailItems) {
+        assert hasHeavyItem(unloadedMailItems);
 
         for (MailItem mailItem: unloadedMailItems) {
             if (mailItem.getWeight() > TeamState.SINGLE.validWeight()) {
@@ -198,35 +205,35 @@ public class RobotTeam implements IRobot {
         return null;
     }
 
-    /**
-     * get unloaded mail item with max weight
-     * @return mail item in unloaded List with max weight
-     * */
-    private MailItem getHeaviestMailItem() {
-        assert hasHeavyItem();
-        int curMailItemMaxWeight = 0;
-        MailItem heaviestMailItem = null;
-
-        for (MailItem mailItem: unloadedMailItems) {
-            if (mailItem.getWeight() > curMailItemMaxWeight) {
-                heaviestMailItem = mailItem;
-                curMailItemMaxWeight = heaviestMailItem.getWeight();
-            }
-        }
-
-        return heaviestMailItem;
-    }
+//    /**
+//     * get unloaded mail item with max weight
+//     * @return mail item in unloaded List with max weight
+//     * */
+//    private MailItem getHeaviestMailItem(List<MailItem> unloadedMailItems) {
+//        assert hasHeavyItem();
+//        int curMailItemMaxWeight = 0;
+//        MailItem heaviestMailItem = null;
+//
+//        for (MailItem mailItem: unloadedMailItems) {
+//            if (mailItem.getWeight() > curMailItemMaxWeight) {
+//                heaviestMailItem = mailItem;
+//                curMailItemMaxWeight = heaviestMailItem.getWeight();
+//            }
+//        }
+//
+//        return heaviestMailItem;
+//    }
 
     /**
      * get number of robots required based on unloaded mail items
      * */
-    private int getNRequiredRobot() {
-        return ITeamState.getNRequiredRobot(getHeaviestMailItem());
-    }
+//    private int getNRequiredRobot() {
+//        return ITeamState.getNRequiredRobot(getHeaviestMailItem());
+//    }
 
-    private void loadHeavyItem() {
+    private void loadHeavyItem(List<MailItem> unloadedMailItems) {
         /* add heavy item to all robots' hand */
-        MailItem heavyMailItem = getHeavyMailItem();
+        MailItem heavyMailItem = getHeavyMailItem(unloadedMailItems);
         for (IRobot robot: robots) {
             try {
                 robot.addMailItem(heavyMailItem);
@@ -239,7 +246,7 @@ public class RobotTeam implements IRobot {
         unloadedMailItems.remove(heavyMailItem);
     }
 
-    private void loadLightItems() {
+    private void loadLightItems(List<MailItem> unloadedMailItems) {
         ArrayList<MailItem> loadedLightMailItems = new ArrayList<>();
         for (MailItem lightMailItem: unloadedMailItems) {
             for (IRobot robot: robots) {
@@ -263,42 +270,39 @@ public class RobotTeam implements IRobot {
     /**
      * load all unloaded items to robots
      * */
-    private void loadUnloadedToRobots() {
+    private void loadUnloadedToRobots(List<MailItem> unloadedMailItems) {
         /* before loading item to robots, change to corresponding TeamState */
         for (IRobot robot: robots) {
             robot.changeTeamState(this.getTeamState());
         }
 
         /* heavy item for team */
-        if (hasHeavyItem()) {
-            assert hasEnoughTeamMember();
-            assert getTeamSize()==getNRequiredRobot();
-            assert ITeamState.getNRequiredRobot(getHeaviestMailItem()) == getNRequiredRobot();
-            loadHeavyItem();
+        if (hasHeavyItem(unloadedMailItems)) {
+            loadHeavyItem(unloadedMailItems);
         }
-        loadLightItems();
+        loadLightItems(unloadedMailItems);
         /* all items should be loaded */
-        assert !hasUnloadedMailItem();
+        assert unloadedMailItems.isEmpty();
     }
 
-    /**
-     * return a Robot(individual task) or TeamRobot(team task) that can be
-     * dispatched
-     * @return a Robot or TeamRobot can be dispatched by mailPool
-     * */
-    public IRobot loadMailItemToTeamRobot() {
-        boolean hasHeavyItem = this.hasHeavyItem();
-        loadUnloadedToRobots();
-
-        /* RobotTeam */
-        if (hasHeavyItem) {
-            return this;
-        /* Robot */
-        } else {
-            assert getTeamSize()==1;
-            return robots.get(0);
-        }
-    }
+//    /**
+//     * return a Robot(individual task) or TeamRobot(team task) that can be
+//     * dispatched
+//     * @return a Robot or TeamRobot can be dispatched by mailPool
+//     * */
+//    public IRobot loadMailItemToTeamRobot() {
+//        boolean hasHeavyItem = this.hasHeavyItem();
+//        loadUnloadedToRobots();
+//
+//        /* RobotTeam */
+//        if (hasHeavyItem) {
+//            return this;
+//        /* Robot */
+//        } else {
+//            assert getTeamSize()==1;
+//            return robots.get(0);
+//        }
+//    }
 
     @Override
     public void moveTowards(int destination) {
@@ -417,22 +421,22 @@ public class RobotTeam implements IRobot {
 
     @Override
     public void printIRobot() {
-        System.out.println(String.format("UnLoadedItem: %d, working robot: %d", getUnloadingMailItemSize(), getTeamSize()));
-
-        for (IRobot robot: robots) {
-            if (robot instanceof Robot) {
-                robot.printIRobot();
-            }
-        }
-
-        for (MailItem mailItem: unloadedMailItems) {
-            System.out.println(mailItem.toString());
-        }
+//        System.out.println(String.format("UnLoadedItem: %d, working robot: %d", getUnloadingMailItemSize(), getTeamSize()));
+//
+//        for (IRobot robot: robots) {
+//            if (robot instanceof Robot) {
+//                robot.printIRobot();
+//            }
+//        }
+//
+//        for (MailItem mailItem: unloadedMailItems) {
+//            System.out.println(mailItem.toString());
+//        }
     }
 
     @Override
     public String getId() {
-        assert hasEnoughTeamMember();
+        assert !robots.isEmpty();
         return robots.get(0).getId();
     }
 

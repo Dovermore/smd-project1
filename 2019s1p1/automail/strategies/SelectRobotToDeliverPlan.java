@@ -1,6 +1,5 @@
 package strategies;
 
-import automail.MailItem;
 import automail.Robot;
 
 import java.util.ArrayList;
@@ -16,9 +15,7 @@ import java.util.List;
 public class SelectRobotToDeliverPlan implements ISelectRobotToDeliverPlan {
 
     @Override
-    public List<Robot> selectRobotToDeliver(ArrayList<Robot> availableRobot, int ) {
-        assert hasEnoughRobot(availableRobot.size(), plan);
-
-        return availableRobot.subList(0, getPlanRequiredRobot(plan));
+    public List<Robot> selectRobotToDeliver(ArrayList<Robot> availableRobot, int nRequiredRobot) {
+        return availableRobot.subList(0, nRequiredRobot);
     }
 }

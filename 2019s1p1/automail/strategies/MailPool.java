@@ -70,12 +70,14 @@ public class MailPool implements IMailPool {
 	private ArrayList<MailItem> pool;
 	private ArrayList<Robot> robots;
 	private ISelectMailItemToDeliverPlan selectMailItemToDeliverPlan;
+    private ISelectRobotToDeliverPlan selectRobotToDeliverPlan;
 
 	public MailPool() {
 		// Start empty
 		pool = new ArrayList<>();
 		robots = new ArrayList<>();
 		selectMailItemToDeliverPlan = new SelectMailItemToDeliverPlan();
+		selectRobotToDeliverPlan = new SelectRobotToDeliverPlan();
 	}
 
 	/**
@@ -110,7 +112,21 @@ public class MailPool implements IMailPool {
 
                 if (!deliverMailItemPlan.isEmpty() &&
                         selectMailItemToDeliverPlan.hasEnoughRobot(robots.size(), deliverMailItemPlan)) {
-                    List<Robot> selectedRobot = selectMailItemToDeliverPlan.selectRobotToDeliver(robots, deliverMailItemPlan);
+                    int nRequiredRobots = selectMailItemToDeliverPlan.getPlanRequiredRobot(deliverMailItemPlan);
+                    List<Robot> selectedRobot = selectRobotToDeliverPlan.selectRobotToDeliver(robots, nRequiredRobots);
+
+                    IRobot iRobot = RobotFactory.getInstance().createIRobot(selectedRobot, deliverMailItemPlan);
+
+                    iRobot.dispatch();
+                    /* update waiting robots in mail pool */
+                    for (Robot robot: iRobot.listRobots()) {
+                        unregisterWaitingRobot(robot);
+                    }
+
+                    /* update undelivered in mail pool */
+                    for (MailItem mailItem: iRobot.listMailItems()) {
+                        unregisterUnloadedMailItem(mailItem);
+                    }
                 }
 
             }

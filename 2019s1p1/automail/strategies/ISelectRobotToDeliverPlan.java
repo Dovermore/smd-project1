@@ -1,6 +1,5 @@
 package strategies;
 
-import automail.MailItem;
 import automail.Robot;
 
 import java.util.ArrayList;
@@ -15,5 +14,5 @@ import java.util.List;
 
 public interface ISelectRobotToDeliverPlan {
 
-    List<Robot> selectRobotToDeliver(ArrayList<Robot> availableRobot, List<MailItem> plan);
+    List<Robot> selectRobotToDeliver(ArrayList<Robot> availableRobot, int nRequiredRobot);
 }

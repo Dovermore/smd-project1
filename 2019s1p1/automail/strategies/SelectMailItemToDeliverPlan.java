@@ -15,12 +15,13 @@ import java.util.List;
 public class SelectMailItemToDeliverPlan implements ISelectMailItemToDeliverPlan {
 
     @Override
-    public ArrayList<MailItem> generateDeliverMailItemPlan(List<MailItem> unloadedMailItem) {
+    public ArrayList<MailItem> generateDeliverMailItemPlan(List<MailItem> unloadedMailItems) {
         ArrayList<MailItem> plan = new ArrayList<>();
 
-        while (!unloadedMailItem.isEmpty() &&
-                canAddMailItem(plan, unloadedMailItem.get(0))) {
-            plan.add(unloadedMailItem.remove(0));
+        for (MailItem mailItem: unloadedMailItems) {
+            if (canAddMailItem(plan, mailItem)) {
+                plan.add(mailItem);
+            }
         }
 
         return plan;

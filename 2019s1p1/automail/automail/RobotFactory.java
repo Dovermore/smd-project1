@@ -1,6 +1,10 @@
 package automail;
 
+import exceptions.InvalidAddItemException;
+import exceptions.ItemTooHeavyException;
 import strategies.IMailPool;
+
+import java.util.List;
 
 /**
  * Xulin Yang, 904904
@@ -23,7 +27,33 @@ public class RobotFactory {
         return new Robot(delivery, mailPool);
     }
 
-    public RobotTeam createRobotTeam() {
-        return new RobotTeam();
+    public IRobot createIRobot(List<Robot> teamRobotMember, List<MailItem> mailItemsToDelivers) {
+        assert mailItemsToDelivers.size()>0;
+
+        if (teamRobotMember.size()==1) {
+            assert mailItemsToDelivers.size()<=2;
+
+            Robot robot = teamRobotMember.get(0);
+
+            for (int i = 0; i < 2; i++) {
+                try {
+                    robot.addMailItem(mailItemsToDelivers.remove(0));
+                } catch (InvalidAddItemException | ItemTooHeavyException e) {
+                    e.printStackTrace();
+                    System.exit(1);
+                }
+            }
+
+            assert mailItemsToDelivers.isEmpty();
+
+            return robot;
+
+        } else {
+            return new RobotTeam(teamRobotMember, mailItemsToDelivers);
+        }
     }
+
+//    public RobotTeam createRobotTeam() {
+//        return new RobotTeam();
+//    }
 }
