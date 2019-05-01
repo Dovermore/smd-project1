@@ -1,7 +1,5 @@
 package automail;
 
-import exceptions.InvalidDispatchException;
-
 import java.util.ArrayList;
 
 /**
@@ -32,6 +30,7 @@ public enum RobotState implements IRobotState {
          * @param iRobot The IRobot to act on
          */
         public void postDelivery(IRobot iRobot) {
+
             if (iRobot.hasNextMailItem()) {
                 iRobot.loadNextMailItem();
                 iRobot.changeState(RobotState.DELIVERING);
@@ -64,6 +63,7 @@ public enum RobotState implements IRobotState {
         @Override
         public ArrayList<IRobot> step(IRobot iRobot) {
             if (iRobot.canStartDelivery()) {
+                iRobot.startDelivery();
                 iRobot.changeState(RobotState.DELIVERING);
             }
             return iRobot.availableIRobots();
