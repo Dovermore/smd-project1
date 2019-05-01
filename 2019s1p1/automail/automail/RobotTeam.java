@@ -6,6 +6,7 @@ import exceptions.ItemTooHeavyException;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class RobotTeam implements IRobot {
 
@@ -20,6 +21,10 @@ public class RobotTeam implements IRobot {
         robotState = RobotState.WAITING;
         robots = new ArrayList<>();
         unloadedMailItems = new ArrayList<>();
+    }
+
+    public RobotTeam(List<Robot> teamRobotMember, List<MailItem> mailItemsToDeliver) {
+
     }
 
     /**

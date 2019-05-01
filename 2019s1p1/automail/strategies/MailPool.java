@@ -69,13 +69,13 @@ public class MailPool implements IMailPool {
 	
 	private ArrayList<MailItem> pool;
 	private ArrayList<Robot> robots;
-	private ILoadingRobotPlan loadingRobotPlan;
+	private ISelectMailItemToDeliverPlan selectMailItemToDeliverPlan;
 
 	public MailPool() {
 		// Start empty
 		pool = new ArrayList<>();
 		robots = new ArrayList<>();
-		loadingRobotPlan = new LoadingRobotPlan();
+		selectMailItemToDeliverPlan = new SelectMailItemToDeliverPlan();
 	}
 
 	/**
@@ -106,11 +106,11 @@ public class MailPool implements IMailPool {
 
             while (isPlanAdapted) {
                 isPlanAdapted = false;
-                ArrayList<MailItem> deliverMailItemPlan = loadingRobotPlan.generateDeliverMailItemPlan(cloneList(pool));
+                ArrayList<MailItem> deliverMailItemPlan = selectMailItemToDeliverPlan.generateDeliverMailItemPlan(cloneList(pool));
 
                 if (!deliverMailItemPlan.isEmpty() &&
-                        loadingRobotPlan.hasEnoughRobot(robots.size(), deliverMailItemPlan)) {
-                    List<Robot> selectedRobot = loadingRobotPlan.selectRobotToDeliver(robots, deliverMailItemPlan);
+                        selectMailItemToDeliverPlan.hasEnoughRobot(robots.size(), deliverMailItemPlan)) {
+                    List<Robot> selectedRobot = selectMailItemToDeliverPlan.selectRobotToDeliver(robots, deliverMailItemPlan);
                 }
 
             }

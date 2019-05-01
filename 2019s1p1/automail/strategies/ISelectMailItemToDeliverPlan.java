@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @create 2019 -05-01 19:38 description:
  */
-public interface ILoadingRobotPlan {
+public interface ISelectMailItemToDeliverPlan {
     /**
      * Generate deliver mail item plan array list.
      *
@@ -22,5 +22,5 @@ public interface ILoadingRobotPlan {
 
     boolean hasEnoughRobot(int nAvailableRobot, List<MailItem> plan);
 
-    List<Robot> selectRobotToDeliver(ArrayList<Robot> availableRobot, List<MailItem> plan);
+    int getPlanRequiredRobot(List<MailItem> plan);
 }

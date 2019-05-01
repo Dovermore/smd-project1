@@ -12,7 +12,7 @@ import java.util.List;
  * description:
  **/
 
-public class LoadingRobotPlan implements ILoadingRobotPlan {
+public class SelectMailItemToDeliverPlan implements ISelectMailItemToDeliverPlan {
 
     @Override
     public ArrayList<MailItem> generateDeliverMailItemPlan(List<MailItem> unloadedMailItem) {
@@ -29,13 +29,6 @@ public class LoadingRobotPlan implements ILoadingRobotPlan {
     @Override
     public boolean hasEnoughRobot(int nAvailableRobot, List<MailItem> plan) {
         return nAvailableRobot>=getPlanRequiredRobot(plan);
-    }
-
-    @Override
-    public List<Robot> selectRobotToDeliver(ArrayList<Robot> availableRobot, List<MailItem> plan) {
-        assert hasEnoughRobot(availableRobot.size(), plan);
-
-        return availableRobot.subList(0, getPlanRequiredRobot(plan));
     }
 
     private boolean canAddMailItem(ArrayList<MailItem> plan, MailItem mailItemToAdd) {
@@ -76,7 +69,7 @@ public class LoadingRobotPlan implements ILoadingRobotPlan {
         return heaviestMailItem;
     }
 
-    private int getPlanRequiredRobot(List<MailItem> plan) {
+    public int getPlanRequiredRobot(List<MailItem> plan) {
         return ITeamState.getNRequiredRobot(getHeaviestMailItem(plan));
     }
 }
