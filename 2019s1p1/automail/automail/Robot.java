@@ -38,16 +38,22 @@ public class Robot implements IRobot {
         this.mailPool = mailPool;
         this.receivedDispatch = false;
     }
-    
+
+    /**
+     * Send robot signal that the robot can start sending Mails
+     */
     public void dispatch() {
     	receivedDispatch = true;
     }
 
+    /**
+     * Signal robot to start delivery
+     */
     @Override
     public void startDelivery() {receivedDispatch = false;}
 
     /**
-     * This is called on every time step
+     * This is called on every time step, making robot act if called.
      */
     public ArrayList<IRobot> step() {
         return robotState.step(this);
@@ -64,7 +70,11 @@ public class Robot implements IRobot {
             currentFloor--;
         }
     }
-    
+
+    /**
+     * Get formatted RobotID as well as items in tube of robot
+     * @return String of formatted message
+     */
     private String getIdTube() {
     	return String.format("%s(%1d)", id, (tube == null ? 0 : 1));
     }
@@ -88,18 +98,33 @@ public class Robot implements IRobot {
 	static private int count = 0;
 	static private Map<Integer, Integer> hashMap = new TreeMap<>();
 
+    /**
+     * Add an MailItem to hand of robot.
+     * @param mailItem The MailItem that need to be added
+     * @throws ItemTooHeavyException Thrown if the Item is too heavy for the robot with current team status to carry
+     */
 	private void addToHand(MailItem mailItem) throws ItemTooHeavyException {
 		assert(deliveryItem == null);
 		deliveryItem = mailItem;
 		if (teamState.validWeight() < mailItem.getWeight()) throw new ItemTooHeavyException();
 	}
 
+    /**
+     * Add an MailItem to tube of robot.
+     * @param mailItem The MailItem that need to be added
+     * @throws ItemTooHeavyException Thrown if the Item is too heavy for the robot to put in tube
+     */
 	private void addToTube(MailItem mailItem) throws ItemTooHeavyException {
 		assert(tube == null);
         tube = mailItem;
-		if (teamState.validWeight() < mailItem.getWeight()) throw new ItemTooHeavyException();
+        /* Tube is always considered only able to carry light item */
+		if (TeamState.SINGLE.validWeight() < mailItem.getWeight()) throw new ItemTooHeavyException();
 	}
 
+    /**
+     * List all MailItems this robots is currently carrying
+     * @return ArrayList of the items carried
+     */
     @Override
     public ArrayList<MailItem> listMailItems() {
         ArrayList<MailItem> mailItems = new ArrayList<>();
@@ -112,6 +137,11 @@ public class Robot implements IRobot {
         return mailItems;
     }
 
+    /**
+     * List the robots in current IRobot (IRobot is a more general robot, can be sworm of robots)
+     * This is different from IRobot
+     * @return ArrayList of itself
+     */
     @Override
     public ArrayList<Robot> listRobots() {
         ArrayList<Robot> robots = new ArrayList<>();
@@ -119,6 +149,11 @@ public class Robot implements IRobot {
         return robots;
     }
 
+    /**
+     * Checks if given mail item can be given to current robot to deliver
+     * @param mailItem The MailItem to be checked
+     * @return True if can else false
+     */
     @Override
     public boolean canAddMailItem(MailItem mailItem) {
 	    // correct weight
@@ -129,6 +164,12 @@ public class Robot implements IRobot {
         return (deliveryItem == null | tube == null);
     }
 
+    /**
+     * Add a MailItem to the current robot to carry
+     * @param mailItem The MailItem to be added
+     * @throws InvalidAddItemException thrown if the robot don't have enough space to add the item
+     * @throws ItemTooHeavyException thrown if the item is too heavy for the robot to carry
+     */
     @Override
     public void addMailItem(MailItem mailItem) throws InvalidAddItemException, ItemTooHeavyException {
 	    if (deliveryItem == null) {

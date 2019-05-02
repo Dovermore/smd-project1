@@ -46,6 +46,7 @@ public class MailGenerator {
     }
 
     /**
+     * This function generates the MailItems to be delivered
      * @return a new mail item that needs to be delivered
      */
     private MailItem generateMail(){

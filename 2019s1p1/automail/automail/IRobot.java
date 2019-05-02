@@ -47,6 +47,7 @@ public interface IRobot {
      */
     void addMailItem(MailItem mailItem) throws InvalidAddItemException, ItemTooHeavyException;
 
+    // TODO remove this
     /**
      * Checks if given IRobot can be dispatched to send the mail
      * @return True if can be dispatched else False

@@ -55,6 +55,10 @@ public class MailItem {
 	static private int count = 0;
 	static private Map<Integer, Integer> hashMap = new TreeMap<Integer, Integer>();
 
+    /**
+     * Hash code of the MailItem
+     * @return integer of computed hashcode
+     */
 	@Override
 	public int hashCode() {
 		Integer hash0 = super.hashCode();
