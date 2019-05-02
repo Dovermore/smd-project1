@@ -15,7 +15,7 @@ import java.util.Properties;
 /**
  * This class simulates the behaviour of AutoMail
  */
-public class Simulation {	
+public class Simulation {
 	
     /** Constant for the mail generator */
     private static int MAIL_TO_CREATE;
@@ -26,7 +26,7 @@ public class Simulation {
     private static double total_score = 0;
 
     public static void main(String[] args)
-			throws IOException {
+			throws IOException, NotEnoughRobotException {
         Properties automailProperties = new Properties();
 		// Default properties
     	automailProperties.setProperty("Robots", "Standard");
@@ -98,6 +98,21 @@ public class Simulation {
         Integer seed = seedMap.get(true);
         System.out.printf("Seed: %s%n", seed == null ? "null" : seed.toString());
 
+        int ROBOT_CARRY_MAX_WEIGHT;
+		switch (robots) {
+			case 1:
+				ROBOT_CARRY_MAX_WEIGHT = ITeamState.SINGLE_MAX_WEIGHT;
+				break;
+			case 2:
+				ROBOT_CARRY_MAX_WEIGHT = ITeamState.DOUBLE_MAX_WEIGHT;
+				break;
+			default:
+				ROBOT_CARRY_MAX_WEIGHT = ITeamState.TRIPLE_MAX_WEIGHT;
+		}
+		if (ROBOT_CARRY_MAX_WEIGHT < MAIL_MAX_WEIGHT) {
+			throw new NotEnoughRobotException();
+		}
+
         /* initialize whole system */
         MailPool mailPool = new MailPool(new SelectMailItemToDeliverPlan(), new SelectRobotToDeliverPlan());
         Automail automail = new Automail(mailPool, new ReportDelivery(), robots);
@@ -108,7 +123,6 @@ public class Simulation {
         mailGenerator.generateAllMail();
         // PriorityMailItem priority;  // Not used in this version
         while (MAIL_DELIVERED.size() != mailGenerator.MAIL_TO_CREATE) {
-//        	 System.out.printf("Delivered: %4d; Created: %4d%n", MAIL_DELIVERED.size(), mailGenerator.MAIL_TO_CREATE);
             mailGenerator.step();
             try {
                 automail.step();

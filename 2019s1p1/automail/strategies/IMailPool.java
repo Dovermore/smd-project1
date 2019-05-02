@@ -4,8 +4,6 @@ import automail.IRobot;
 import automail.MailItem;
 import automail.Robot;
 import exceptions.InvalidDispatchException;
-import exceptions.ItemTooHeavyException;
-import exceptions.UnsupportedTooHeavyMailItem;
 
 import java.util.ArrayList;
 

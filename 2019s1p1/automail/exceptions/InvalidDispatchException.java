@@ -1,4 +1,5 @@
 package exceptions;
+
 /**
  * This exception indicates the Robot can not yet be dispatched.
 */

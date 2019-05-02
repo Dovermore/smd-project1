@@ -75,8 +75,6 @@ public interface IRobot {
      * IRobot delivers the item.
      */
     void deliver();
-    // TODO Commenting out the exception because not too sure if throwing exceptions is good here.
-    // void deliver() throws InvalidDeliverException;
 
     /**
      * Move this robot toward a location

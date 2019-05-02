@@ -8,36 +8,6 @@ import automail.*;
 import exceptions.*;
 
 public class MailPool implements IMailPool {
-
-//	private class Item {
-//		int priority;
-//		int destination;
-//		MailItem mailItem;
-//		// Use stable sort to keep arrival time relative positions
-//
-//		public Item(MailItem mailItem) {
-//			priority = (mailItem instanceof PriorityMailItem) ? ((PriorityMailItem) mailItem).getPriorityLevel() : 1;
-//			destination = mailItem.getDestFloor();
-//			this.mailItem = mailItem;
-//		}
-//	}
-//
-//	public class ItemComparator implements Comparator<Item> {
-//		@Override
-//		public int compare(Item i1, Item i2) {
-//			int order = 0;
-//			if (i1.priority < i2.priority) {
-//				order = 1;
-//			} else if (i1.priority > i2.priority) {
-//				order = -1;
-//			} else if (i1.destination < i2.destination) {
-//				order = 1;
-//			} else if (i1.destination > i2.destination) {
-//				order = -1;
-//			}
-//			return order;
-//		}
-//	}
     public class MailItemComparator implements Comparator<MailItem> {
 		@Override
 		public int compare(MailItem i1, MailItem i2) {

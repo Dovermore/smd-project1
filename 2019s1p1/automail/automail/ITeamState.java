@@ -12,6 +12,11 @@ public interface ITeamState {
      */
     int validWeight();
 
+    /**
+     * Get the number of robot required to deliver an Item.
+     * @param mailItem The item to evaluate on
+     * @return the number of robots needed.
+     */
     static int getNRequiredRobot(MailItem mailItem) {
         // TODO check < or <=
         if (mailItem.getWeight() <= SINGLE_MAX_WEIGHT) {
@@ -21,7 +26,8 @@ public interface ITeamState {
         } else if (mailItem.getWeight() <= TRIPLE_MAX_WEIGHT) {
             return 3;
         } else {
-            return 999;
+            /* An invalid delivery */
+            return Integer.MAX_VALUE;
         }
     }
 }
