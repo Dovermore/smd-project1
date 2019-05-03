@@ -1,0 +1,16 @@
+Buildfile: C:\valitest\build.xml
+
+init:
+    [mkdir] Created dir: C:\valitest\tmp_unzipped\build
+
+compile:
+    [javac] C:\valitest\build.xml:31: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 27 source files to C:\valitest\tmp_unzipped\build
+
+dist:
+    [mkdir] Created dir: C:\valitest\tmp_unzipped\dist\lib
+      [jar] Building jar: C:\valitest\tmp_unzipped\dist\lib\Project1.jar
+
+BUILD SUCCESSFUL
+Total time: 4 seconds
+Default behaviour successful! 
