@@ -7,14 +7,33 @@ import exceptions.ItemTooHeavyException;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * Team Number: WS12-3
+ * Group member: XuLin Yang(904904), Zhuoqun Huang(908525), Renjie Meng(877396)
+ *
+ * @create 2019-5-3 15:12:51
+ * description: interface of robot component in the system
+ **/
+
 public interface IRobot {
+    /**
+     * used to provide the compare functionality of IRobot
+     */
     class IRobotComparator implements Comparator<IRobot> {
+        /**
+         * @param r1: IRobot 1
+         * @param r2: IRobot 2
+         * @return the result of comparision of two IRobot's id
+         */
         @Override
         public int compare(IRobot r1, IRobot r2) {
             return r1.getId().compareTo(r2.getId());
         }
     }
 
+    /**
+     * used when want to compare IRobot
+     */
     IRobotComparator IRobotComparator = new IRobotComparator();
 
     /* ------------------------------------------------------------------------------------------------ */
@@ -47,13 +66,6 @@ public interface IRobot {
      */
     void addMailItem(MailItem mailItem) throws InvalidAddItemException, ItemTooHeavyException;
 
-    // TODO remove this
-    /**
-     * Checks if given IRobot can be dispatched to send the mail
-     * @return True if can be dispatched else False
-     */
-    boolean canDispatch();
-
     /**
      * Dispatch the IRobot to send the MailItems.
      * @throws InvalidDispatchException Indicates the Robot can not yet be dispatched.
@@ -70,6 +82,9 @@ public interface IRobot {
      */
     boolean canStartDelivery();
 
+    /**
+     * set robot received the deliver start command
+     * */
     void startDelivery();
 
     /**
@@ -90,6 +105,9 @@ public interface IRobot {
     void changeState(RobotState robotState);
 
 
+    /**
+     * @return the MailItem that IRobot is delivering
+     */
     MailItem getCurrentMailItem();
 
     /**
@@ -100,7 +118,6 @@ public interface IRobot {
 
     /**
      * Load the next MailItem of the IRobot (I.e. put it as an active task for delivery)
-     * TODO Maybe put a Exception here, but we are having too many Exceptions already which is not a good sign
      */
     void loadNextMailItem();
 
@@ -125,6 +142,9 @@ public interface IRobot {
     /*                                     Generic methods                                              */
     /* ------------------------------------------------------------------------------------------------ */
 
+    /**
+     * @return the IRobot's id
+     * */
     String getId();
 
     /**

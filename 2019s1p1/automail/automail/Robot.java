@@ -7,14 +7,32 @@ import strategies.IMailPool;
 import java.util.*;
 
 /**
- * The robot delivers mail!
- */
+ * Team Number: WS12-3
+ * Group member: XuLin Yang(904904), Zhuoqun Huang(908525), Renjie Meng(877396)
+ *
+ * @create 2019-5-3 15:19:52
+ * description: The individual robot delivers mail!
+ **/
+
 public class Robot implements IRobot {
-    /** Possible states the robot can be in */
+    /**
+     * robot message when it deliver a mail item to specific floor
+     */
     private IMailDelivery delivery;
+
+    /**
+     * the mailPool that the robot is working for
+     */
     private IMailPool mailPool;
 
+    /**
+     * robot's id in the system
+     */
     private final String id;
+
+    /**
+     * Possible states the robot can be in
+     * */
     private RobotState robotState;
     private TeamState teamState;
     private int currentFloor;
@@ -179,11 +197,6 @@ public class Robot implements IRobot {
         } else {
 	        throw new InvalidAddItemException();
         }
-    }
-
-    @Override
-    public boolean canDispatch() {
-	    return receivedDispatch;
     }
 
     @Override

@@ -47,14 +47,6 @@ public class RobotTeam implements IRobot {
     }
 
     /**
-     * Checks if given IRobot can be dispatched to send the mail
-     * @return True if can be dispatched else False
-     */
-    public boolean canDispatch() {
-        return !listMailItems().isEmpty();
-    }
-
-    /**
      * Dispatch the IRobot to send the MailItems.
      * @throws InvalidDispatchException Indicates the Robot can not yet be dispatched.
      */
