@@ -98,6 +98,7 @@ public class Simulation {
         Integer seed = seedMap.get(true);
         System.out.printf("Seed: %s%n", seed == null ? "null" : seed.toString());
 
+        /* check are we have enough robots in system to deliver all mail items */
         int ROBOT_CARRY_MAX_WEIGHT;
 		switch (robots) {
 			case 1:
@@ -125,6 +126,7 @@ public class Simulation {
         while (MAIL_DELIVERED.size() != mailGenerator.MAIL_TO_CREATE) {
             mailGenerator.step();
             try {
+                /* step all components of the system */
                 automail.step();
 			} catch (InvalidDispatchException e) {
 				e.printStackTrace();
