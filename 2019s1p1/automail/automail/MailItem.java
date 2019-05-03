@@ -3,9 +3,16 @@ package automail;
 import java.util.Map;
 import java.util.TreeMap;
 
+
 /**
- * Represents a mail item
- */
+ * Team Number: WS12-3
+ * Group member: XuLin Yang(904904), Zhuoqun Huang(908525), Renjie Meng(877396)
+ *
+ * @create 2019-5-3 15:19:52
+ * description: This class represent a mail item.
+ **/
+
+
 public class MailItem {
 	
     /** Represents the destination floor to which the mail is intended to go */
@@ -30,6 +37,10 @@ public class MailItem {
         this.weight = weight;
     }
 
+    /**
+     *
+     * @return the toString format for MailItem object.
+     */
     @Override
     public String toString(){
         return String.format("Mail Item:: ID: %6s | Arrival: %4d | Destination: %2d | Weight: %4d",

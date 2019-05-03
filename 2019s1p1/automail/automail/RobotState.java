@@ -1,15 +1,24 @@
 package automail;
 
 import java.util.ArrayList;
-
 /**
- * Defines the states IRobot can be at, and actions they should take.
- */
+ * Team Number: WS12-3
+ * Group member: XuLin Yang(904904), Zhuoqun Huang(908525), Renjie Meng(877396)
+ *
+ * @create 2019-5-3 15:40:26
+ * description: This class defines the states IRobot can be at, and actions they should take.
+ **/
+
 public enum RobotState implements IRobotState {
     /**
      * IRobot still has uncompleted task
      */
     DELIVERING {
+        /**
+         *
+         * @param iRobot The robot to act on
+         * @return The available robots which would be step by AutoMail in next second.
+         */
         @Override
         public ArrayList<IRobot> step(IRobot iRobot) {
             MailItem mailItem = iRobot.getCurrentMailItem();
@@ -35,6 +44,7 @@ public enum RobotState implements IRobotState {
                 iRobot.loadNextMailItem();
                 iRobot.changeState(RobotState.DELIVERING);
             } else {
+                // No item to be delivered, change the state of IRobot to RETURNING
                 iRobot.changeState(RobotState.RETURNING);
             }
         }
@@ -43,6 +53,10 @@ public enum RobotState implements IRobotState {
      * Returning to base
      */
     RETURNING {
+        /**
+         * Takes an IRobot and check whether it arrives the mailRoom and do corresponding action.
+         * @param iRobot The robot to act on
+         */
         @Override
         public ArrayList<IRobot> step(IRobot iRobot) {
             if (iRobot.getFloor() == Building.MAILROOM_LOCATION) {
@@ -60,6 +74,10 @@ public enum RobotState implements IRobotState {
      * Waiting for order
      */
     WAITING {
+        /**
+         * Takes an IRobot and check whether this IRobot could start to delivery.
+         * @param iRobot The robot to act on
+         */
         @Override
         public ArrayList<IRobot> step(IRobot iRobot) {
             if (iRobot.canStartDelivery()) {
@@ -79,7 +97,7 @@ public enum RobotState implements IRobotState {
     public ArrayList<IRobot> step(IRobot iRobot) {return new ArrayList<>();}
 
     /**
-     * Do nothing
+     * By default, postDelivery do nothing
      * @param iRobot The robot to act on
      */
     @Override

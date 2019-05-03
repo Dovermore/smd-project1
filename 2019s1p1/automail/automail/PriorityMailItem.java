@@ -1,5 +1,13 @@
 package automail;
 
+/**
+ * Team Number: WS12-3
+ * Group member: XuLin Yang(904904), Zhuoqun Huang(908525), Renjie Meng(877396)
+ *
+ * @create 2019-5-3 15:19:52
+ * description: This class represent priority mail item which inheritances from MailItem Class.
+ **/
+
 public class PriorityMailItem extends MailItem{
 	
 	/** The priority of the mail item from 1 low to 100 high */
@@ -24,7 +32,11 @@ public class PriorityMailItem extends MailItem{
    public int getPriorityLevel(){
        return PRIORITY_LEVEL;
    }
-   
+
+    /**
+     *
+     * @return the toString format for PriorityMailItem object.
+     */
    @Override
    public String toString(){
        return super.toString() + String.format(" | Priority: %3d", PRIORITY_LEVEL);

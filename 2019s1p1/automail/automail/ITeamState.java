@@ -1,5 +1,13 @@
 package automail;
 
+/**
+ * Team Number: WS12-3
+ * Group member: XuLin Yang(904904), Zhuoqun Huang(908525), Renjie Meng(877396)
+ *
+ * @create 2019-5-3 15:40:26
+ * description: This class defines the API of a team state.
+ **/
+
 public interface ITeamState {
 
     int SINGLE_MAX_WEIGHT = 2000;
