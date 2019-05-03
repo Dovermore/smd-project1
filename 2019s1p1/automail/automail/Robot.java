@@ -232,20 +232,24 @@ public class Robot implements IRobot {
     /**
      * robot has delivered the item thus no item in its hand
      */
-    public void clearDeliveryItem() {
-	    deliveryItem = null;
-    }
+    public void clearDeliveryItem() {deliveryItem = null;}
 
+    /**
+     * @return the MailItem that IRobot is delivering
+     */
     @Override
-    public MailItem getCurrentMailItem() {
-	    return deliveryItem;
-    }
+    public MailItem getCurrentMailItem() {return deliveryItem;}
 
+    /**
+     * Checks if the Robot has item in tube to deliver
+     * @return True if there are more, otherwise False
+     */
     @Override
-    public boolean hasNextMailItem() {
-	    return tube != null;
-    }
+    public boolean hasNextMailItem() {return tube != null;}
 
+    /**
+     * Load the mailItem in Robot's tube to the hand to deliver
+     */
     @Override
     public void loadNextMailItem() {
 	    try {
@@ -256,16 +260,22 @@ public class Robot implements IRobot {
         }
     }
 
+    /**
+     * Return the floor the IRobot is at
+     * @return the floor of IRobot
+     */
     @Override
-    public int getFloor() {
-	    return currentFloor;
-    }
+    public int getFloor() {return currentFloor;}
 
+    /**
+     * The robot got to base, now waiting for order
+     */
     @Override
-    public void registerWaiting() {
-	    mailPool.registerWaiting(this);
-    }
+    public void registerWaiting() {mailPool.registerWaiting(this);}
 
+    /**
+     * robot the way to hash the robot
+     */
     @Override
     public int hashCode() {
         Integer hash0 = super.hashCode();
@@ -274,33 +284,43 @@ public class Robot implements IRobot {
         return hash;
     }
 
+    /**
+     * @return the Robot's id
+     * */
     @Override
-    public String getId() {
-	    return this.id;
-	}
+    public String getId() {return this.id;}
 
+    /**
+     * @return self in a list
+     */
     @Override
-    public ArrayList<IRobot> availableIRobots() {
-	    return new ArrayList<>(Collections.singletonList(this));
-    }
+    public ArrayList<IRobot> availableIRobots() {return new ArrayList<>(Collections.singletonList(this));}
 
+    /**
+     * Get the state of this Robot
+     * @return robotState of that robot
+     */
     @Override
-    public RobotState getRobotState() {
-        return robotState;
-    }
+    public RobotState getRobotState() {return robotState;}
 
+    /**
+     * Get the TeamState of this Robot
+     * @return TeamState of that robot
+     */
     @Override
-    public TeamState getTeamState() {
-	    return teamState;
-    }
+    public TeamState getTeamState() {return teamState;}
 
+    /**
+     * Set the TeamState of this Robot
+     * @param teamState The TeamState to set to
+     */
     @Override
-    public void changeTeamState(TeamState teamState) {
-	    this.teamState = teamState;
-    }
+    public void changeTeamState(TeamState teamState) {this.teamState = teamState;}
 
+    /**
+     * Checks if the Robot can start delivery (State can be changed to Delivery if this is true)
+     * @return True if can start, false otherwise
+     */
     @Override
-    public boolean canStartDelivery() {
-        return receivedDispatch;
-    }
+    public boolean canStartDelivery() {return receivedDispatch;}
 }

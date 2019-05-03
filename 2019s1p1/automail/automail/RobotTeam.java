@@ -9,18 +9,45 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RobotTeam implements IRobot {
+/**
+ * Team Number: WS12-3
+ * Group member: XuLin Yang(904904), Zhuoqun Huang(908525), Renjie Meng(877396)
+ *
+ * @create 2019-5-3 15:49:44
+ * description: The team of individual robot delivers mail!
+ **/
 
+public class RobotTeam implements IRobot {
+    /**
+     * time for a robot team to make a move
+     */
     private static final int SLOW_FACTOR = 3;
 
+    /**
+     * the team's state
+     */
     private RobotState robotState;
+
+    /**
+     * the time that a team has waited
+     */
     private int robotStep = 0;
+
+    /**
+     * the list of individual robots are in the team
+     */
     private ArrayList<Robot> robots;
 
+    /**
+     * initialize team with given robots and mail items to be delivered
+     * @param teamRobotMember: robots of members of the team
+     * @param mailItemsToDeliver: mail items to be delivered by the team
+     */
     public RobotTeam(List<Robot> teamRobotMember, List<MailItem> mailItemsToDeliver) {
         robotState = RobotState.WAITING;
         robots = new ArrayList<>(teamRobotMember);
         robots.sort(IRobot.IRobotComparator);
+        /* load items to individual robots */
         loadUnloadedToRobots(mailItemsToDeliver);
     }
 
@@ -42,9 +69,7 @@ public class RobotTeam implements IRobot {
      * @return ArrayList of robots contained by this IRobot (1 if it's a robot)
      */
     @Override
-    public ArrayList<Robot> listRobots() {
-        return robots;
-    }
+    public ArrayList<Robot> listRobots() {return robots;}
 
     /**
      * Dispatch the IRobot to send the MailItems.
@@ -59,31 +84,31 @@ public class RobotTeam implements IRobot {
     }
 
     /**
-     * Add the given MailItem to the IRobot. Will raise Error if item not able to be added
+     * no item can be added to team after team formed
      * @param mailItem The MailItem to be added
      */
     @Override
     public void addMailItem(MailItem mailItem) {}
 
     /**
-     * Checks if given mail item can be added to this IRobot. Takes in account of heavy items.
+     * item can't be added to team after team formed
      * @param mailItem The MailItem to be checked
-     * @return True if can add (Enough space to add the item) else False (Not enough space)
+     * @return always false
      */
     @Override
     public boolean canAddMailItem(MailItem mailItem) {return false;}
 
     /**
      * Take next action
+     * @return a List of IRobot needed to be stepped in next time frame
      */
-    public ArrayList<IRobot> step() {
-        return robotState.step(this);
-    }
+    public ArrayList<IRobot> step() {return robotState.step(this);}
 
     /**
      * IRobot delivers the item.
      */
     public void deliver() {
+        /* indicate robots are working in a team */
         System.out.printf("T: %3d >*  [%s] at floor(%3d) %s is now reporting deliver [%s]%n",
                 Clock.Time(), getId(), robots.get(0).getFloor(),
                 robots.get(0).getId(), robots.get(0).getCurrentMailItem().toString());
@@ -96,13 +121,12 @@ public class RobotTeam implements IRobot {
      * return the number of robots work in the team
      * @return the number of robots work in the team
      * */
-    private int getTeamSize() {
-        return robots.size();
-    }
+    private int getTeamSize() {return robots.size();}
 
     /**
      * check whether there is a mail item that can't be delivered individually
      * in unloaded mail item list
+     * @param unloadedMailItems: item to be loaded to robots
      * @return true if there is a mail item that can't be delivered individually
      * */
     private boolean hasHeavyItem(List<MailItem> unloadedMailItems) {
@@ -116,6 +140,7 @@ public class RobotTeam implements IRobot {
 
     /**
      * get first unloaded mail item can't be delivered individually
+     * @param unloadedMailItems: item to be loaded to robots
      * @return first mail item in unloaded List can't be delivered individually
      * */
     private MailItem getHeavyMailItem(List<MailItem> unloadedMailItems) {
@@ -131,6 +156,10 @@ public class RobotTeam implements IRobot {
         return null;
     }
 
+    /**
+     * load the heavy item to all robots in the team
+     * @param unloadedMailItems: item to be loaded to robots
+     */
     private void loadHeavyItem(List<MailItem> unloadedMailItems) {
         /* add heavy item to all robots' hand */
         MailItem heavyMailItem = getHeavyMailItem(unloadedMailItems);
@@ -146,6 +175,10 @@ public class RobotTeam implements IRobot {
         unloadedMailItems.remove(heavyMailItem);
     }
 
+    /**
+     * load the light item to robots with empty tube in the team
+     * @param unloadedMailItems: item to be loaded to robots
+     */
     private void loadLightItems(List<MailItem> unloadedMailItems) {
         ArrayList<MailItem> loadedLightMailItems = new ArrayList<>();
         for (MailItem lightMailItem: unloadedMailItems) {
@@ -169,6 +202,7 @@ public class RobotTeam implements IRobot {
 
     /**
      * load all unloaded items to robots
+     * @param unloadedMailItems: item to be loaded to robots
      * */
     private void loadUnloadedToRobots(List<MailItem> unloadedMailItems) {
         /* before loading item to robots, change to corresponding TeamState */
@@ -185,6 +219,10 @@ public class RobotTeam implements IRobot {
         assert unloadedMailItems.isEmpty();
     }
 
+    /**
+     * Move all robots toward a location
+     * @param destination The destination to move to
+     */
     @Override
     public void moveTowards(int destination) {
         /* Update robot step */
@@ -207,6 +245,10 @@ public class RobotTeam implements IRobot {
         }
     }
 
+    /**
+     * Change the state of all robots in the team
+     * @param robotState The state to change to
+     */
     @Override
     public void changeState(RobotState robotState) {
         // Change to same state or change to waiting state is never possible is never possible
@@ -222,23 +264,29 @@ public class RobotTeam implements IRobot {
         }
     }
 
+    /**
+     * @return the MailItem that all robots in team is delivering
+     */
     @Override
-    public MailItem getCurrentMailItem() {
-        return robots.get(0).getCurrentMailItem();
-    }
+    public MailItem getCurrentMailItem() {return robots.get(0).getCurrentMailItem();}
 
     /**
      * Currently team task will have at most one item. In the future, this behavior can be easily modified.
      * @return always false
      */
     @Override
-    public boolean hasNextMailItem() {
-        return false;
-    }
+    public boolean hasNextMailItem() {return false;}
 
+    /**
+     * no load
+     */
     @Override
-    public void loadNextMailItem() { }
+    public void loadNextMailItem() {}
 
+    /**
+     * Return the floor the team is at
+     * @return the floor of team
+     */
     @Override
     public int getFloor() {
         try {
@@ -256,6 +304,10 @@ public class RobotTeam implements IRobot {
     @Override
     public void registerWaiting() { }
 
+    /**
+     * Returns all IRobots available from this team to take next action
+     * @return all robots that can take action
+     */
     @Override
     public ArrayList<IRobot> availableIRobots() {
         if (robotState == RobotState.RETURNING) {
@@ -265,11 +317,17 @@ public class RobotTeam implements IRobot {
         }
     }
 
+    /**
+     * Get the state of this team
+     * @return robotState of the team
+     */
     @Override
-    public RobotState getRobotState() {
-        return robotState;
-    }
+    public RobotState getRobotState() {return robotState;}
 
+    /**
+     * Get the number of robots in this team
+     * @return teamState of the team
+     */
     @Override
     public TeamState getTeamState() {
         switch (getTeamSize()) {
@@ -284,6 +342,9 @@ public class RobotTeam implements IRobot {
         }
     }
 
+    /**
+     * no change of team state from outside after team is formed
+     * */
     @Override
     public void changeTeamState(TeamState teamState) {
         // You can not set this
@@ -295,17 +356,20 @@ public class RobotTeam implements IRobot {
      * @return true if all robots in this team can start.
      */
     @Override
-    public boolean canStartDelivery() {
-        return robots.stream()
-                        .allMatch(Robot::canStartDelivery);
-    }
+    public boolean canStartDelivery() {return robots.stream().allMatch(Robot::canStartDelivery);}
 
+    /**
+     * @return the joined all robots' id in team
+     * */
     @Override
     public String getId() {
         assert !robots.isEmpty();
         return robots.stream().map(Robot::getId).collect(Collectors.joining());
     }
 
+    /**
+     * set all robots in team received the deliver start command
+     * */
     @Override
     public void startDelivery() {
         for (Robot robot: robots) {
