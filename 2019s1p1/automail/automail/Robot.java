@@ -6,6 +6,13 @@ import strategies.IMailPool;
 
 import java.util.*;
 
+/**
+ * Team Number: WS12-3
+ * Group member: XuLin Yang(904904), Zhuoqun Huang(908525), Renjie Meng(877396)
+ *
+ * @create 2019-5-3 15:12:51
+ * description: individual robot in the system
+ **/
 
 public class Robot implements IRobot {
     /**
