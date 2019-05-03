@@ -34,11 +34,30 @@ public class Robot implements IRobot {
      * Possible states the robot can be in
      * */
     private RobotState robotState;
+
+    /**
+     * the number of robot is working with (including self)
+     */
     private TeamState teamState;
+
+    /**
+     * robot is at the floor
+     */
     private int currentFloor;
+
+    /**
+     * indicator of whether robot has receive dispatch command from the system
+     */
     private boolean receivedDispatch;
 
+    /**
+     * the mailItem that robot is holding in hand
+     */
     private MailItem deliveryItem = null;
+
+    /**
+     * the mailItem that robot is holding in tube
+     */
     private MailItem tube = null;
 
     /**
@@ -60,9 +79,7 @@ public class Robot implements IRobot {
     /**
      * Send robot signal that the robot can start sending Mails
      */
-    public void dispatch() {
-    	receivedDispatch = true;
-    }
+    public void dispatch() {receivedDispatch = true;}
 
     /**
      * Signal robot to start delivery
@@ -72,10 +89,9 @@ public class Robot implements IRobot {
 
     /**
      * This is called on every time step, making robot act if called.
+     * @return a List of IRobot needed to be stepped in next time frame
      */
-    public ArrayList<IRobot> step() {
-        return robotState.step(this);
-    }
+    public ArrayList<IRobot> step() {return robotState.step(this);}
 
     /**
      * Generic function that moves the robot towards the destination
@@ -90,19 +106,17 @@ public class Robot implements IRobot {
     }
 
     /**
-     * Get formatted RobotID as well as items in tube of robot
+     * Get formatted RobotID as well as whether there is a item in tube of robot
      * @return String of formatted message
      */
-    private String getIdTube() {
-    	return String.format("%s(%1d)", id, (tube == null ? 0 : 1));
-    }
+    private String getIdTube() {return String.format("%s(%1d)", id, (tube == null ? 0 : 1));}
     
     /**
      * Prints out the change in state
      * @param nextState the state to which the robot is transitioning
      */
     public void changeState(RobotState nextState){
-        // Cannot be holding mail in tube but not mail in hand!
+        /* Cannot be holding mail in tube but not mail in hand! */
     	assert(!(deliveryItem == null && tube != null));
     	if (robotState != nextState) {
             System.out.printf("T: %3d > %7s changed from %s to %s%n", Clock.Time(), getIdTube(), robotState, nextState);
@@ -113,7 +127,14 @@ public class Robot implements IRobot {
     	}
     }
 
+    /**
+     * total number of robots working in the system
+     * */
 	static private int count = 0;
+
+    /**
+     * map of robot with its id
+     */
 	static private Map<Integer, Integer> hashMap = new TreeMap<>();
 
     /**
@@ -199,12 +220,18 @@ public class Robot implements IRobot {
         }
     }
 
+    /**
+     * robot deliver the mailItem
+     */
     @Override
     public void deliver() {
 	    delivery.deliver(deliveryItem);
 	    deliveryItem = null;
     }
 
+    /**
+     * robot has delivered the item thus no item in its hand
+     */
     public void clearDeliveryItem() {
 	    deliveryItem = null;
     }

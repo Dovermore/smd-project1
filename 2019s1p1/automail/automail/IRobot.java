@@ -149,6 +149,7 @@ public interface IRobot {
 
     /**
      * Take next action
+     * @return a List of IRobot needed to be stepped in next time frame
      */
     ArrayList<IRobot> step();
 
