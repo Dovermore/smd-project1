@@ -7,10 +7,29 @@ import exceptions.InvalidDispatchException;
 
 import java.util.ArrayList;
 
+/**
+ * Team Number: WS12-3
+ * Group member: XuLin Yang(904904), Zhuoqun Huang(908525), Renjie Meng(877396)
+ *
+ * @create 2019-5-3 14:23:02
+ * description: the automail system for the mail delivery
+ **/
+
 public class Automail {
-	      
+    /**
+     * the List to store the IRobot to be stepped in current time frame
+     * */
     private ArrayList<IRobot> currentStepIRobotList;
+
+    /**
+     * the List to store the IRobot to be stepped in next time frame
+     * */
     private ArrayList<IRobot> nextStepIRobotList;
+
+
+    /**
+     * the mailPool component
+     */
     private IMailPool mailPool;
 
     /**
@@ -52,6 +71,8 @@ public class Automail {
         this.nextStepIRobotList = new ArrayList<>();
     }
 
-    /** return the mail pool in the auto mail */
+    /**
+     * @return the mail pool in the auto mail
+     * */
     public IMailPool getMailPool() {return mailPool;}
 }

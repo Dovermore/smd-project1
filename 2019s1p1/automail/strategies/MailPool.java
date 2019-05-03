@@ -7,20 +7,43 @@ import java.util.List;
 import automail.*;
 import exceptions.*;
 
+/**
+ * Team Number: WS12-3
+ * Group member: XuLin Yang(904904), Zhuoqun Huang(908525), Renjie Meng(877396)
+ *
+ * @create 2019-5-3 14:29:09
+ * description: The mailPool component in the system with two specified loading
+ * strategies and an extensible mailItem comparator.
+ * */
+
 public class MailPool implements IMailPool {
-    public class MailItemComparator implements Comparator<MailItem> {
+    /**
+     * the class used to provide compare of mailItem when sort()
+     */
+    private class MailItemComparator implements Comparator<MailItem> {
+        /**
+         * mail item with no priority will be delivered later
+         */
+        private static final int MAILITEM_DEFAULT_PRIORITY = 1;
+
+        /**
+         * set mail with no priority with priority = 1
+         * @param i1: item 1 to be compared
+         * @param i2: item 2 to be compared
+         * @return -1 for i1 < i2; 0 for i1 == i2; 1 for i1 > i2
+         */
 		@Override
 		public int compare(MailItem i1, MailItem i2) {
 		    int i1_priority, i2_priority;
 		    if (i1 instanceof PriorityMailItem) {
                 i1_priority = ((PriorityMailItem) i1).getPriorityLevel();
             } else {
-                i1_priority = 1;
+                i1_priority = MAILITEM_DEFAULT_PRIORITY;
             }
             if (i2 instanceof PriorityMailItem) {
                 i2_priority = ((PriorityMailItem) i2).getPriorityLevel();
             } else {
-                i2_priority = 1;
+                i2_priority = MAILITEM_DEFAULT_PRIORITY;
             }
 
 			int order = 0;
@@ -36,15 +59,34 @@ public class MailPool implements IMailPool {
 			return order;
 		}
 	}
-	
+
+    /**
+     * pool for mail item to be delivered
+     */
 	private ArrayList<MailItem> pool;
+
+	/**
+     * robots at mailPool with waiting state
+     */
 	private ArrayList<Robot> robots;
+
+    /**
+     * strategy for selecting mailItems from pool to deliver for IRobot
+     */
 	private ISelectMailItemToDeliverPlan selectMailItemToDeliverPlan;
+
+    /**
+     * strategy for selecting robots to deliver the derived task
+     */
     private ISelectRobotToDeliverPlan selectRobotToDeliverPlan;
 
+    /**
+     * @param selectMailItemToDeliverPlan: specified strategy for selecting mailItems from pool
+     * @param selectRobotToDeliverPlan: specified strategy for selecting robots
+     */
 	public MailPool(ISelectMailItemToDeliverPlan selectMailItemToDeliverPlan,
                     ISelectRobotToDeliverPlan selectRobotToDeliverPlan) {
-		// Start empty
+		/* Start empty */
 		pool = new ArrayList<>();
 		robots = new ArrayList<>();
 		this.selectMailItemToDeliverPlan = selectMailItemToDeliverPlan;
@@ -52,21 +94,21 @@ public class MailPool implements IMailPool {
 	}
 
 	/**
-	 * add mail item to poll and sort pool in priority descending order
+	 * add mail item to pool and sort pool in priority descending order
 	 * destination ascending order (from highest floor to lowest floor) when
 	 * same priority
+     * @param mailItem the mail item being added.
 	 * */
 	@Override
 	public void addToPool(MailItem mailItem) {
-//		Item item = new Item(mailItem);
-//		pool.add(item);
-//		pool.sort(new ItemComparator());
         pool.add(mailItem);
         pool.sort(new MailItemComparator());
 	}
 
     /**
      * load up any waiting robots with mailItems, if any.
+     * @return a list of individual robots or robot team with delivering
+     * mailItems
      */
 	@Override
 	public ArrayList<IRobot> step() throws InvalidDispatchException {
@@ -76,14 +118,16 @@ public class MailPool implements IMailPool {
 
             while (isPlanAdapted) {
                 isPlanAdapted = false;
+		        /* derived mail items to be delivered by single robot or a robot team */
                 ArrayList<MailItem> deliverMailItemPlan = selectMailItemToDeliverPlan.generateDeliverMailItemPlan(cloneList(pool));
 
-		        /* derived mail items to be delivered by single robot or a robot team */
                 if (!deliverMailItemPlan.isEmpty() &&
                         selectMailItemToDeliverPlan.hasEnoughRobot(robots.size(), deliverMailItemPlan)) {
                     int nRequiredRobots = selectMailItemToDeliverPlan.getPlanRequiredRobot(deliverMailItemPlan);
+                    /* selected robots to deliver the task */
                     List<Robot> selectedRobot = selectRobotToDeliverPlan.selectRobotToDeliver(robots, nRequiredRobots);
 
+                    /* distribute robots to RobotTeam or be individual robot */
                     IRobot iRobot = RobotFactory.getInstance().createIRobot(selectedRobot, deliverMailItemPlan);
 
                     iRobot.dispatch();
@@ -108,12 +152,13 @@ public class MailPool implements IMailPool {
 	}
 
     /**
-     * @param robot refers to a robot which has arrived back ready for more mailItems to deliver
+     * add robot who finished delivering back to the mailPool to start new
+     * delivering task
+     * @param robot refers to a robot which has arrived back ready for more
+     *              mailItems to deliver
      */
     @Override
-	public void registerWaiting(Robot robot) { // assumes won't be there already
-		robots.add(robot);
-	}
+	public void registerWaiting(Robot robot) {robots.add(robot);}
 
 	/* ************************ added methods ****************************** */
     /**
