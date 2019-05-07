@@ -26,7 +26,6 @@ public interface ITeamState {
      * @return the number of robots needed.
      */
     static int getNRequiredRobot(MailItem mailItem) {
-        // TODO check < or <=
         if (mailItem.getWeight() <= SINGLE_MAX_WEIGHT) {
             return 1;
         } else if (mailItem.getWeight() <= DOUBLE_MAX_WEIGHT) {
